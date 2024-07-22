@@ -10,7 +10,8 @@ Route::get('/', function () {
 
 Route::name('login.')->prefix('login')->group(function() {
     Route::get('/', [LoginController::class, "index"])->name("index");
-    Route::post('/senddata', [LoginController::class, "sendData"])->name("senddata");
+    Route::post('/start', [LoginController::class, "login"])->name("start");
+    Route::post('/end', [LoginController::class, "logout"])->name("end");
 });
 
 /*

@@ -10,8 +10,19 @@
     <h1>Hi!. This is login view</h1>
     <form action="{{ route('login.senddata')}}" method="post">
         @csrf
-        <label for="login_emial">Email: </label><input type="emial" name="login_emial" id="login_emial">
-        <label for="login_password">Password: </label><input type="password" name="login_password" id="login_password">
+
+        <label for="login_type">Choose User type: </label>
+        <select name="login_type" id="login_type">
+            <option value="programmer">Programmer</option>
+            <option value="company">Company</option>
+        </select>
+
+        <label for="login_emial">Email: </label>
+        <input type="emial" name="login_emial" id="login_emial">
+
+        <label for="login_password">Password: </label>
+        <input type="password" name="login_password" id="login_password">
+
         <input type="submit" value="Login">
     </form>
 </body>

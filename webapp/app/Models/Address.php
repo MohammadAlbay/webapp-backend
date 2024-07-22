@@ -10,4 +10,5 @@ class Address extends Model
     use HasFactory;
 
     protected $primaryKey = 'name';
+    protected $keyType = 'string';
 }
