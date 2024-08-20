@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Programmer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,21 +18,23 @@ class LoginController extends Controller
         $email = $request->input('login_emial');
         $password = $request->input('login_password');
 
-        $user = null;
-        if($accountType == "programmer") {
-            $programmer = Programmer::where;
-            
-        } else if($accountType == "company") {
-//company
+        if(Auth::guard($accountType)->attempt(["email" => $email, "password" => $password])) {
+            if($accountType == "programmer") {
+                return Redirect("/programmer");
+            } else {
+                return Redirect("/company");
+            }
+        } else  { 
+            return Redirect("/login")->withErrors(["status" => "Failed to login"]);
         }
-
-        //auth($accountType)->login($programmer);
-        $p = Programmer::find(0);
-        auth("programmer")->login($p);
-        return "Your email address is : ".$request->input('login_emial');
     }
 
     public function logout(Request $request) {
         Auth::logout();
+        return Redirect("/login");
+    }
+
+    public static function logout2() {
+
     }
 }

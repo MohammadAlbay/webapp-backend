@@ -8,7 +8,11 @@
 </head>
 <body>
     <h1>Hi!. This is login view</h1>
-    <form action="{{ route('login.senddata')}}" method="post">
+    
+    @if($errors->has('status'))
+    <b style="color:Red">You're getting an Error : {{ $errors->first('status')  }}</b>
+    @endif 
+    <form action="{{ route('login.start') }}" method="post">
         @csrf
 
         <label for="login_type">Choose User type: </label>
