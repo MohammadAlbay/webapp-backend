@@ -1,35 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Signup</title>
 </head>
+
 <body>
     <h1>Hi!. This is signup view</h1>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <form action="{{ route('signup.create')}}" method="post">
         @csrf
 
         <label for="signup_type">Choose User type: </label>
         <select name="signup_type" id="signup_type">
-            <option value="programmer">Programmer</option>
-            <option value="company">Company</option>
+            <option value="customer">Customer</option>
+            <option value="technicain">Technicain</option>
+            <option value="employee">Employee</option>
         </select>
 
         <label for="signup_name">Name: </label>
         <input type="text" name="signup_name" id="signup_name">
 
-        <label for="signup_qualification">Choose Qualification: </label>
-        <select name="signup_qualification" id="signup_qualification">
-            <option value="UN-EDUCATED">Un educated</option>
-            <option value="SELF-EDUCATED">self educated</option>
-            <option value="PREPARATIVE">preprative</option>
-            <option value="SECONDARY">secondary</option>
-            <option value="BACHELOR">bachelor</option>
-            <option value="MASTER">Master</option>
-            <option value="DOCTOR">doctor</option>
-            <option value="PROFESSOR">professor</option>
+        <label for="signup_specialization">Choose Specialization: </label>
+        <select name="signup_specialization" id="signup_specialization">
+            @foreach ($specializations as $specialization)
+            <option value="{{$specialization->id}}">{{$specialization->name}}</option>
+            @endforeach
         </select>
 
         <label for="signup_email">Email: </label>
@@ -38,10 +45,14 @@
         <label for="signup_password">Password: </label>
         <input type="password" name="signup_password" id="signup_password" value="1">
 
-        <label for="signup_studiedat">Studied at: </label>
-        <input type="text" name="signup_studiedat" id="signup_studiedat">
+        <label for="signup_gender">Gender: </label>
+        <select name="signup_gender" id="signup_gender">
+            <option value="Male">male</option>
+            <option value="Female">female</option>
+        </select>
 
         <input type="submit" value="Create">
     </form>
 </body>
+
 </html>

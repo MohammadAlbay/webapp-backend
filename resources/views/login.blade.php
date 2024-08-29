@@ -17,8 +17,9 @@
 
         <label for="login_type">Choose User type: </label>
         <select name="login_type" id="login_type">
-            <option value="programmer">Programmer</option>
-            <option value="company">Company</option>
+            <option value="customer">customer</option>
+            <option value="technicain">technicain</option>
+            <option value="employee">employee</option>
         </select>
 
         <label for="login_emial">Email: </label>

@@ -19,22 +19,21 @@ class LoginController extends Controller
         $password = $request->input('login_password');
 
         if(Auth::guard($accountType)->attempt(["email" => $email, "password" => $password])) {
-            if($accountType == "programmer") {
-                return Redirect("/programmer");
-            } else {
-                return Redirect("/company");
+            if($accountType == "customer") {
+                return Redirect("/customer/");
+            } else if($accountType == "technicain") {
+                return Redirect("/technicain/");
+            } else if($accountType == "employee") {
+                return Redirect("/employee/");
             }
-        } else  { 
+        } else { 
             return Redirect("/login")->withErrors(["status" => "Failed to login"]);
         }
     }
 
-    public function logout(Request $request) {
-        Auth::logout();
+    public function logout(Request $request, $g) {
+        // Auth::logout();
+        Auth::guard($g)->logout();
         return Redirect("/login");
-    }
-
-    public static function logout2() {
-
     }
 }
