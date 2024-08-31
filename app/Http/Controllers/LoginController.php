@@ -7,18 +7,20 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    //
+    // login.index > /login/
     public function index() {
         return view('login');
     }
 
+
+    // login.start > /login/start/
     public function login(Request $request) {
 
         $accountType = $request->input('login_type');
         $email = $request->input('login_emial');
         $password = $request->input('login_password');
-
         if(Auth::guard($accountType)->attempt(["email" => $email, "password" => $password], true)) {
+            
             if($accountType == "customer") {
                 return Redirect("/customer/");
             } else if($accountType == "technicain") {

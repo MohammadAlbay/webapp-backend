@@ -5,7 +5,21 @@ use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', function () {
-    return view('index');
+    $user = null;
+
+    $guars =  [
+        'customer',
+        'technicain',
+        'employee'
+    ];
+
+    foreach($guars as $guard) {
+        if(!Auth::guard($guard)->guest()) {
+            $user = $guard;
+            break;
+        }
+    }
+    return view('index', ["user" => $user]);
 });
 
 
