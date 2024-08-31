@@ -25,6 +25,7 @@ return new class extends Migration
             $table->bigInteger('specialization_id');
             $table->enum('dender', ["Male", "Female"]);
             $table->timestamps();
+            $table->rememberToken();
 
             $table->foreign('specialization_id')->references('id')->on('specializations');
         });

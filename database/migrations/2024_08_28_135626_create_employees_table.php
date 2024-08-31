@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('address');
             $table->enum('dender', ["Male", "Female"]);
             $table->timestamps();
+            $table->rememberToken();
         });
     }
 
