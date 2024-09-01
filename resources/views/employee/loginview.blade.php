@@ -12,7 +12,7 @@
     @if($errors->has('status'))
     <b style="color:Red">You're getting an Error : {{ $errors->first('status')  }}</b>
     @endif 
-    <form action="{{ route('login.start') }}" method="post">
+    <form action="{{ route('login.employee.start') }}" method="post">
         @csrf
 
         <label for="login_emial">Email: </label>

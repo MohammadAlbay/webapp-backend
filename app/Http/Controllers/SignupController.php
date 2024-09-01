@@ -73,7 +73,6 @@ class SignupController extends Controller
             'signup_email' => 'required|email|unique:employees,email',
         ]);
         if($v->fails()) {
-            //dd($v->errors());
             return redirect("/signup/")->withErrors(["emailtaken" => "email already taken"])->withInput();
         }
         Employee::create([   

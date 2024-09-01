@@ -10,6 +10,7 @@ class EmployeeRole extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
     public function employee() : BelongsTo {
         return $this->belongsTo(Employee::class);
     }

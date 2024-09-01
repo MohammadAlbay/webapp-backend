@@ -6,6 +6,15 @@
     <title>Document</title>
 </head>
 <body>
+@auth("employee")
+    <h1>employee</h1>
+@endauth
+@auth("customer")
+    <h1>customer</h1>
+@endauth
+@auth("technicain")
+    <h1>tech</h1>
+@endauth
     @if($user == null)
     <a href="/login/">login</a>
         
