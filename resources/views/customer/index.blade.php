@@ -10,6 +10,7 @@
 
     <h1>{{$me->fullname}} - Balance: {{$me->wallet->balance}} LYD</h1>
     <form id="form_search_technicains">
+        @csrf
         <input type="text" name="search_field" id="search_field">
     </form>
     <button onclick="searchForTechnicain(self);"></button>
@@ -20,7 +21,7 @@
         async function searchForTechnicain(self) {
             self.disabled = true;
 
-            let result = await fetch('/customer/search')
+            let result = await fetch('/customer/search/').then(v => v.json());
 
 
             self.disabled = false;
