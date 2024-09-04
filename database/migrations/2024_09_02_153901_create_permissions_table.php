@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('specializations', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->bigInteger('id')->autoIncrement();
-            $table->string('name')->unique();
-            $table->enum('state', ["Active", "Inactive"])->default("Active");
+            $table->string('name');
+            $table->enum('state', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('specializations');
+        Schema::dropIfExists('permissions');
     }
 };

@@ -26,16 +26,16 @@
         <select name="signup_type" id="signup_type">
             <option value="customer">Customer</option>
             <option value="technicain">Technicain</option>
-            <option value="employee">Employee</option>
+            <option value="employee" selected>Employee</option>
         </select>
 
         <label for="signup_name">Name: </label>
         <input type="text" name="signup_name" id="signup_name">
 
-        <label for="signup_specialization">Choose Specialization: </label>
-        <select name="signup_specialization" id="signup_specialization">
-            @foreach ($specializations as $specialization)
-            <option value="{{$specialization->id}}">{{$specialization->name}}</option>
+        <label for="signup_role">Choose Role: </label>
+        <select name="signup_role" id="signup_role">
+            @foreach ($roles as $role)
+            <option value="{{$role->id}}">{{$role->name}}</option>
             @endforeach
         </select>
 

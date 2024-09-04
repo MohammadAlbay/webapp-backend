@@ -1,0 +1,5 @@
+.employee_dialog {
+    width: 40%; height: 30em; border-radius: 0.6em; border:none;
+    background-color: whitesmoke; box-shadow: rgba(0,0,0, 0.5) 0px 0px 10px 1px;
+    outline: rgba(0, 0, 0, 0.3) solid 50000px;
+}

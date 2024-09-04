@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Employee;
+use App\Models\Role;
 use App\Models\Specialization;
 use App\Models\Technicain;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class SignupController extends Controller
 {
     //
     public function index() {
-        return view('signup', ['specializations' => Specialization::where("state", "Active")->get()]);
+        return view('signup', ['roles' => Role::all()]);
     }
 
     public function create(Request $request) {
@@ -74,7 +75,6 @@ class SignupController extends Controller
             'signup_email' => 'required|email|unique:employees,email',
         ]);
         if($v->fails()) {
-            //dd($v->errors());
             return redirect("/signup/")->withErrors(["emailtaken" => "email already taken"])->withInput();
         }
         Employee::create([   
@@ -83,7 +83,8 @@ class SignupController extends Controller
             "email"      => $request->input("signup_email"),
             "password"   => Hash::make($request->input("signup_password")),
             "address"    => "",
-            "phone"    => ""
+            "phone"    => "",
+            "role_id" => $request->input('signup_role')
         ]);
     }
 }
