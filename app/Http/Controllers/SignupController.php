@@ -35,6 +35,7 @@ class SignupController extends Controller
         $v = Validator::make($request->all(),[
             'signup_email' => 'required|email|unique:customers,email',
         ]);
+        
         if($v->fails()) {
             //dd($v->errors());
             return redirect("/signup/")->withErrors(["emailtaken" => "email already taken"])->withInput();
