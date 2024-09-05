@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('prepaid_cards', function (Blueprint $table) {
             $table->bigInteger('id')->autoIncrement();
-            $table->bigInteger('serial');
+            $table->bigInteger('serial')->unique();
             $table->double('money');
             $table->enum('state', ["Active", "Used", "Cancled"])->default("Active");
             $table->timestamps();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\Permission;
+use App\Models\PrepaidCard;
 use App\Models\Role;
 use App\Models\RolePermissions;
 use App\Models\Specialization;
@@ -18,23 +19,19 @@ class EmployeeViewController extends Controller {
     private $guard = 'employee';
     public function index() {
 
-        $fulldata = Employee::all();
+       // $fulldata = Employee::all()[0];
 
-        //dd($fulldata[0]->role()->permissions[0]->id);
-
-
-        $data = DB::select('select rp.id as id, r.id as R_ID, r.name as Role, p.id as P_ID, p.name as Permission from roles as r inner join role_permissions as rp on rp.role_id = r.id inner join permissions as p on p.id = rp.permission_id');
-
-        //dd($data);
-
-
+        //dd($fulldata->hasPermission("Add Employee"));
+        $gen = PrepaidCard::getGenerationsDetails()[0];
+        //dd($gen->Date);
+        //dd(PrepaidCard::getGenerationModelList($gen->Date, $gen->Category));
         return view("employee.index", [
             'me' => Auth::guard($this->guard)->user(),
             'specializations' => Specialization::all(),
             "roles" => Role::all(),
             "employees" => Employee::all(),
             "permissions" => Permission::all(),
-            //"rolePermissions" => $data
+            "prepaidcardGenerations" => PrepaidCard::getGenerationsDetails()
         ]);
     }
 

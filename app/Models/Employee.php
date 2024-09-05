@@ -36,4 +36,19 @@ class Employee extends Authenticatable
     public function role() : Role {
         return Role::find($this->role_id);
     }
+
+    public function hasPermissionId(int $permissionID) : bool {
+        foreach($this->getPermissionList() as $p) {
+            if($p->permission_id == $permissionID)
+                return true;
+        }
+        return false;
+    }
+    public function hasPermission(string $permission) : bool {
+        foreach($this->getPermissionList() as $p) {
+            if($p->getPermissionName() == $permission)
+                return true;
+        }
+        return false; 
+    }
 }
