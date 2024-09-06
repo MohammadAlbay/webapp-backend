@@ -20,9 +20,13 @@ return new class extends Migration
             $table->string('profile')->nullable(true);
             $table->string('phone');
             $table->string('address');
-            $table->enum('dender', ["Male", "Female"]);
+            $table->enum('gender', ["Male", "Female"]);
+            $table->bigInteger('role_id');
             $table->timestamps();
             $table->rememberToken();
+
+            $table->foreign('role_id')->references('id')->on('roles')->cascadeOnUpdate();
+
         });
     }
 

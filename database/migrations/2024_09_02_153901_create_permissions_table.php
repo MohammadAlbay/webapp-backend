@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('prepaid_cards', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->bigInteger('id')->autoIncrement();
-            $table->bigInteger('serial')->unique();
-            $table->double('money');
-            $table->enum('state', ["Active", "Used", "Cancled"])->default("Active");
+            $table->string('name');
+            $table->enum('state', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();
-
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('prepaid_cards');
+        Schema::dropIfExists('permissions');
     }
 };
