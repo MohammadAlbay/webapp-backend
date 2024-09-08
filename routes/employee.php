@@ -1,15 +1,17 @@
 <?php
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Employee\EmployeeViewController;
 use App\Http\Controllers\Employee\EmployeeRoleController;
 use App\Http\Controllers\Employee\PrepaidCardController;
+use App\Http\Controllers\Employee\EmployeeViewResourceLoader;
 
 
 Route::group(['middleware' => 'auth:employee'], function () {
     Route::name('employee.')->prefix('employee')->group(function() {
         Route::get('/', [EmployeeViewController::class, 'index'])->name("index");
+        Route::get('/page/{any}', function() {return redirect('/employee');});
+        Route::get('/page/', function() {return redirect('/employee');});
         Route::get('/switchstate/{id}/{state}', [EmployeeViewController::class, 'switchState'])->name('switchstate');
         Route::post('/specialization/add', [EmployeeViewController::class, 'addSpecialization'])->name("specialization.add");
         Route::get('/specialization/setstate/{id}/{state}/', [EmployeeViewController::class, 'setSpecializationState'])->name("specialization.setstate");
@@ -17,6 +19,8 @@ Route::group(['middleware' => 'auth:employee'], function () {
         Route::post('/role/assign', [EmployeeRoleController::class, 'assignRoles'])->name("role.assign");
         Route::post('/role/addpermission', [EmployeeRoleController::class, 'addPermission'])->name("role.addpermission");
         Route::get('/role/removepermission/{id}',[EmployeeRoleController::class, 'removePermission'])->name("role.removepermission");
+
+        Route::get('/resources/{path}/', [EmployeeViewResourceLoader::class, 'manage'])->name('resource_loader');
     });
 
     Route::name('prepaidcards.')->prefix('prepaidcards')->group(function() {

@@ -63,3 +63,27 @@ async function displayCard(cards) {
         });
     })
 }
+
+
+
+
+
+async function sendFormData(url, type, data, onsuccess, onfailure) {
+    let value = await fetch(url, {
+        method: type || "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+        },
+
+        body: data
+    }).catch(e => onfailure?.());
+
+    if(onsuccess != null) {
+        value.then(a => a.json()).then(a => onsuccess(a));
+        return null;
+    }
+    else 
+        return value;
+}
