@@ -28,7 +28,7 @@ class EmployeeViewController extends Controller
         //$gen = PrepaidCard::getGenerationsDetails()[0];
         //dd($gen->Date);
         //dd(PrepaidCard::getGenerationModelList($gen->Date, $gen->Category));
-        return view("employee.index", [
+        return view("employee.dashboard.index", [
             'me' => Auth::guard($this->guard)->user(),
             'specializations' => Specialization::all(),
             "roles" => Role::all(),

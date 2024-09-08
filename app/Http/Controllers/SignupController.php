@@ -71,19 +71,22 @@ class SignupController extends Controller
     }
     private function createEmployee(Request $request) {
         $v = Validator::make($request->all(),[
-            'signup_email' => 'required|email|unique:employees,email',
+            'add_employee_email' => 'required|email|unique:employees,email',
         ]);
         if($v->fails()) {
-            return redirect("/signup/")->withErrors(["emailtaken" => "email already taken"])->withInput();
+            \App\Http\Controllers\Controller::whichReturn($request, 
+            redirect("/signup/")->withErrors(["emailtaken" => "email already taken"])->withInput(),
+            ['Message' => "Account successfuly created", 'State' => 200]
+            );
         }
         Employee::create([   
-            "fullname"   => $request->input("signup_name"),
+            "fullname"   => $request->input("add_employee_fullname"),
             "state"     => "Active",
-            "email"      => $request->input("signup_email"),
-            "password"   => Hash::make($request->input("signup_password")),
-            "address"    => "",
-            "phone"    => "",
-            "role_id" => $request->input('signup_role')
+            "email"      => $request->input("add_employee_email"),
+            "password"   => Hash::make($request->input("add_employee_password")),
+            "address"    => $request->input("add_employee_address"),
+            "phone"    => $request->input("add_employee_phone"),
+            "role_id" => $request->input("add_employee_role")
         ]);
     }
 }
