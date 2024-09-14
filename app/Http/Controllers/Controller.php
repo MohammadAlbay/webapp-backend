@@ -16,4 +16,8 @@ abstract class Controller
             return $any;
         }
     }
+
+    public static function jsonMessage($message, $state) {
+        return ['Message' => $message, 'State' => $state];
+    }
 }

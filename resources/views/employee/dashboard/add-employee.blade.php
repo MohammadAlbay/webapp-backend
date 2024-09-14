@@ -23,9 +23,9 @@
             <div class="card-body">
                 <h4 class="card-title">بيانات موظف جديد</h4>
                 <p class="card-description">قم بإدخال بيانات موظف جديد فالنموذج التالي</p>
-                <form id="add-employee-form1" onsubmit="event.preventDefault();" action="{{route('signup.create')}}" class="forms-sample">
+                <form id="add-employee-form1" method="post" enctype="multipart/form-data" onsubmit="event.preventDefault();" action="{{route('signup.create')}}" class="forms-sample">
                     @csrf
-                    <input type="hidden" name="signup_type" id="signup_type" value="employee">
+                    <input type="text" style="display: none;" name="signup_type" id="signup_type" value="employee">
                     <div class="form-group row">
                         <label for="add_employee_fullname" class="col-sm-3 col-form-label">اسم الموظف</label>
                         <div class="col-sm-9">
@@ -88,20 +88,31 @@
     <script>
         if (typeof add_employee_check == 'undefined') {
             let add_employee_check = '';
-
-
-
-
         }
 
         async function addEmployeeProcessor(butn) {
             event.preventDefault();
 
             let form = document.forms['add-employee-form1'];
-            alert(form);
             //return;
             await sendFormData(form.action, "POST", new FormData(form), v => {
-                alert(JSON.stringify(v));
+                //alert();
+                if(v.State == 1) {
+                    Swal.fire({
+                    icon: "error",
+                    title: v.Message,
+                    showConfirmButton: true,
+                    //timer: 1500
+                });
+                } else {
+                    Swal.fire({
+                    icon: "success",
+                    title: v.Message,
+                    showConfirmButton: true,
+                    //timer: 1500
+                });
+                }
+                
             });
         }
     </script>

@@ -24,7 +24,11 @@ class PrepaidCardController extends Controller
                     "state" => "Active"
                 ]);
 
-                array_push($cards, $number);
+                $cards[''.count($cards).''] = [
+                    'serial' => $number,
+                    'price' => $balance
+                ];
+                //array_push($cards, $number);
                 $i += 1;
             } catch(Exception $e) {
                 if($i > 0)
@@ -32,10 +36,10 @@ class PrepaidCardController extends Controller
             }
         }
 
-        if( $request->isJson() || $request->wantsJson() || $request->ajax())
-            return response()->json($cards);
-        else
-            return "Successfuly created"; 
+        return Controller::whichReturn($request,
+        "Successfuly created",
+        Controller::jsonMessage($cards, 0));
+
 
     }
 

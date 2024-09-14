@@ -1,0 +1,16 @@
+@media print {
+    .page {
+        page-break-before: always;
+        width: 85.60mm; /* Credit card width */
+        height: 53.98mm; /* Credit card height */
+        border: 1px solid black; /* Optional: for visual reference */
+        box-sizing: border-box;
+    }
+}
+.page {
+    width: 85.60mm; /* Credit card width */
+    height: 53.98mm; /* Credit card height */
+    border: 1px solid black; /* Optional: for visual reference */
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Space between divs on screen */
+}
