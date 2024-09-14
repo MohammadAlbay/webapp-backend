@@ -69,21 +69,38 @@ async function displayCard(cards) {
 
 
 async function sendFormData(url, type, data, onsuccess, onfailure) {
-    let value = await fetch(url, {
-        method: type || "GET",
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-        },
+    let headers = {
+        'Accept': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+    };
 
+    if(!(data instanceof FormData)) {
+        headers['Content-Type'] = 'application/json';
+        data = JSON.stringify(data);
+    }
+
+    let options = {
+        method: type || "GET",
+        credentials: "same-origin",
+        headers: headers,
         body: data
+    };
+
+    if(type.toLowerCase() === "get") {
+        delete options['body'];
+    }
+    
+    let value;
+    let promise = await fetch(url, options).then(e => e.json()).then(v => {
+        if(onsuccess) {
+            onsuccess?.(v)
+        } else {
+            value = v;
+        }
     }).catch(e => onfailure?.());
 
-    if(onsuccess != null) {
-        value.then(a => a.json()).then(a => onsuccess(a));
-        return null;
-    }
-    else 
+    if(value)
         return value;
+    else
+        return null;
 }

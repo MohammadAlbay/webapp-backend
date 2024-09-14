@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use App\Models\Permission;
+use App\Models\PrepaidCard;
 use App\Models\Role;
 use Exception;
 use Illuminate\Http\Request;
 use \Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Log;
 
 class EmployeeViewResourceLoader extends Controller {
     public function manage(Request $request, $path) : View | Blade | String{
@@ -21,11 +24,23 @@ class EmployeeViewResourceLoader extends Controller {
                 $params['roles'] = Role::all();
             }
             else if($path == "employee-list") {
-                $params['employees'] = Employee::all();
+                $params['employees'] = Employee::all(['id', 'fullname', 'email', 'gender', 'phone', 'profile', 'address', 'role_id', 'state', 'created_at']);
+                $params['roles'] = Role::all();
             }
-            //dd($params);
+            else if($path == "permission-list") {
+                $params['permissions'] = Permission::all();
+                $params['roles'] = Role::all();
+            }
+            else if($path == "role-list") {
+                $params['permissions'] = Permission::all();
+                $params['roles'] = Role::all();
+            }
+            else if($path == "prepaidcards-list") {
+                $params['prepaidCards'] = PrepaidCard::all();
+            }
             return view($viewPath, $params);
         } catch(Exception $e) {
+            Log::error($e->getMessage());
             return Blade::render('<h1>Undefined view {{$view}}', ['view' => $path]);
         }
         

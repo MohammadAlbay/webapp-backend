@@ -44,23 +44,42 @@ class EmployeeRoleController extends Controller {
     public function addPermission(Request $request) {
         $v = Validator::make($request->all(), [
             "role" => 'required', 
-            "permission" => 'required', 
         ]);
-        if($v->fails()) {
-            return redirect("/employee/")->withErrors(["missingdata-error" => "can't create exisiting role"])->withInput();
+        $permissionID = $request->input('permisison_'.$request->input('role'));
+        if($v->fails() || $permissionID == null) {
+            return Controller::whichReturn($request,
+            redirect("/employee")->withErrors(["missingdata-error" => "بعض البيانات غير موجودة في الطلب"]),
+            Controller::jsonMessage('بعض البيانات غير موجودة في الطلب', 1));
         }
 
         $role = Role::find($request->input("role"));
         
-        if($role->permissions->contains("permission_id", $request->input("permission"))) {
-            return redirect("/employee/")->withErrors(["existing-permission-error" => "can't create exisiting permission to role"])->withInput();
+        if($role == null) {
+            return  Controller::whichReturn($request, 
+                redirect('/employee')->withErrors(['missingrole-notallowed' => "المسمى الوظيفي غير موجود"]),
+                Controller::jsonMessage('المسمى الوظيفي غير موجود', 1));
         }
+
+        if(Permission::find($permissionID) == null) {
+            return  Controller::whichReturn($request, 
+                redirect('/employee')->withErrors(['missingpermission-notallowed' => "الصلاحية المطلوبة غير موجودة"]),
+                Controller::jsonMessage('الصلاحية المطلوبة غير موجودة', 1));
+        }
+
+        if($role->permissions->contains("permission_id", $permissionID)) {
+            return  Controller::whichReturn($request, 
+                redirect('/employee')->withErrors(['duplicate-notallowed' => "الصلاحية موجودة بالفعل"]),
+                Controller::jsonMessage('الصلاحية موجودة بالفعل', 1));
+        }
+        
         RolePermissions::create([
-            "role_id" => $request->input("role"),
-            "permission_id" => $request->input("permission")
+            "role_id" => $role->id,
+            "permission_id" => $permissionID
         ]);
 
-        return redirect("/employee/");
+        return Controller::whichReturn($request, 
+        redirect('/employee'),
+        Controller::jsonMessage( 'تم حفظ التغييرات', 0));
     }
 
 
@@ -68,11 +87,33 @@ class EmployeeRoleController extends Controller {
         $rolePermission = RolePermissions::find($id);
 
         if($rolePermission == null) {
-            return redirect("/employee/")->withErrors(["rp-error" => "can't find role permission record"]);
+            return Controller::whichReturn($request, 
+        redirect('/employee')->withErrors(['Unknown-RPermission' => 'لم نتمكن من العثور على الصلاحية المطلوب حذفها']),
+        Controller::jsonMessage( 'لم نتمكن من العثور على الصلاحية المطلوب حذفها', 1));
         }
 
         $rolePermission->delete();
 
-        return redirect("/employee/");
+        return Controller::whichReturn($request, 
+        redirect('/employee'),
+        Controller::jsonMessage( 'تم حفظ التغييرات', 0));
+    }
+
+    public function switchRolePermission(Request $request, $id) {
+        $rolePermission = RolePermissions::find($id);
+
+        if($rolePermission == null) {
+            return Controller::whichReturn($request, 
+            redirect('/employee')->withErrors(['Unknown-Permission' => "لم نتمكن من العثور على الصلاحية المطلوبه"]),
+            Controller::jsonMessage('لم نتمكن من العثور على الصلاحية المطلوبه', 1));
+        }
+
+        $result = ($rolePermission->state == 'Active') ? 'Inactive' : 'Active';
+        $rolePermission->state = $result;
+        $rolePermission->save();
+
+        return Controller::whichReturn($request, 
+        redirect('/employee'),
+        Controller::jsonMessage( 'تم حفظ التغييرات', 0));
     }
 }

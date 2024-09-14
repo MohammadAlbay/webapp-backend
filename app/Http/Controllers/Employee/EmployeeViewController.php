@@ -19,12 +19,7 @@ class EmployeeViewController extends Controller {
     private $guard = 'employee';
     public function index() {
 
-       // $fulldata = Employee::all()[0];
-
-        //dd($fulldata->hasPermission("Add Employee"));
-        $gen = PrepaidCard::getGenerationsDetails()[0];
-        //dd($gen->Date);
-        //dd(PrepaidCard::getGenerationModelList($gen->Date, $gen->Category));
+        //$gen = PrepaidCard::getGenerationsDetails()[0];
         return view("employee.dashboard.index", [
             'me' => Auth::guard($this->guard)->user(),
             'specializations' => Specialization::all(),
@@ -134,23 +129,73 @@ class EmployeeViewController extends Controller {
 
     public function switchState(Request $request, $id, $state) {
         if($state != "Active" && $state != "Inactive") {
-            return redirect("/employee/")->withErrors(["notfound-state-error" => "incorrect state value"]);;
+            return Controller::whichReturn($request, 
+            redirect("/employee/")->withErrors(["notfound-state-error" => "الحالة المطلوبة غير صحيحة"]),
+            ['Message' => "الحالة المطلوبة غير صحيحة", 'State' => 1]);
         }
 
         $employee = Employee::find($id);
         if($employee == null) {
-            return redirect("/employee/")->withErrors(["notfound-employee-error" => "can't find employee "]);
+            return Controller::whichReturn($request,
+            redirect("/employee/")->withErrors(["notfound-employee-error" => "لم يتم العثور على الموظف"]),
+            ['Message' => "لم يتم العثور على الموظف", 'State' => 1]);
         }
 
         $employee->state = $state;
         $employee->save();
 
-        return redirect("/employee/");
+        return Controller::whichReturn($request, 
+            redirect("/employee/"),
+            ['Message' => "تم حفظ التغييرات", 'State' => 0]);
 
     }
 
+    public function delete(Request $request, $id) {
+        $employee = Employee::find($id);
+        if($employee == null) {
+            return Controller::whichReturn($request,
+            redirect("/employee/")->withErrors(["notfound-employee-error" => "لم يتم العثور على الموظف"]),
+            ['Message' => "لم يتم العثور على الموظف", 'State' => 1]);
+        }
 
+        $employee->delete();
+        return Controller::whichReturn($request, 
+            redirect("/employee/"),
+            ['Message' => "تم حذف الموظف ", 'State' => 0]);
+    }
 
+    public function edit(Request $request) {
+        $v = Validator::make($request->all(), [
+            "edit_employee_fullname" => 'required', 
+            "edit_employee_phone" => 'required', 
+            "edit_employee_address" => 'required', 
+            "edit_employee_role" => 'required', 
+            "edit_employee_gender" => 'required'
+        ]);
+        if($v->fails()) {
+            return Controller::whichReturn($request,
+            redirect("/employee/")->withErrors(["data-employee-error" => "بعض المدخلات غير صحيحة"]),
+            ['Message' => "بعض المدخلات غير صحيحة", 'State' => 1]);
+        }
+
+        $employee = Employee::find($request->input('employee_id'));
+        if($employee == null) {
+            return Controller::whichReturn($request,
+            redirect("/employee/")->withErrors(["notfound-employee-error" => "لم يتم العثور على الموظف"]),
+            ['Message' => "لم يتم العثور على الموظف", 'State' => 1]);
+        }
+
+        $employee->fullname = $request->input('edit_employee_fullname');
+        $employee->phone = $request->input('edit_employee_phone');
+        $employee->address = $request->input('edit_employee_address');
+        $employee->role_id = $request->input('edit_employee_role');
+        $employee->gender = $request->input('edit_employee_gender');
+        $employee->save();
+
+        return Controller::whichReturn($request, 
+        redirect("/employee/"),
+        ['Message' => "تم حفظ التغييرات", 'State' => 0]);
+    }
 
 
     public function loginview(Request $request) {

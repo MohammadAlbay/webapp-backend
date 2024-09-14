@@ -22,7 +22,7 @@
                 </ul>
               </div>
             </li>
-<!--  :::: Employee menu -->
+<!--  :::: Role & permissions menu -->
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#uzi-basic" aria-expanded="false" aria-controls="uzi-basic">
                 <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
@@ -31,8 +31,23 @@
               </a>
               <div class="collapse" id="uzi-basic">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="add-employee/">Permissions Management</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="employee-list/">Role Management</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="permission-list">Permissions Management</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="role-list">Role Management</a></li>
+                  <!-- <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li> -->
+                </ul>
+              </div>
+            </li>
+<!--  :::: Prepaid cards & permissions menu -->
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#cards-menulist" aria-expanded="false" aria-controls="cards-menulist">
+                <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                <span class="menu-title">Prepaidcards</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="cards-menulist">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="generate-cards">Generate Cards</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="prepaidcards-list">View Cards</a></li>
                   <!-- <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li> -->
                 </ul>
               </div>
