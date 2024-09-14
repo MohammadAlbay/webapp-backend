@@ -1,0 +1,36 @@
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 95%;
+    margin-top: 0.3em;
+    background-color: rgb(233, 233, 233);
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+table td,
+table th {
+    border: 1px solid #ddd;
+    padding: 8px;text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-weight: 800;
+    background-color:  rgb(190,190,190);
+    color: rgb(60, 60, 60);
+    font-size: 14pt;
+}
+table td {
+    font-size: 12pt;
+}

@@ -20,13 +20,12 @@ class SignupController extends Controller
 
     public function create(Request $request) {
         $accountType = $request->input("signup_type");
-
         if($accountType == "customer") {
             $this->createCustomer($request);
         } else if($accountType == "technicain") {
             $this->createTechnicain($request);
         } else if($accountType == "employee") {
-            $this->createEmployee($request);
+            return $this->createEmployee($request);
         }
 
         return redirect("/signup/");
@@ -56,7 +55,7 @@ class SignupController extends Controller
         ]);
         if($v->fails()) {
             //dd($v->errors());
-            return redirect("/signup/")->withErrors(["emailtaken" => "email already taken"])->withInput();
+            return redirect("/signup/")->withErrors(["emailtaken" => "البريد الالكتروني مسجل مسبقا"])->withInput();
         }
         Technicain::create([   
             "fullname"   => $request->input("signup_name"),
@@ -72,19 +71,27 @@ class SignupController extends Controller
     }
     private function createEmployee(Request $request) {
         $v = Validator::make($request->all(),[
-            'signup_email' => 'required|email|unique:employees,email',
+            'add_employee_email' => 'required|email|unique:employees,email',
         ]);
         if($v->fails()) {
-            return redirect("/signup/")->withErrors(["emailtaken" => "email already taken"])->withInput();
+            return \App\Http\Controllers\Controller::whichReturn($request, 
+            redirect("/signup/")->withErrors(["emailtaken" => "البريد الالكتروني مسجل مسبقا"])->withInput(),
+            ['Message' => "البريد الالكتروني مسجل مسبقا", 'State' => 1]
+            );
         }
         Employee::create([   
-            "fullname"   => $request->input("signup_name"),
+            "fullname"   => $request->input("add_employee_fullname"),
             "state"     => "Active",
-            "email"      => $request->input("signup_email"),
-            "password"   => Hash::make($request->input("signup_password")),
-            "address"    => "",
-            "phone"    => "",
-            "role_id" => $request->input('signup_role')
+            "email"      => $request->input("add_employee_email"),
+            "password"   => Hash::make($request->input("add_employee_password")),
+            "address"    => $request->input("add_employee_address"),
+            "phone"    => $request->input("add_employee_phone"),
+            "role_id" => $request->input("add_employee_role")
         ]);
+
+        return \App\Http\Controllers\Controller::whichReturn($request, 
+            redirect("/signup/"),
+            ['Message' => "تم حفظ البيانات بنجاح", 'State' => 0]
+        );
     }
 }

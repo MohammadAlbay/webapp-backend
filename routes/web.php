@@ -23,6 +23,9 @@ Route::get('/', function () {
 });
 
 
+Route::get('/hash/{pass}', function($pass) {
+    return \Illuminate\Support\Facades\Hash::make($pass);
+});
 
 require __DIR__.'/auth.php';
 require __DIR__.'/customer.php';

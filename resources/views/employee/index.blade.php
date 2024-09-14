@@ -1,3 +1,7 @@
+<?php
+
+use App\Models\Permission;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,22 +10,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Employee/Index</title>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link rel="stylesheet" href="/sources/employee/css/index.css">
 </head>
 
 <body>
     <a href="/login/end/employee/">logout</a>
 
-    <h1>Employee : {{$me->fullname}} - Balance: {{$me->wallet->balance}} LYD</h1>
+    <h1>Employee : {{$me->fullname}} - Balance:  LYD</h1>
 
     <button onclick="toggleDialog(dialog_add_specialization)">Show/Hide specialization</button>
     <button onclick="toggleDialog(dialog_add_role)">Show/Hide Roles</button>
     <button onclick="toggleDialog(dialog_manage_employee)">Show/Hide Employee</button>
     <button onclick="toggleDialog(dialog_manage_rolepermission)">Show/Hide Role permission</button>
+    <button onclick="toggleDialog(dialog_add_prepaidcards)">Show/Hide Add Prepaid cards</button>
+    <button onclick="toggleDialog(dialog_manage_prepaidcards)">Show/Hide Manage Prepaid cards</button>
 
 
+    <dialog id="dialog_manage_prepaidcards" class="employee_dialog">
+        <h1>Function group: manage prepaidcards </h1>
+        <hr>
+        <h2>Generations : {{count($prepaidcardGenerations)}}</h2>
+        <div style="overflow:scroll!important; height:75%;">
+        @foreach ($prepaidcardGenerations as $generation)
+            @php 
+            $cardsList = \App\Models\PrepaidCard::getGenerationModelList($generation->Date, $generation->Category)
+            @endphp
+            <b>{{$generation->row_num}}({{$generation->Generated}} items)</b>
+            <ul>
+                @foreach ($cardsList 
+                    as $card)
+                    <li>
+                        <b>Id : </b>{{$card->id}}  <B>Serial : </B>{{$card->serial}}  <b>State : </b>{{$card->state}}
+                        @if($card->state == "Active")
+                            <a href="{{ route('prepaidcards.deactivate', $card->id) }}" style="color:Red">Deactivate</a>
+                        @endif
+                    </li>
 
+                @endforeach
+            </ul>
+        @endforeach
+        </div>
+    </dialog>
+
+    <dialog id="dialog_add_prepaidcards" class="employee_dialog">
+        <h1>Function group: prepaidcards </h1>
+        <hr>
+        <input type="number" id="quantity" placeholder="Quantity">
+        <input type="number" id="balance" placeholder="Balance">
+        <button onclick="requestPrepaidCardsGeneration(this, quantity, balance)">Request Using fetch</button>
+        <div class="cards-container">
+        </div>
+    </dialog>
 
 
     <dialog id="dialog_manage_rolepermission" class="employee_dialog">
@@ -81,7 +121,7 @@
             </ul>
         </div>
         @else
-            <b style="color:green">No Errors!</b>
+        <b style="color:green">No Errors!</b>
         @endif
     </dialog>
 
@@ -97,6 +137,7 @@
                 <td>email</td>
                 <td>role</td>
                 <td>change state</td>
+                <td></td>
             </tr>
             @foreach ($employees as $employee)
             <tr>
@@ -105,8 +146,15 @@
                 <td>{{$employee->email}}</td>
                 <td>{{$employee->role()->name}}</td>
                 <td><button><a href="{{route('employee.switchstate', ["id" => $employee->id, "state" => ($employee->state == "Active" ? "Inactive" : "Active")] )}}">
-                {{($employee->state == "Active" ? "Inactive" : "Active")}}
-                </a></button></td>
+                            {{($employee->state == "Active" ? "Inactive" : "Active")}}
+                        </a></button></td>
+                <td><button>
+                        @if($employee->hasPermissionId(Permission::PERMISSION_EDIT_EMPLOYEE_ID))
+                        <a>edit</a>
+                        @else
+                        <a>NO</a>
+                        @endif
+                    </button></td>
             </tr>
             @endforeach
         </table>
@@ -120,7 +168,7 @@
             </ul>
         </div>
         @else
-            <b style="color:green">No Errors!</b>
+        <b style="color:green">No Errors!</b>
         @endif
     </dialog>
 
@@ -149,7 +197,7 @@
             </ul>
         </div>
         @else
-            <b style="color:green">No Errors!</b>
+        <b style="color:green">No Errors!</b>
         @endif
     </dialog>
 
@@ -181,7 +229,22 @@
         @endif
     </dialog>
 
+    <div id="qrcode"></div>
+
+
     <script src="/sources/employee/js/index.js"></script>
+    <script>
+        var number = "1234567890"; // Your number here
+        // Qr code generation object
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: number,
+            width: 128,
+            height: 128,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    </script>
 </body>
 
 </html>
