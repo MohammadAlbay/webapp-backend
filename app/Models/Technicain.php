@@ -23,7 +23,13 @@ class Technicain extends Authenticatable
         return $this->morphOne(Wallet::class, 'owner');
     }
 
-    public function transactions() {
+    public function transactions()
+    {
         return $this->morphMany(PrepaidCardMovement::class, 'owner');
+    }
+    // 
+    public function Specialization(): Specialization
+    {
+        return Specialization::find($this->specialization_id);
     }
 }

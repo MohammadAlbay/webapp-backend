@@ -7,7 +7,7 @@
                 <span class="menu-title">Dashboard</span>
               </a>
             </li>
-<!--  :::: Employee menu -->
+<!--  :::: Employee menu ادارة العملاء-->
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
@@ -22,7 +22,77 @@
                 </ul>
               </div>
             </li>
-<!--  :::: Role & permissions menu -->
+
+                     <!--  :::: Technician management ادارة الفنين-->
+                     <li class="nav-item">
+                      <!-- <a class="nav-link" href="pages/icons/mdi.html">-->
+                         <a class="nav-link" data-toggle="collapse" href="#Technician-menulist" aria-expanded="false" aria-controls="cards-menulist">
+                         <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+                         <span class="menu-title">ادارة الفنين </span>
+                         <i class="menu-arrow"></i>
+                       </a>
+                       <div class="collapse" id="Technician-menulist">
+                         <ul class="nav flex-column sub-menu">
+                           <li class="nav-item"> <a class="nav-link" href="Technician-list">الفنين </a></li>
+                           <li class="nav-item"> <a class="nav-link" href="bladeiwilldoitlatter">مش عارفة شن بنخط </a></li>
+                           <!-- <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li> -->
+                         </ul>
+                       </div>
+                     </li>
+
+
+             <!--  :::: client management ادارة العملاء -->
+            <li class="nav-item">
+              <!-- <a class="nav-link" href="pages/icons/mdi.html">-->
+                 <a class="nav-link" data-toggle="collapse" href="#client-menulist" aria-expanded="false" aria-controls="cards-menulist">
+                 <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+                 <span class="menu-title">ادارة العملاء</span>
+                 <i class="menu-arrow"></i>
+               </a>
+               <div class="collapse" id="client-menulist">
+                 <ul class="nav flex-column sub-menu">
+                   <li class="nav-item"> <a class="nav-link" href="bladeiwilldoitlatter">العملاء </a></li>
+                   <li class="nav-item"> <a class="nav-link" href="bladeiwilldoitlatter">مش عارفة شن بنخط </a></li>
+                   <!-- <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li> -->
+                 </ul>
+               </div>
+             </li>
+
+
+               <!--  :::: ادارة الشكاوي-->
+            <li class="nav-item">
+              <!-- <a class="nav-link" href="pages/icons/mdi.html">-->
+                 <a class="nav-link" data-toggle="collapse" href="#ham-menulist" aria-expanded="false" aria-controls="cards-menulist">
+                 <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+                 <span class="menu-title">ادارة الشكاوي </span>
+                 <i class="menu-arrow"></i>
+               </a>
+               <div class="collapse" id="ham-menulist">
+                 <ul class="nav flex-column sub-menu">
+                   <li class="nav-item"> <a class="nav-link" href="bladeiwilldoitlatter">الشكاوي  </a></li>
+                   <li class="nav-item"> <a class="nav-link" href="bladeiwilldoitlatter">مش عارفة شن بنخط </a></li>
+                   <!-- <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li> -->
+                 </ul>
+               </div>
+             </li>
+
+                      <!--  :::: ادارة التخصصات-->
+            <li class="nav-item">
+              <!-- <a class="nav-link" href="pages/icons/mdi.html">-->
+                 <a class="nav-link" data-toggle="collapse" href="#Specializations-menulist" aria-expanded="false" aria-controls="cards-menulist">
+                 <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+                 <span class="menu-title">ادارة التخصصات </span>
+                 <i class="menu-arrow"></i>
+               </a>
+               <div class="collapse" id="Specializations-menulist">
+                 <ul class="nav flex-column sub-menu">
+                   <li class="nav-item"> <a class="nav-link" href="bladeiwilldoitlatter">التخصصات </a></li>
+                   <li class="nav-item"> <a class="nav-link" href="bladeiwilldoitlatter">مش عارفة شن بنخط </a></li>
+                   <!-- <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li> -->
+                 </ul>
+               </div>
+             </li>
+<!--  :::: Role & permissions menu ادارة  -->
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#uzi-basic" aria-expanded="false" aria-controls="uzi-basic">
                 <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
@@ -37,7 +107,7 @@
                 </ul>
               </div>
             </li>
-<!--  :::: Prepaid cards & permissions menu -->
+<!--  :::: Prepaid cards & permissions menu ادارة كروت الدفع المسبق  -->
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#cards-menulist" aria-expanded="false" aria-controls="cards-menulist">
                 <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
@@ -52,12 +122,10 @@
                 </ul>
               </div>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="pages/icons/mdi.html">
-                <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
-                <span class="menu-title">Icons</span>
-              </a>
-            </li>
+   
+
+
+
             <li class="nav-item">
               <a class="nav-link" href="pages/forms/basic_elements.html">
                 <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
