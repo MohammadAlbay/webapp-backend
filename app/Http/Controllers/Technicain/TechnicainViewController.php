@@ -11,4 +11,6 @@ class TechnicainViewController extends Controller {
     public function index() {
         return view("technicain.index", ['me' => Auth::guard($this->guard)->user()]);
     }
+   
+
 }

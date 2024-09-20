@@ -20,5 +20,10 @@ Route::name('login.')->prefix('login')->group(function() {
 Route::name('signup.')->prefix('signup')->group(function() {
     Route::get('/', [SignupController::class, "index"])->name("index");
     Route::post('/create', [SignupController::class, "create"])->name("create");
+    /*
+    Route::post('/redirect', [SignupController::class, "redirect"])->name("redirect");
+    Route::get('/customer', [SignupController::class, "showcustomerform"])->name("customer.add");
+    Route::get('/technician', [SignupController::class, "showtechnicianform"])->name("technician.add");
+    */
 });
 
