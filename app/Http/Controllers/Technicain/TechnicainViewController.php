@@ -9,6 +9,6 @@ use Illuminate\Support\Facades\View;
 class TechnicainViewController extends Controller {
     private $guard = 'customer';
     public function index() {
-        return view("technicain.index", ['me' => Auth::guard($this->guard)->user()]);
+        return view("technicain.mdashboard.index", ['me' => Auth::guard($this->guard)->user()]);
     }
 }

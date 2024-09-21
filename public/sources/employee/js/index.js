@@ -91,16 +91,14 @@ async function sendFormData(url, type, data, onsuccess, onfailure) {
     }
     
     let value;
-    let promise = await fetch(url, options).then(e => e.json()).then(v => {
-        if(onsuccess) {
-            onsuccess?.(v)
+    let promise = await fetch(url, options).then(e => e.json()).then(async v => {
+        if(onsuccess != undefined) {
+            await onsuccess?.(v);
+            return v;
         } else {
             value = v;
+            return v;
         }
-    }).catch(e => onfailure?.());
-
-    if(value)
-        return value;
-    else
-        return null;
+    }).catch(async e => await onfailure?.());
+    return value;
 }

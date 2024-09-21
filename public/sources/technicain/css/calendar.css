@@ -1,0 +1,41 @@
+.calendar {
+    width: 100%;
+    /* max-width: 600px; */
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 0px;
+  }
+  
+  .calendar th, .calendar td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  .calendar th {
+    background-color: #f7f7f7;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .calendar td {
+    height: 80px;
+    vertical-align: top;
+    position: relative;
+  }
+  
+  .calendar td:hover {
+    background-color: #f0f0f5;
+  }
+  
+  .calendar td::before {
+    content: attr(data-day);
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+    color: #999;
+  }

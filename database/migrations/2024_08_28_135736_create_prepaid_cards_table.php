@@ -17,7 +17,6 @@ return new class extends Migration
             $table->double('money');
             $table->enum('state', ["Active", "Used", "Cancled"])->default("Active");
             $table->timestamps();
-
         });
     }
 

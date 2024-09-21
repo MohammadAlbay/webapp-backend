@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html >
+<html>
 <!--dir="rtl" lang="ar"-->
+
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -8,6 +9,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>Employee Dashboard</title>
   <!-- plugins:css -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
   <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -17,6 +19,7 @@
   <link rel="stylesheet" href="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
   <link rel="stylesheet" href="/sources/main.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <!-- endinject -->
@@ -24,6 +27,9 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="assets/images/favicon.png" />
+
+  <script src="/sources/main.js"></script>
+  <script src="/sources/employee/js/printcard.js"></script>
 </head>
 
 <body>
@@ -271,8 +277,9 @@
   <!-- endinject -->
   <!-- Custom js for this page -->
   <script src="assets/js/dashboard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <!-- The file used to fetch & m manage dynalic content  -->
-   <script src="/sources/employee/js/app.js"></script>
+  <script src="/sources/employee/js/app.js"></script>
 </body>
 
 </html>
