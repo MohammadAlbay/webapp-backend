@@ -17,7 +17,8 @@ class PrepaidCardController extends Controller
 
         for($i = 0; $i < $quantity;) {
             try {
-                $number = random_int(1000, 9999)*(random_int(19999999,99999999))+random_int(199999, 999999);
+                $number = random_int(1000, 9999)*(random_int(19999999,99999999))
+                            +random_int(199999, 999999)+$balance;
                 PrepaidCard::create([
                     "serial" => $number,
                     "money" => $balance,
@@ -47,11 +48,15 @@ class PrepaidCardController extends Controller
         // to add permission check here
         $card = PrepaidCard::find($id);
 
-        if($card == null) return redirect('/employee')->withError(['UnknowCard', 'Unable to locate card']);
+        if($card == null) return Controller::whichReturn($request, 
+             redirect('/employee')->withError(['UnknowCard', 'لم يتم التعرف على رقم البطاقة']),
+            Controller::jsonMessage('لم يتم التعرف على رقم البطاقة', 1));
 
         $card->state = "Cancled";
         $card->save();
 
-        return redirect("/employee");
+        return Controller::whichReturn($request,
+        redirect('/employee'),
+        Controller::jsonMessage("تم حفظ التغييرات", 0));
     }
 }

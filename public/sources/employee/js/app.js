@@ -123,13 +123,5 @@ var ViewFetch = {
 
 
 
-
-
-
-
-
-
-
-
 ViewFetch.Init(document.getElementById('main_panel'));
 

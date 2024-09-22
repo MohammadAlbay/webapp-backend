@@ -15,7 +15,7 @@ Route::name('login.')->prefix('login')->group(function () {
     // Employee auth route
     Route::get('/employee/', [EmployeeViewController::class, 'loginview'])->name('loginview');
     Route::post('/employee/start/', [EmployeeViewController::class, 'login'])->name('employee.start');
-    Route::post('/employee/end/', [EmployeeViewController::class, 'logout'])->name('employee.logout');
+    Route::get('/employee/end/', [EmployeeViewController::class, 'logout'])->name('employee.logout');
 });
 
 Route::name('signup.')->prefix('signup')->group(function () {

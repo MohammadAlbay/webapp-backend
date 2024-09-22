@@ -1,7 +1,7 @@
 
 function printItems(items) {
 
-    let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
+    let mywindow = window.open('', 'PRINT', 'width=200;height=200');
 
     mywindow.document.write("<html><head><title>Printing Prepaidcards</title>");
     mywindow.document.write('<link rel="stylesheet" href="/sources/employee/css/printcard.css" />');
@@ -13,70 +13,53 @@ function printItems(items) {
       document.head.appendChild(link);
     </script>
     `);
+
     mywindow.document.write('</head><body>');
 
-    let generatedNoteKids = [];
-    if (document.Configs.Note1 !== "") {
-        generatedNoteKids.push(
-            document.createChild("li", { text: document.Configs.Note1 })
-        );
-    }
-    if (document.Configs.Note2 !== "") {
-        generatedNoteKids.push(
-            document.createChild("li", { text: document.Configs.Note2 })
-        );
-    }
-    let generatedKids = [];
-    generatedKids.push(
-        document.createChild("tr", {
-            child: [
-                document.createChild("td", { text: "#" }),
-                document.createChild("td", { text: "الاسم" }),
-                document.createChild("td", { text: "الكمية" }),
-                document.createChild("td", { text: "تقاس بـ" }),
-                document.createChild("td", { text: "بسعر الجملة" }),
-                document.createChild("td", { text: "السعر" }),
-                document.createChild("td", { text: "التخفيض" }),
-                document.createChild("td", { text: "الاجمالي" }),
-            ]
-        })
-    );
+    let kids = [];
     items.forEach(item => {
-        generatedKids.push(
-            document.createChild("tr", {
-                child: [
-                    document.createChild("td", { text: item.Id }),
-                    document.createChild("td", { text: item.Fullname }),
-                    document.createChild("td", { text: item.RequiredQuantity }),
-                    document.createChild("td", { text: item.MeasuingUnit }),
-                    document.createChild("td", { text: item.UsesWholesalePrice ? "نعم" : "لا" }),
-                    document.createChild("td", { text: item.Price + "د.ل" }),
-                    document.createChild("td", { text: item.Discount + "د.ل" }),
-                    document.createChild("td", { text: (item.Price * item.RequiredQuantity - item.Discount) + "د.ل" }),
-                ]
-            })
-        );
-    });
-    let printPageDiv = document.createChild("div", {
-        "print-page": true,
-        child: document.createChild("div", {
-            container: true,
+        const checker = (item.serial + "").match(/.{1,4}/g);
+        let serialNumber = checker.join("  ");
+        let qrCodeImage = document.createChild('div', {'class': 'qrcode'});
+        var qrcode = new QRCode(qrCodeImage, {
+            text: serialNumber,
+            width: 120,
+            height: 120,//128,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+        let element = document.createChild("div", {
+            "class": 'prepaidcard',
+            child: document.createChild('div', {
+                    'class': "container",
+                    child: [
+                        qrCodeImage,
+                        document.createChild('strong', { text: serialNumber, 'class': 'qrlabel' }),
+                        document.createChild('strong', { 
+                            text: item.price, 'class': 'pricetag',
+                            price: 'د.ل'
+                         }),
+                    ]
+                }),
+        });
 
-            
-
-        })
+        kids.push(element);
     });
+
+
 
     mywindow.document.write('</body></html>');
 
     mywindow.document.close(); // necessary for IE >= 10
     mywindow.focus(); // necessary for IE >= 10
     mywindow.addEventListener('load', () => {
-        mywindow.document.body.appendChild(printPageDiv);
+        //mywindow.document.body.classList.add('card-container');
+        kids.forEach(kid => mywindow.document.body.appendChild(kid));
         setTimeout(() => {
             mywindow.print();
             mywindow.close();
-        }, 350);
+        }, 380);
     }, true);
 
 
@@ -84,8 +67,8 @@ function printItems(items) {
     return true;
 }
 function printCards(cardsDetails) {
-    const chunkSize = 9;
-    const r = Bill.Items.reduce((arr, item, idx) => (arr[idx / chunkSize | 0] ??= []).push(item) && arr, []);
+    const chunkSize = 30;
+    const r = cardsDetails.reduce((arr, item, idx) => (arr[idx / chunkSize | 0] ??= []).push(item) && arr, []);
     try {
         r.forEach(items => {
             printItems(items);

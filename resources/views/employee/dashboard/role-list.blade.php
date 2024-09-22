@@ -33,7 +33,10 @@ $myId = $me->id;
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">قائمة بالصلاحيات</h4>
-                <p class="card-description">تعرض هذه الصفحة قائمة بالصلاحيات المدعومة فالنظام</p>
+                <p class="card-description">تعرض هذه الصفحة قائمة بالصلاحيات المدعومة فالنظام
+                    . لاضافة مسمى وظيفي جديد 
+                    <a style="text-decoration: underline; color:blue; cursor:pointer" onclick="add_role_dialog.setAttribute('open', '')">انقر هنا</a>
+                </p>
 
 
 
@@ -42,27 +45,27 @@ $myId = $me->id;
                     @foreach ($roles as $role)
                     <div class="card">
                         <div class="card-header" id="heading{{$role->id}}">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{$role->id}}" aria-expanded="true" aria-controls="collapse{{$role->id}}">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$role->id}}" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                                     المسمى الوظيفي {{$role->name}}
                                 </button>
-                            </h5>
+                            </h2>
                         </div>
 
-                        <div id="collapse{{$role->id}}" class="collapse show" aria-labelledby="heading{{$role->id}}" data-parent="#accordion">
+                        <div id="collapse{{$role->id}}" class="accordion-collapse collapse" aria-labelledby="heading{{$role->id}}" data-parent="#accordion">
                             <div class="card-body">
-                                
-                            <form class="form-inline" id="add_permission_form_id_{{$role->id}}">
+
+                                <form class="form-inline" id="add_permission_form_id_{{$role->id}}">
                                     <div class="form-group mx-sm-3 mb-2">
                                         <label for="add_permission_select_{{$role->id}}" class="sr-only">الصلاحية</label>
                                         <select class="form-control" id="permisison_{{$role->id}}" name="permisison_{{$role->id}}">
-                                        @foreach ($permissions as $p)
+                                            @foreach ($permissions as $p)
                                             <option value="{{$p->id}}">{{$p->name}}</option>
-                                        @endforeach
+                                            @endforeach
                                         </select>
                                     </div>
                                     <input type="text" name="role" readonly style="display:none" value="{{$role->id}}">
-                                    <button type="submit" class="btn btn-primary mb-2" 
+                                    <button type="submit" class="btn btn-primary mb-2"
                                         onclick="addPermissionToRole(this)" formid="add_permission_form_id_{{$role->id}}">اضافة</button>
                                 </form>
 
@@ -112,10 +115,144 @@ $myId = $me->id;
             </div>
         </div>
     </div>
+
+
+    <dialog id="add_role_dialog" class="ui-dialog1">
+        <h1>اضافة مسمى وظيفي جديد</h1>
+        <div class="ui-dialog-content-container">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-description"></p>
+                    <form id="add-role-form1" method="post" enctype="multipart/form-data" onsubmit="event.preventDefault();" action="{{route('signup.create')}}" class="forms-sample">
+                        @csrf
+                        <div class="form-group row">
+                            <label for="add_role_name" class="col-sm-3 col-form-label">المسمى الوظيفي</label>
+                            <div class="col-sm-9">
+                                <input onchange="checkForDuplicateName(this)" required
+                                    type="text" class="form-control" id="add_role_name"
+                                    name="add_role_name" placeholder="المسمى الوظيفي">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="add_role_permissions_repo" class="col-sm-3 col-form-label">اختر الصلاحيات </label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="add_role_permissions_repo" multiple>
+                                    @foreach ($permissions as $p)
+                                    <option value="{{$p->id }}"  {{($p->name == App\Models\Permission::PERMISSION_ALLOW_LOGIN_NAME) ? "selected" : ""}}>{{ $p->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary mr-2"
+                            onclick="addRoleProcessor(this);">Submit</button>
+                        <button class="btn btn-light" onclick="add_role_dialog.removeAttribute('open')">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </dialog>
     <script src="/sources/employee/js/index.js"></script>
     <script>
         let permissions = @json($permissions, JSON_PRETTY_PRINT);
         let roles = @json($roles, JSON_PRETTY_PRINT);
+
+        function checkForDuplicateName(self) {
+            if (self.value == "") return;
+
+            let enteredValue = self.value.toLowerCase();
+            let matches = roles.filter(role => enteredValue == role.name.toLowerCase());
+
+            if (matches != null && matches.length != 0) {
+                self.value = "";
+                Swal.fire({
+                    icon: "error",
+                    title: "قيمة اسم المسمى الوظيفي لا يمكن ان تتكرر",
+                    showConfirmButton: true,
+                });
+            }
+
+        }
+
+        async function addRoleProcessor(self) {
+            self.disabled = true;
+            let permissionsOptionSelect = document.getElementById('add_role_permissions_repo');
+            let permissionsOptionsNames = ([...permissionsOptionSelect.selectedOptions].map(a => a.innerText));
+            let permissionsOptionsIds = ([...permissionsOptionSelect.selectedOptions].map(a => a.value));
+            console.log(permissionsOptionsIds);
+            Swal.fire({
+                icon: "question",
+                title: `هل انت متأكد من منح الصلاحيات التالية : 
+            ${permissionsOptionsNames.length == 0 ? "لم يتم الاختيار بعد" : permissionsOptionsNames.join(', ')}`,
+                showConfirmButton: true,
+                showCancelButton: true,
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    let roleInfo = await requestAddingRole();
+                    if (roleInfo == null) {
+                        console.info("addRoleProcessor: Can't continue the process due to role info oject being null")
+                        return;
+                    }
+                    await requestAssignRolePermission(roleInfo.id, permissionsOptionsIds);
+                    add_role_dialog.removeAttribute('open');
+                }
+            });
+
+            self.disabled = false;
+        }
+
+        async function requestAssignRolePermission(id, list) {
+            if (id == null) return;
+
+            let failer = 0;
+            list.forEach(async p => {
+                let payload = {
+                    "_token": "{{ csrf_token() }}",
+                    "role": id
+                };
+                payload[`permisison_${id}`] = p;
+                await sendFormData('/employee/role/addpermission', 'POST', payload, v => {
+                    if (v.State == 1) {
+                        failer++;
+                        Swal.fire({
+                            icon: "error",
+                            title: v.Message,
+                            showConfirmButton: true,
+                        });
+                    }
+                })
+            });
+
+            if (failer == 0) {
+                Swal.fire({
+                    icon: "success",
+                    title: "تم حفظ المسمى الوظيفي",
+                    showConfirmButton: true,
+                }).then(result => {
+                    ViewFetch.Load('role-list');
+                });
+            }
+        }
+        async function requestAddingRole() {
+            let data = null;
+            let payload = {
+                "_token": "{{ csrf_token() }}",
+                "role_name": document.forms["add-role-form1"].elements["add_role_name"].value
+            };
+            await sendFormData('/employee/role/add', 'POST', payload, async v => {
+                if (v.State == 1) {
+                    Swal.fire({
+                        icon: "error",
+                        title: v.Message,
+                        showConfirmButton: true,
+                    });
+                } else
+                    data = v.Message;
+            })
+            return data;
+        }
+
         async function switchRolePermission(id) {
             if (id == null) return;
 

@@ -14,13 +14,14 @@ $myId = $me->id;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/sources/main.css">
-    <link rel="stylesheet" href="/sources/employee/css/index.css">
-    <title>Role list</title>
+    <link rel="stylesheet" href="/sources/employee/css/printcard.css">
+
+    <title>Generate cards</title>
 </head>
 
 <body>
     <div class="page-header">
-        <h3 class="page-title"> قائمة الصلاحيات </h3>
+        <h3 class="page-title">توليد كروت جديدة </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/employee">Dashboard</a></li>
@@ -29,76 +30,92 @@ $myId = $me->id;
         </nav>
     </div>
 
-    <div class="col-md-8 grid-margin stretch-card">
+    <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">قائمة بالصلاحيات</h4>
-                <p class="card-description">تعرض هذه الصفحة قائمة بالصلاحيات المدعومة فالنظام</p>
-
-
+                <h4 class="card-title"></h4>
+                <p class="card-description">قم بتحديد الكمية والفئة السعرية فالنوذج التالي</p>
 
 
                 <div id="accordion">
-                    @foreach ($roles as $role)
+                    @foreach ($prepaidcardGenerations as $generation)
+                    @php
+                    $cardsList = \App\Models\PrepaidCard::getGenerationModelList($generation->Date, $generation->Category);
+                    $accordionRowId = str_replace(' ', '-', $generation->row_num);
+
+                    // we need to get array of cards ids to make 'print all' and 'cancel all' functionality
+                    // available and possible
+                    $cardsIdArray = [];
+                    foreach($cardsList as $c) {
+                    if($c->state != 'Active') continue;
+                    array_push($cardsIdArray,
+                    [
+                    "id" => $c->id,
+                    "serial" => $c->serial,
+                    "price" => $c->money,
+                    ]);
+                    }
+
+                    @endphp
+
                     <div class="card">
-                        <div class="card-header" id="heading{{$role->id}}">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{$role->id}}" aria-expanded="true" aria-controls="collapse{{$role->id}}">
-                                    المسمى الوظيفي {{$role->name}}
+                        <div class="card-header" id="heading{{$accordionRowId}}">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$accordionRowId}}" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                    {{$generation->row_num}}({{$generation->Generated}} items)
                                 </button>
-                            </h5>
+                            </h2>
                         </div>
 
-                        <div id="collapse{{$role->id}}" class="collapse show" aria-labelledby="heading{{$role->id}}" data-parent="#accordion">
+                        <div id="collapse{{$accordionRowId}}" class="accordion-collapse collapse" aria-labelledby="heading{{$accordionRowId}}" data-parent="#accordion">
                             <div class="card-body">
-                                
-                            <form class="form-inline" id="add_permission_form_id_{{$role->id}}">
-                                    <div class="form-group mx-sm-3 mb-2">
-                                        <label for="add_permission_select_{{$role->id}}" class="sr-only">الصلاحية</label>
-                                        <select class="form-control" id="permisison_{{$role->id}}" name="permisison_{{$role->id}}">
-                                        @foreach ($permissions as $p)
-                                            <option value="{{$p->id}}">{{$p->name}}</option>
-                                        @endforeach
-                                        </select>
-                                    </div>
-                                    <input type="text" name="role" readonly style="display:none" value="{{$role->id}}">
-                                    <button type="submit" class="btn btn-primary mb-2" 
-                                        onclick="addPermissionToRole(this)" formid="add_permission_form_id_{{$role->id}}">اضافة</button>
-                                </form>
 
-                                @if($role->permissions->count() > 0)
+
+                                @if($cardsList->count() > 0)
+                                <button class="btn btn-primary" {{count($cardsIdArray) == 0 ? 'disabled' : ''}} onclick='printCardProcessor(@json($cardsIdArray))'>طباعة الكل</button>
+                                <button class="btn btn-danger" {{count($cardsIdArray) == 0 ? 'disabled' : ''}} onclick='switchPrepaidcard(@json($cardsIdArray))'>الغاء الكل</button>
                                 <table>
                                     <tr>
                                         <td>#</td>
-                                        <td>الاسم</td>
+                                        <td>الرقم التسلسلي</td>
+                                        <td>السعر</td>
                                         <td>الحالة</td>
                                         <td>-</td>
                                         <td>-</td>
                                     </tr>
-                                    @foreach ($role->permissions as $rolePermission)
+                                    @foreach ($cardsList as $card)
                                     @php
-                                    $stateSwtch = $rolePermission->state == 'Active' ? 'Inactive' : 'Active';
+                                    $stateSwtch = $card->state == 'Active' ? 'Cancled' : 'Active';
+                                    $cardInfo = ['serial' => $card->serial, 'price' => $card->money];
+                                    //Active,Used, Cancled
                                     @endphp
                                     <tr>
-                                        <td>{{$rolePermission->permission_id}}</td>
-                                        <td>{{$rolePermission->getPermissionName()}}</td>
-                                        <td>{{$rolePermission->state}}</td>
+                                        <td>{{$card->id}}</td>
+                                        <td>{{$card->serial}}</td>
+                                        <td>{{$card->money}}</td>
+                                        <td>{{$card->state}}</td>
                                         <td>
-                                            <a href="#" style="color: {{$stateSwtch == 'Active' ? 'green' : 'orange'}};" onclick="switchRolePermission({{$rolePermission->id}})">
+                                            <button type="button" class="btn {{$stateSwtch == 'Active' ? 'btn-secondary' : 'btn-danger' }}"
+                                                style="color: white;"
+                                                {{$stateSwtch == 'Active' ? 'disabled' : ''}}
+                                                onclick="switchPrepaidcard('{{$card->id}}')">
                                                 {{$stateSwtch == 'Active'? "Activate" : "Deactivate"}}
-                                            </a>
+                                            </button>
                                         </td>
                                         <td>
-                                            <a href="#" style="color: red;" onclick="deleteRolePermission({{$rolePermission->id}})">
-                                                Remove
-                                            </a>
+                                            <button type="button"
+                                                class="btn {{$card->state == 'Active' ?  'btn-primary' : 'btn-secondary'}}"
+                                                {{$card->state !== 'Active' ? 'disabled' : ''}}
+                                                onclick='printCardProcessor([@json($cardInfo)])'>
+                                                طباعة
+                                            </button>
                                         </td>
                                     </tr>
 
                                     @endforeach
                                 </table>
                                 @else
-                                <h5>No permissions yet!</h5>
+                                <h5>No prepaidcards in generation?</h5>
                                 @endif
                                 </table>
                             </div>
@@ -112,31 +129,46 @@ $myId = $me->id;
             </div>
         </div>
     </div>
+
     <script src="/sources/employee/js/index.js"></script>
+    <script src="/sources/employee/js/printcard.js"></script>
     <script>
-        let permissions = @json($permissions, JSON_PRETTY_PRINT);
-        let roles = @json($roles, JSON_PRETTY_PRINT);
-        async function switchRolePermission(id) {
-            if (id == null) return;
+        async function printCardProcessor(param) {
+            if (Array.isArray(param)) {
+                // handle multiple values (from array)
+                printCards(param);
+                console.log(param);
+            } else {
+                // singular value
 
+            }
+        }
+
+        async function switchPrepaidcard(ids) {
             Swal.fire({
-                title: "هل انت متأكد?",
-                text: "تغييرك لحالة الصلاحية سينعكس على كافة الموظفين المتحصلين علظ هذه الصلاحية",
-                icon: "warning",
+                icon: "question",
+                title: "هل انت متأكد من رغبتك في الغاء هذه البطاقة/البطاقات؟ لا يمكن الرجوع هن هذا الاجراء",
+                showConfirmButton: true,
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                cancelButtonText: "الغاء",
-                confirmButtonText: "موافق"
-            }).then(async (result) => {
-                if (result.isConfirmed)
-                    await requestSwitchState(id);
-
+            }).then(async result => {
+                if (result.isConfirmed) {
+                    if (Array.isArray(ids)) {
+                        ids.forEach(async item => await disabledCard(item.id, true));
+                        Swal.fire({
+                            icon: "success",
+                            title: "تم الغاء كل الكروت ",
+                            showConfirmButton: true,
+                        }).then((result) => ViewFetch.Load('prepaidcards-list'));
+                    } else {
+                        await disabledCard(id);
+                    }
+                }
             });
+
         }
 
-        async function requestSwitchState(id) {
-            await sendFormData('/employee/role/switchstate/' + id, 'POST', {}, v => {
+        async function disabledCard(id, quite = false) {
+            await sendFormData('/prepaidcards/deactivate/' + id, 'GET', {}, v => {
                 if (v.State == 1) {
                     Swal.fire({
                         icon: "error",
@@ -144,78 +176,84 @@ $myId = $me->id;
                         showConfirmButton: true,
                     });
                 } else {
-                    Swal.fire({
-                        icon: "success",
-                        title: v.Message,
-                        showConfirmButton: true,
-                    }).then((result) => ViewFetch.Load('role-list'));
+                    if (!quite) {
+                        Swal.fire({
+                            icon: "success",
+                            title: v.Message,
+                            showConfirmButton: true,
+                        }).then((result) => ViewFetch.Load('prepaidcards-list'));
+                    }
 
                 }
             });
         }
 
+        // async function generateNewCardsProcessor(self) {
+        //     self.disabled = true;
 
-        async function deleteRolePermission(id) {
-            if (id == null) return;
+        //     Swal.fire({
+        //         title: "هل انت متأكد?",
+        //         text: "هل انت متأكد انك تريد توليد دفعة جديدة من الكروت؟  ",
+        //         icon: "warning",
+        //         showCancelButton: true,
+        //         confirmButtonColor: "#3085d6",
+        //         cancelButtonColor: "#d33",
+        //         cancelButtonText: "الغاء",
+        //         confirmButtonText: "موافق"
+        //     }).then(async (result) => {
+        //         if (result.isConfirmed)
+        //             await requestGenerate(self);
 
-            Swal.fire({
-                title: "هل انت متأكد?",
-                text: "حذفك للصلاحية يلغي بعض الامكانيات للمستخدمين المتحصلين عليها",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                cancelButtonText: "الغاء",
-                confirmButtonText: "موافق"
-            }).then(async (result) => {
-                if (result.isConfirmed)
-                    await requestDeleteRolePermission(id);
+        //     });
+        // }
 
-            });
-        }
+        // async function requestGenerate(self) {
+        //     let values = {
+        //         quantity: generate_card_quantity.value,
+        //         price: generate_card_price.value
+        //     };
 
-        async function requestDeleteRolePermission(id) {
-            await sendFormData('/employee/role/removepermission/' + id, 'POST', {}, v => {
-                if (v.State == 1) {
-                    Swal.fire({
-                        icon: "error",
-                        title: v.Message,
-                        showConfirmButton: true,
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "success",
-                        title: v.Message,
-                        showConfirmButton: true,
-                    }).then((result) => ViewFetch.Load('role-list'));
+        //     if (values.quantity > 100 || values.quantity < 1) {
+        //         Swal.fire({
+        //             icon: "error",
+        //             title: 'لا يمكن ان تكون الكمية اكثر من 100 او اقل من 1',
+        //             showConfirmButton: true,
+        //         });
+        //         self.disabled = false;
+        //         return;
+        //     }
+        //     await sendFormData('/prepaidcards/generate/' + values.quantity + '/' + values.price, 'GET', {}, v => {
+        //         if (v.State == 1) {
+        //             Swal.fire({
+        //                 icon: "error",
+        //                 title: v.Message,
+        //                 showConfirmButton: true,
+        //             });
+        //             self.disabled = false;
+        //         } else {
+        //             Swal.fire({
+        //                 icon: "success",
+        //                 title: "تم توليد الكروت بنجاح",
+        //                 showConfirmButton: true,
+        //                 showDenyButton: true,
+        //                 denyButtonText: `طباعة الكروت`,
+        //                 confirmButtonText: `تم`
+        //             }).then((result) => {
+        //                 if (result.isConfirmed)
+        //                     ViewFetch.Load('generate-cards')
+        //                 else if (result.isDenied)
+        //                     printCards(v.Message);
+        //             });
 
-                }
-            });
-        }
-
-
-        async function addPermissionToRole(self) {
-            event.preventDefault();
-            self.disabled = true;
-            await sendFormData('/employee/role/addpermission', 'POST', new FormData(document.forms[self.getAttribute('formid')]), v => {
-                if (v.State == 1) {
-                    Swal.fire({
-                        icon: "error",
-                        title: v.Message,
-                        showConfirmButton: true,
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "success",
-                        title: v.Message,
-                        showConfirmButton: true,
-                    }).then((result) => ViewFetch.Load('role-list'));
-
-                }
-            });
-            self.disabled = false;
-        }
+        //             setTimeout(() => {
+        //                 self.disabled = false
+        //             }, 5000);
+        //         }
+        //     });
+        // }
     </script>
+
+
 </body>
 
 </html>
