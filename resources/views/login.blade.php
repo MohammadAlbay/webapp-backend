@@ -5,23 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Document</title>
+    <link rel="stylesheet" href="/sources/login.css">
 </head>
 <body>
-    <h1>Hi!. This is login view</h1>
-    
+    <div class="container">
+    <div class="login-box">
+        <div class="half-circle"></div>
+        <div class="image-container"></div>
+        <div class="form-container">
+    <h2>اهلا وسهلا بكم</h2>
+    <p>سجل دخولك للوصول لادارة حسابك وخدمات الموقع  </p>
+    <div class="error">
     @if($errors->has('status'))
-    <b style="color:Red">You're getting an Error : {{ $errors->first('status')  }}</b>
+    <b style="color:Red">لقد حصلت على خطا : {{ $errors->first('status')  }}</b>
     @endif 
+    </div>
     <form action="{{ route('login.start') }}" method="post">
         @csrf
-
-        <label for="login_emial">Email: </label>
+        <label for="login_emial">اسم االمستخدم/الايميل</label>
         <input type="emial" name="login_emial" id="login_emial">
-
-        <label for="login_password">Password: </label>
+        <label for="login_password">كلمة المرور</label>
         <input type="password" name="login_password" id="login_password">
-
-        <input type="submit" value="Login">
+    <div class="options">
+        <label><input type="checkbox">تذكرني</label>
+        <a href="#">نسيت كلمة المرور؟</a>
+    </div>
+       <button type="submit">تسجيل الدخول</button>
+       <p>لاتمتلك حسابا؟ <a href="#">سجل هنا</a></p>
     </form>
+
+    </div>
+    </div>
 </body>
 </html>

@@ -17,7 +17,26 @@ class SignupController extends Controller
     public function index() {
         return view('signup', ['roles' => Role::all()]);
     }
+  /*  public function redirect(Request $request) {
+        $accountType = $request->input("signup_type");
+        if($accountType == "customer") {
+            return redirect()->route('signup.customer');
+        } else if($accountType == "technicain") {
+            return redirect()->route('signup.technician');
+        }
 
+        return redirect('/signup/');
+    }
+
+    // عرض صفحة تسجيل العميل
+    public function showCustomerForm() {
+        return view('customer.addcustomer');
+    }
+
+    // عرض صفحة تسجيل الفني
+    public function showTechnicianForm() {
+        return view('technician.addtechnician');
+    }*/
     public function create(Request $request) {
         $accountType = $request->input("signup_type");
         if($accountType == "customer") {
@@ -35,6 +54,7 @@ class SignupController extends Controller
         $v = Validator::make($request->all(),[
             'signup_email' => 'required|email|unique:customers,email',
         ]);
+        
         if($v->fails()) {
             //dd($v->errors());
             return redirect("/signup/")->withErrors(["emailtaken" => "email already taken"])->withInput();
