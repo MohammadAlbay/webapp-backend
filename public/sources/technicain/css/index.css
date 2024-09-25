@@ -5,7 +5,11 @@
     --container--width: calc(100% - var(--nav-menu-width));
 }
 
-body{overflow: hidden; user-select: none;}
+body {
+    overflow: hidden;
+    user-select: none;
+}
+
 .md-navbar {
     position: fixed;
     top: 0px;
@@ -20,15 +24,24 @@ body{overflow: hidden; user-select: none;}
     overflow: hidden;
 }
 
-.md-navbar .md-navbar-container {position: relative; width: 100%; height: 100%;}
+.md-navbar .md-navbar-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
 
-.md-navbar .md-navbar-container .title[ltr] {direction: ltr;}
+.md-navbar .md-navbar-container .title[ltr] {
+    direction: ltr;
+}
+
 .md-navbar .md-navbar-container .title {
     font-size: 4vw;
     margin: 0 auto;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 0px; position:absolute; 
-    right: calc(2em + 35px); top: 50%;
+    padding: 0px;
+    position: absolute;
+    right: calc(2em + 35px);
+    top: 50%;
     transform: translateY(-50%);
     display: inline-block;
     direction: rtl;
@@ -36,9 +49,11 @@ body{overflow: hidden; user-select: none;}
 
 
 .md-navbar .md-navbar-container .nav-toggle-icon {
-    background-color: transparent; width: 50px; height: 50px;
+    background-color: transparent;
+    width: 50px;
+    height: 50px;
     border: none;
-    top: 50%; 
+    top: 50%;
     transform: translateY(-50%);
     right: 2em;
     cursor: pointer;
@@ -48,11 +63,18 @@ body{overflow: hidden; user-select: none;}
     background-repeat: no-repeat;
     background-size: 45px;
 }
+
 .md-navbar .md-navbar-container .nav-toggle-icon.close {
     background-image: url('https://img.icons8.com/?size=100&id=114129&format=png&color=000000');
 }
-.md-navbar { z-index: 3; }
-.md-nav-menu { z-index: 2; }
+
+.md-navbar {
+    z-index: 3;
+}
+
+.md-nav-menu {
+    z-index: 2;
+}
 
 .md-container {
     z-index: 1;
@@ -81,7 +103,7 @@ body{overflow: hidden; user-select: none;}
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
     display: block;
-    
+
 }
 
 .md-nav-menu-hide {
@@ -305,15 +327,21 @@ body:has(.md-navmenu-expand-manualy) .md-container {
 
 /*Fixing the menu for switching off and on */
 .md-navmenu-expand-manualy .md-menu-section i {
-    opacity: 1!important;
+    opacity: 1 !important;
 }
 
-.md-navmenu-expand-manualy .md-menu-section img {left: 1em!important;}
-.md-navmenu-expand-manualy .md-menu-section {
-    width: 95%!important;
-    margin-left: 2.5%!important;
+.md-navmenu-expand-manualy .md-menu-section img {
+    left: 1em !important;
 }
-.md-navmenu-expand-manualy .md-menu-section::after {display: block!important;}
+
+.md-navmenu-expand-manualy .md-menu-section {
+    width: 95% !important;
+    margin-left: 2.5% !important;
+}
+
+.md-navmenu-expand-manualy .md-menu-section::after {
+    display: block !important;
+}
 
 
 /*End*/
@@ -328,8 +356,10 @@ body:has(.md-navmenu-expand-manualy) .md-container {
     grid-template-columns: repeat(auto-fit, minmax(150px, 2fr));
     grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
     align-items: start;
-    gap: 7px; /* Adjust the gap between grid items as needed */
-    padding: 1px; /* Optional padding around the grid */
+    gap: 7px;
+    /* Adjust the gap between grid items as needed */
+    padding: 1px;
+    /* Optional padding around the grid */
     overflow-y: auto;
     /* min-height: 50vh; */
     grid-auto-rows: min-content;
@@ -337,9 +367,12 @@ body:has(.md-navmenu-expand-manualy) .md-container {
 
 /* Grid items */
 .md-grid-item {
-    background-color: #f0f0f0; /* Example background color */
-    padding: 0px; /* Example padding inside each grid item */
-    border: 1px solid #ccc; /* Example border */
+    background-color: #f0f0f0;
+    /* Example background color */
+    padding: 0px;
+    /* Example padding inside each grid item */
+    border: 1px solid #ccc;
+    /* Example border */
     /* text-align: center;  */
     overflow-x: hidden;
 }
@@ -348,57 +381,82 @@ body:has(.md-navmenu-expand-manualy) .md-container {
 .md-grid-item.full-width {
     grid-column: 1 / -1;
 }
+
 .md-grid-item.half-width {
-    grid-column: span 2;
+    grid-column: span 3;
 }
+
 .md-grid-item.full-height {
     grid-row: 1 / -1;
 }
+
 .md-grid-item.half-height {
-    grid-row: span 3;
+    grid-row: span 2;
 }
 
 .tall {
-    align-self:start;
-  }
+    align-self: start;
+}
+
+.md-grid-item .title {
+    margin-right: 1em; padding: 1em;
+    font-size: 20pt;
+    display: inline-block;
+}
+
+
+
+
+
+
+
+
+
+
 @media only screen and (max-width: 700px) {
-    .md-nav-menu:hover {box-shadow: none;}
+    .md-nav-menu:hover {
+        box-shadow: none;
+    }
 
     .md-nav-menu {
         --navbar-menu-offset: 0px;
     }
 
-
     .md-nav-menu:not(:hover) .md-menu-section i {
         opacity: 1;
     }
 
-    .md-nav-menu:not(:hover) .md-menu-section img {left: 1em;}
+    .md-nav-menu:not(:hover) .md-menu-section img {
+        left: 1em;
+    }
+
     .md-nav-menu:not(:hover) .md-menu-section {
         width: 95%;
         margin-left: 2.5%;
     }
-    .md-nav-menu:not(:hover) .md-menu-section::after {display: block;}
+
+    .md-nav-menu:not(:hover) .md-menu-section::after {
+        display: block;
+    }
+
+    body:has(.md-nav-menu:hover) .md-container,
+    body:has(.md-navmenu-expand-manualy) .md-container,
     .md-container {
         right: 0px;
-        width: 100%; 
+        width: 100%;
         left: 0px;
     }
 
     body:has(.md-navmenu-expand-manualy) .md-container {
-        width:100%;
+        width: 100%;
         right: 0px;
     }
-    
+
     .md-navbar .md-navbar-container .title {
         font-size: 4vw;
     }
-}
 
-@media only screen and (max-width:900px) {
-    .md-grid-item.half-width {
-        grid-column: span 2;
-    }
+    
 }
 
 @media only screen and (max-width:600px) {
@@ -406,21 +464,25 @@ body:has(.md-navmenu-expand-manualy) .md-container {
         grid-column: 1 / -1;
     }
 }
+
 @media only screen and (max-width: 500px) {
     .md-navbar .md-navbar-container .title {
         font-size: 6vw;
     }
+
     :root {
         --nav-menu-width: 100%;
     }
 }
+
 @media only screen and (max-width:350px) {
-    .md-grid-item {overflow-x: auto;}
+    .md-grid-item {
+        overflow-x: auto;
+    }
 }
+
 @media only screen and (min-width:900px) {
     .md-navbar .md-navbar-container .title {
         font-size: 20pt;
     }
-
-    
 }

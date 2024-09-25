@@ -1,0 +1,22 @@
+.button-image {
+    position: relative;
+    margin: 0px; padding: 0px;
+    padding: 0.5em 1em;
+    width: auto; height: auto; min-height: 1.5em;
+    display: inline-block;
+}
+
+.button-image img {
+    position: absolute;
+    top: 50%; right: 0.5em;
+    transform: translateY(-50%);
+    width: 36px; height: 36px;
+}
+
+.button-image i {
+    position: absolute;
+    top: 50%; right: 5em;
+    font-style: normal;
+    top: 50%;
+    transform: translateY(-50%);
+}

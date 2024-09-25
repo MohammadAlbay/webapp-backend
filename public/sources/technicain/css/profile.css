@@ -1,0 +1,124 @@
+.profile-headblock {
+    position: relative;
+    width: 100%; height: 25em;
+    background-color: rgb(235, 235, 235);
+    overflow-x: hidden;
+    padding: 0px;
+    display: block;
+}
+
+.profile-headblock .cover {
+    position: absolute; top: 0px; right: 0px!important; width: 100%;
+    height: 22em;
+    max-height: 20em;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* background-size: cover; */
+    object-fit: cover;
+}
+
+.profile-headblock .pic {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    width: 13em; height: 13em;
+    background-color: transparent;
+    border: 10px solid rgba(250, 250, 250, 0.3);
+    position: absolute; bottom: 1em; right: 5em;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background-origin: border-box;
+    background-clip: padding-box;
+    box-shadow: 0px 0px 30px 1px rgba(122, 122, 122, 0.5);
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+}
+.profile-headblock .pic .pic-hover-content {
+    width: 100%; height: 50%; border-radius: 0px 0px 100% 100%;
+    margin-top: 50%;
+    background-color: rgba(10, 10, 10, 0.4);
+    vertical-align: middle; text-align: center;
+    padding-top: 1em; box-sizing: border-box;
+    opacity: 0; 
+    color: white; font-size: 11pt;
+    mix-blend-mode: revert-layer;
+    cursor: pointer;
+    transition: opacity 0.4s linear;
+}
+.profile-headblock .pic:hover .pic-hover-content {
+    opacity: 1;
+}
+.profile-headblock .name {
+    position: absolute; right: 17em; bottom: 5em;
+    padding: 0.5em 1em; direction: rtl;
+    filter: brightness(150%);
+    background-color: rgb(247, 247, 247);
+    /* background-image: inherit; */
+    mix-blend-mode: revert-layer;
+    border-radius: 0.5em; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15pt; font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 30px 0.5px;
+}
+
+
+
+
+
+
+
+
+div.ux-input2 {
+    width: 90%;
+    margin-right: 3%;
+    margin-top: 1.5em;
+}
+
+
+
+
+
+
+@media only screen and (max-width:950px) {
+    .profile-headblock .name {
+        font-size: 12pt;
+        right: 22em;
+        bottom: 6.5em;
+    }
+}
+
+
+@media only screen and (max-width:700px) {
+    .profile-headblock .pic {
+        width: 10em;
+        height: 10em;
+    }
+
+    .profile-headblock .name {
+        font-size: 11pt;
+        bottom: 6.5em;
+        right: 20em;
+    }
+}
+
+@media only screen and (max-width:600px) {
+    .profile-headblock .pic {
+        right: 2em;
+    }
+    .profile-headblock .name {
+        right: 15em;
+        bottom: 7em;
+    }
+}
+
+@media only screen and (max-width:600px) {
+    .profile-headblock .pic {
+        right: 2em; bottom: 10em;
+        width: 7em; height: 7em;
+    }
+    .profile-headblock .name {
+        right: 1em;
+        bottom: 7em;
+    }
+}
