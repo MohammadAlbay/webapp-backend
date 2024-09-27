@@ -11,16 +11,15 @@
 <body>
     <h1>Hi!. This is signup view</h1>
 
-    <form action="{{ route('signup.redirect')}}" method="post">
+    <form action="{{ route('signup.create')}}" method="post">
         @csrf
         <input type="text" style="display: none;" name="signup_type" id="signup_type" value="Technicain">
-        <button type="submit">الفني</button>
-    </form>
-    <form action="{{ route('signup.redirect')}}" method="post">
-        <input type="text" style="display: none;" name="signup_type" id="signup_type" value="customer">
-        <button type="submit">عميل</button>
-    </form>
-      <!--  <label for="signup_name">Name: </label>
+        <a href="{{ route('signup.technician') }}" class="signup-btn">تسجيل حساب فني</a>
+        <a href="{{ route('signup.customer') }}" class="signup-btn">تسجيل حساب عميل</a>
+
+        </form>
+    
+ <!--       <label for="signup_name">Name: </label>
         <input type="text" name="signup_name" id="signup_name">
 
         <label for="signup_role">Choose Role: </label>
@@ -42,8 +41,8 @@
             <option value="Female">female</option>
         </select>
 
-        <input type="submit" value="Create">-->
-    
+        <input type="submit" value="Create">
+-->
 </body>
 
 </html>

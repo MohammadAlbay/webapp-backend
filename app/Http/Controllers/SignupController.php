@@ -17,7 +17,7 @@ class SignupController extends Controller
     public function index() {
         return view('signup', ['roles' => Role::all()]);
     }
-  /*  public function redirect(Request $request) {
+/*  public function redirect(Request $request) {
         $accountType = $request->input("signup_type");
         if($accountType == "customer") {
             return redirect()->route('signup.customer');
@@ -35,8 +35,9 @@ class SignupController extends Controller
 
     // عرض صفحة تسجيل الفني
     public function showTechnicianForm() {
-        return view('technician.addtechnician');
+        return view('technicain.addtechnicain');
     }*/
+
     public function create(Request $request) {
         $accountType = $request->input("signup_type");
         if($accountType == "customer") {

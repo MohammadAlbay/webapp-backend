@@ -27,6 +27,7 @@ class LoginController extends Controller
         foreach(LoginController::$consumerGuards as $g) {
             if(Auth::guard($g)->attempt($credentials, true)) {
                 $request->session()->regenerate();
+                /* إنشاء معرف جلسة جديد للمستخدم، مما يعني أن أي جلسة قديمة كانت موجودة لن تكون صالحة بعد الآن.  */
                 $loggedIn = true;
                 $quard = $g;
                 break;
