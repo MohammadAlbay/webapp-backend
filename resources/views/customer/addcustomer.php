@@ -12,7 +12,7 @@
 <img class="s" src="/public/sources/img/فني لعندك.png"> </img>
  <div class="wrapper">
 <div class="from-wrapper">
-<form action="{{route('posts.store')}}" method="post">
+<form action="{{route('signup.create')}}" method="post">
 <h1>انشاء حساب </h1>
 @csrf
 <div class="center">

@@ -17,13 +17,16 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('state', ["Active", "Inactive", "Bloced", "Paused"])->default("Inactive");
-            $table->string('profile');
+            $table->string('profile')->nullable(true);
+            $table->string('cover')->nullable(true);
             $table->string('phone');
             $table->string('nationality');
             $table->string('address');
             $table->string('description');
             $table->bigInteger('specialization_id');
-            $table->enum('dender', ["Male", "Female"]);
+            $table->enum('gender', ["Male", "Female"]);
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('verification_code');
             $table->timestamps();
             $table->rememberToken();
 

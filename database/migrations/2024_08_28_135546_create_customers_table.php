@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('phone');
             $table->string('address');
             $table->enum('gender', ["Male", "Female"]);
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('verification_code');
             $table->timestamps();
             $table->rememberToken();
         });
