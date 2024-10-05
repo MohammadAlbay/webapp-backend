@@ -6,17 +6,16 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Http\\Controllers\\Auth\\EmailUtility' => $baseDir . '/app/Http/Controllers/Auth/EmailUtility.php',
+    'App\\Http\\Controllers\\Auth\\PasswordResetController' => $baseDir . '/app/Http/Controllers/Auth/PasswordResetController.php',
+    'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\Customer\\CustomerViewController' => $baseDir . '/app/Http/Controllers/Customer/CustomerViewController.php',
-<<<<<<< HEAD
-    'App\\Http\\Controllers\\Employee\\EmployeeViewController' => $baseDir . '/app/Http/Controllers/Employee/EmployeeViewController.php',
-=======
     'App\\Http\\Controllers\\Employee\\EmployeePermissionController' => $baseDir . '/app/Http/Controllers/Employee/EmployeePermissionController.php',
     'App\\Http\\Controllers\\Employee\\EmployeeRoleController' => $baseDir . '/app/Http/Controllers/Employee/EmployeeRoleController.php',
     'App\\Http\\Controllers\\Employee\\EmployeeViewController' => $baseDir . '/app/Http/Controllers/Employee/EmployeeViewController.php',
     'App\\Http\\Controllers\\Employee\\EmployeeViewResourceLoader' => $baseDir . '/app/Http/Controllers/Employee/EmployeeViewResourceLoader.php',
     'App\\Http\\Controllers\\Employee\\PrepaidCardController' => $baseDir . '/app/Http/Controllers/Employee/PrepaidCardController.php',
->>>>>>> origin/MD
     'App\\Http\\Controllers\\LoginController' => $baseDir . '/app/Http/Controllers/LoginController.php',
     'App\\Http\\Controllers\\SignupController' => $baseDir . '/app/Http/Controllers/SignupController.php',
     'App\\Http\\Controllers\\Technicain\\TechnicainViewController' => $baseDir . '/app/Http/Controllers/Technicain/TechnicainViewController.php',
@@ -25,14 +24,12 @@ return array(
     'App\\Http\\Requests\\CustomerRequest' => $baseDir . '/app/Http/Requests/CustomerRequest.php',
     'App\\Http\\Requests\\EmployeeRequest' => $baseDir . '/app/Http/Requests/EmployeeRequest.php',
     'App\\Http\\Requests\\TechnicainRequest' => $baseDir . '/app/Http/Requests/TechnicainRequest.php',
+    'App\\Mail\\ResetPasswordEmail' => $baseDir . '/app/Mail/ResetPasswordEmail.php',
+    'App\\Mail\\VerificaionEmail' => $baseDir . '/app/Mail/VerificaionEmail.php',
     'App\\Models\\Customer' => $baseDir . '/app/Models/Customer.php',
     'App\\Models\\CustomerReport' => $baseDir . '/app/Models/CustomerReport.php',
     'App\\Models\\Employee' => $baseDir . '/app/Models/Employee.php',
-<<<<<<< HEAD
-    'App\\Models\\EmployeeRole' => $baseDir . '/app/Models/EmployeeRole.php',
-=======
     'App\\Models\\Permission' => $baseDir . '/app/Models/Permission.php',
->>>>>>> origin/MD
     'App\\Models\\Post' => $baseDir . '/app/Models/Post.php',
     'App\\Models\\PostComment' => $baseDir . '/app/Models/PostComment.php',
     'App\\Models\\PostImage' => $baseDir . '/app/Models/PostImage.php',
@@ -41,10 +38,7 @@ return array(
     'App\\Models\\Rate' => $baseDir . '/app/Models/Rate.php',
     'App\\Models\\Reservation' => $baseDir . '/app/Models/Reservation.php',
     'App\\Models\\Role' => $baseDir . '/app/Models/Role.php',
-<<<<<<< HEAD
-=======
     'App\\Models\\RolePermissions' => $baseDir . '/app/Models/RolePermissions.php',
->>>>>>> origin/MD
     'App\\Models\\Specialization' => $baseDir . '/app/Models/Specialization.php',
     'App\\Models\\Technicain' => $baseDir . '/app/Models/Technicain.php',
     'App\\Models\\TechnicainReport' => $baseDir . '/app/Models/TechnicainReport.php',

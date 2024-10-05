@@ -523,17 +523,16 @@ class ComposerStaticInit37a9729829ec5178fbf1b5b10132f712
     );
 
     public static $classMap = array (
+        'App\\Http\\Controllers\\Auth\\EmailUtility' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/EmailUtility.php',
+        'App\\Http\\Controllers\\Auth\\PasswordResetController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/PasswordResetController.php',
+        'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Customer\\CustomerViewController' => __DIR__ . '/../..' . '/app/Http/Controllers/Customer/CustomerViewController.php',
-<<<<<<< HEAD
-        'App\\Http\\Controllers\\Employee\\EmployeeViewController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employee/EmployeeViewController.php',
-=======
         'App\\Http\\Controllers\\Employee\\EmployeePermissionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employee/EmployeePermissionController.php',
         'App\\Http\\Controllers\\Employee\\EmployeeRoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employee/EmployeeRoleController.php',
         'App\\Http\\Controllers\\Employee\\EmployeeViewController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employee/EmployeeViewController.php',
         'App\\Http\\Controllers\\Employee\\EmployeeViewResourceLoader' => __DIR__ . '/../..' . '/app/Http/Controllers/Employee/EmployeeViewResourceLoader.php',
         'App\\Http\\Controllers\\Employee\\PrepaidCardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employee/PrepaidCardController.php',
->>>>>>> origin/MD
         'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
         'App\\Http\\Controllers\\SignupController' => __DIR__ . '/../..' . '/app/Http/Controllers/SignupController.php',
         'App\\Http\\Controllers\\Technicain\\TechnicainViewController' => __DIR__ . '/../..' . '/app/Http/Controllers/Technicain/TechnicainViewController.php',
@@ -542,14 +541,12 @@ class ComposerStaticInit37a9729829ec5178fbf1b5b10132f712
         'App\\Http\\Requests\\CustomerRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CustomerRequest.php',
         'App\\Http\\Requests\\EmployeeRequest' => __DIR__ . '/../..' . '/app/Http/Requests/EmployeeRequest.php',
         'App\\Http\\Requests\\TechnicainRequest' => __DIR__ . '/../..' . '/app/Http/Requests/TechnicainRequest.php',
+        'App\\Mail\\ResetPasswordEmail' => __DIR__ . '/../..' . '/app/Mail/ResetPasswordEmail.php',
+        'App\\Mail\\VerificaionEmail' => __DIR__ . '/../..' . '/app/Mail/VerificaionEmail.php',
         'App\\Models\\Customer' => __DIR__ . '/../..' . '/app/Models/Customer.php',
         'App\\Models\\CustomerReport' => __DIR__ . '/../..' . '/app/Models/CustomerReport.php',
         'App\\Models\\Employee' => __DIR__ . '/../..' . '/app/Models/Employee.php',
-<<<<<<< HEAD
-        'App\\Models\\EmployeeRole' => __DIR__ . '/../..' . '/app/Models/EmployeeRole.php',
-=======
         'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',
->>>>>>> origin/MD
         'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
         'App\\Models\\PostComment' => __DIR__ . '/../..' . '/app/Models/PostComment.php',
         'App\\Models\\PostImage' => __DIR__ . '/../..' . '/app/Models/PostImage.php',
@@ -558,10 +555,7 @@ class ComposerStaticInit37a9729829ec5178fbf1b5b10132f712
         'App\\Models\\Rate' => __DIR__ . '/../..' . '/app/Models/Rate.php',
         'App\\Models\\Reservation' => __DIR__ . '/../..' . '/app/Models/Reservation.php',
         'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
-<<<<<<< HEAD
-=======
         'App\\Models\\RolePermissions' => __DIR__ . '/../..' . '/app/Models/RolePermissions.php',
->>>>>>> origin/MD
         'App\\Models\\Specialization' => __DIR__ . '/../..' . '/app/Models/Specialization.php',
         'App\\Models\\Technicain' => __DIR__ . '/../..' . '/app/Models/Technicain.php',
         'App\\Models\\TechnicainReport' => __DIR__ . '/../..' . '/app/Models/TechnicainReport.php',
