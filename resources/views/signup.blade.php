@@ -10,26 +10,16 @@
 
 <body>
     <h1>Hi!. This is signup view</h1>
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-    <form action="{{ route('signup.create')}}" method="post">
+
+    <a href="{{ route('signup.registercustomer_view')}}">
         @csrf
-
-        <label for="signup_type">Choose User type: </label>
-        <select name="signup_type" id="signup_type">
-            <option value="customer">Customer</option>
-            <option value="technicain">Technicain</option>
-            <option value="employee" selected>Employee</option>
-        </select>
-
-        <label for="signup_name">Name: </label>
+        <input type="text" style="display: none;" name="signup_type" id="signup_type" value="Technicain">
+        <button type="submit">عميل</button>
+    </form>
+    <a href="{{ route('signup.registertechnicain_view')}}">
+        <button type="submit">الفني</button>
+    </a>
+      <!--  <label for="signup_name">Name: </label>
         <input type="text" name="signup_name" id="signup_name">
 
         <label for="signup_role">Choose Role: </label>
@@ -51,8 +41,8 @@
             <option value="Female">female</option>
         </select>
 
-        <input type="submit" value="Create">
-    </form>
+        <input type="submit" value="Create">-->
+    
 </body>
 
 </html>

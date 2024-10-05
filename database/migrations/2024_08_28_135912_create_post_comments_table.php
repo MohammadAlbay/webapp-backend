@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('post_comments', function (Blueprint $table) {
             $table->bigInteger('id')->autoIncrement();
             $table->bigInteger('post_id');
-            $table->bigInteger('customer_id');
+            $table->morphs('owner'); // This will create owner_id and owner_type columns
             $table->string('comment');
             $table->timestamps();
 
-            $table->foreign('customer_id')->references('id')->on('customers');
+            //$table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('post_id')->references('id')->on('posts');
         });
     }

@@ -6,6 +6,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProgrammerViewController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\Employee\EmployeeViewController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Auth\PasswordResetController;
 
 Route::name('login.')->prefix('login')->group(function () {
     Route::get('/', [LoginController::class, "index"])->name("index");
@@ -20,5 +22,7 @@ Route::name('login.')->prefix('login')->group(function () {
 
 Route::name('signup.')->prefix('signup')->group(function () {
     Route::get('/', [SignupController::class, "index"])->name("index");
+    Route::get('/registertechnicain', [SignupController::class, "addTechnicainView"])->name("registertechnicain_view");
+    Route::get('/registercustomer', [SignupController::class, "addCustomerView"])->name("registercustomer_view");
     Route::post('/create', [SignupController::class, "create"])->name("create");
 });
