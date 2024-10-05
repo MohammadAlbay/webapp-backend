@@ -40,7 +40,13 @@ class Customer extends Authenticatable
         return $this->morphOne(Wallet::class, 'owner');
     }
 
+
     public function transactions() {
         return $this->morphMany(PrepaidCardMovement::class, 'owner');
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(PostComment::class, 'owner');
     }
 }

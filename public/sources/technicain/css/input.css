@@ -1,0 +1,101 @@
+:root {
+    --input2-y-by: 1em
+}
+
+div.ux-input2 {
+    background-color: rgb(244, 244, 244);
+    min-width: 8em;
+    width: auto;
+    height: 3em;
+    border-radius: 0.5em;
+    position: relative;
+    padding: 0.2em 0.2em 0.2em 1em;
+    box-shadow: #d4d4d4 0px 0px 4px 0.5px;
+    margin: 0.5em 0.5em 0em 0em;
+    overflow: hidden;
+    margin: 0px;
+    text-overflow: clip;
+}
+div.ux-input2:not(:has(img)) select,
+div.ux-input2:not(:has(img)) input,
+div.ux-input2:not(:has(img)) label {
+    right: calc(1.2em);
+    width: calc(100% - 1.2em - 0.55em);
+}
+div.ux-input2 * {
+    display: inline-block;
+}
+
+div.ux-input2 img { 
+    position: absolute;
+    width: 1.5em; height: 1.5em;
+    top: calc(50% - 0.75em);
+    right: 0.75em;
+}
+div.ux-input2 label { 
+    position: absolute;
+    top: 1em; font-size: 13pt;
+    max-width: 45%; right: calc(12.5px + 25px + 10px);
+    text-overflow: ellipsis;white-space: nowrap;overflow: hidden;
+    z-index: 1; opacity: 0.4;
+    transition: all 0.5s ease-in-out;
+    pointer-events: none; 
+    color: rgb(36, 40, 36);
+}
+div.ux-input2 input,
+div.ux-input2 select { 
+    position: absolute; height: 80%;
+    right: calc(1.5em + 1.2em); top: 1.5%;
+    width: calc(100% - 1.5em - 1.2em - 1em);
+    pointer-events: auto; 
+    border:none;
+    font-size: 13pt;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-bottom: 0.2em;
+    border-bottom: 1.5px solid gray;
+    outline: none;
+    background-color: rgb(244, 244, 244);
+    transition: all 0.5s ease-in-out;
+}
+
+div.ux-input2:has(input:focus) label,
+div.ux-input2:has(select:focus)  label {
+    transform: translate(-1em, -0.1em) translate(0.9em, -0.45em);
+    color:#3c3c3c;
+    font-size: 10pt;
+    /* animation: move-totop-input-with-anime 1s ease-in-out forwards; */
+}
+div.ux-input2:has(input:focus) input,
+div.ux-input2:has(select:focus) select  {
+    transform: translate(0em, var(--input2-y-by));
+    height: 1.4em;
+    border-bottom-color:#2962FF;
+}
+div.ux-input2:has(input:not(:placeholder-shown)) label ,
+div.ux-input2:has(select:not(:checked)) label  {
+    transform: translate(-1em, -0.1em) translate(0.9em, -0.45em);
+    color:#3c3c3c;
+    font-size: 10pt;
+}
+div.ux-input2:has(input:not(:placeholder-shown)) input,
+div.ux-input2:has(select:not(:checked)) select {
+    transform: translate(0em, var(--input2-y-by));
+    height: 1.4em;
+    border-bottom-color:#2962FF;  
+}
+
+div.ux-input2.btn {
+    font-size: 15pt;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 1em;
+    height: 1.5em;
+    color: white;
+    font-weight: bold;
+    transition: box-shadow 0.5s ease-out;
+    cursor: pointer;
+}
+div.ux-input2.btn:hover {box-shadow: rgba(26, 26, 26, 0.4) 0px 0px 10px 0.5px;}
+div.ux-input2.btn.success {background-color: rgb(28, 175, 30);}
+div.ux-input2.btn.dangour {background-color: rgb(216, 32, 32);}
+div.ux-input2.btn.primary {background-color: rgb(58, 123, 236);}

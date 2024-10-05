@@ -1,0 +1,26 @@
+
+.green-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid darkgray;
+    border-radius: 0.5em;
+  }
+  
+.green-table th {
+    background-color: rgba(36, 95, 204, 0.8);
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+    padding: 0.5em;
+  }
+  
+.green-table td {
+    background-color: rgb(236, 236, 236);
+    padding: 0.5em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+  }
+  
+.green-table tr:not(:last-child) td {
+    border-bottom: 1px solid #ccc;
+  }

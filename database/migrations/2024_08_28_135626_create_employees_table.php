@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('profile')->nullable(true);
             $table->string('phone');
             $table->string('address');
+            $table->date('birthdate')->nullable(true);
             $table->enum('gender', ["Male", "Female"]);
             $table->bigInteger('role_id');
             $table->timestamps();
