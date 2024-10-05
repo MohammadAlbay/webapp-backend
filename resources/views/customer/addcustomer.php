@@ -9,7 +9,16 @@
 
 </head>
 <body>
-<img class="s" src="/public/sources/img/فني لعندك.png"> </img>
+   <header>
+    <nav>
+        <div class="btn-login">
+        <a  class="sinup" href="#">تسجيل الدخول</a>
+        </div> 
+        <img class="logo" src="/public/sources/img/فني لعندك.png"> </img>
+        <i  id="btnmenu"class="fa-solid fa-bars"></i><!--عند تصغير الشاشة تظهر-->
+    </nav>
+   </header>
+
  <div class="wrapper">
 <div class="from-wrapper">
 <form action="{{route('posts.store')}}" method="post">

@@ -19,13 +19,19 @@
             @endforeach
         </ul>
     </div>-->
-   
-  <!--  <div class="titleimg"> <img src="./imge/فني لعندك.png"> </img></div>-->
-  <img class="s" src="/public/sources/img/فني لعندك.png"> </img>
+  <header>
+    <nav>
+        <div class="btn-login">
+        <a  class="sinup" href="#">تسجيل الدخول</a>
+        </div> 
+        <img class="logo" src="/public/sources/img/فني لعندك.png"> </img>
+        <i  id="btnmenu"class="fa-solid fa-bars"></i><!--عند تصغير الشاشة تظهر-->
+    </nav>
+   </header>
    <div class="wrappert">
 <div class="from-wrapper">
 <form action="{{route('posts.store')}}" method="post">
-@csrf
+
 <h1>انشاء حساب فني</h1>
 <div class="center">
 <img  class="img" src="/public/sources/img/image.png" alt="" >
@@ -33,6 +39,7 @@
 </div>
 <div class="input-group">
     <label>اسم المستخدم</label>
+    @csrf
     <br>
     <input type="text" name="name" placeholder="ادخل اسم المستخدم">
     <br>

@@ -18,6 +18,48 @@ body{
    
 }
 /*------------------------------------signup-technicain----------------------------------*/
+header{
+    background-color: #ffffff;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: -1px 0px 10px 0px rgba(43, 41, 41, 0.75);
+    z-index: 999;
+}
+header nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+    height: 60px;
+}
+header nav .logo{
+    display: block;  
+    width: 100px;
+    left: 0;
+}
+
+header nav .btn-login .sinup{
+    color: #ffffff;
+    background-color: #2EBF5A;
+   text-decoration: none;
+   font-size: 1.1em;
+   font-weight: 500;
+   padding: 10px 10px;
+   border-radius: 15px;
+   margin-bottom: 10px;
+   transition: 0.7s ease;
+}
+#btnmenu{
+    display: none;
+}
+header nav .links li .sinup:hover{
+    color: #14183E;
+    transform: scale(1.1); 
+    }
 
 .s {
     display: block;
@@ -37,7 +79,7 @@ body{
     height: 640px;
     background: #ffff;
     border-radius: 20px;
-    box-shadow: -1px 0px 20px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.15);
     margin-top: 80px;
 }
 .from-wrapper{
@@ -160,7 +202,7 @@ select{
     height: 860px;
     background: #ffff;
     border-radius: 20px;
-    box-shadow: -1px 0px 20px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.15);
    
 
 }

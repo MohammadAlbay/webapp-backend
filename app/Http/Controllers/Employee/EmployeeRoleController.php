@@ -16,14 +16,19 @@ class EmployeeRoleController extends Controller {
             'role_name' => 'required|unique:roles,name',
         ]);
         if($v->fails()) {
-            return redirect("/employee/")->withErrors(["role-exists" => "can't create exisiting role"])->withInput();
+            return Controller::whichReturn($request, redirect("/employee/")
+                        ->withErrors(["role-exists" => "لا يمكن ان يتكرر المسمى الوظيفي"])->withInput(),
+                Controller::jsonMessage("لا يمكن ان يتكرر المسمى الوظيفي", 1)
+            );
         }
 
-        Role::create([
+        $role = Role::create([
            "name" => $name
         ]);
 
-        return redirect('/employee/')->with(['done' => "Saved!"]);
+        return Controller::whichReturn($request, redirect("/employee/"),
+                Controller::jsonMessage($role, 0)
+        );
     }
 
 

@@ -14,8 +14,8 @@ $myId = $me->id;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/sources/main.css">
-    <link rel="stylesheet" href="/sources/employee/css/index.css">
     <link rel="stylesheet" href="/sources/employee/css/printcard.css">
+    
     <title>Generate cards</title>
 </head>
 
@@ -60,9 +60,9 @@ $myId = $me->id;
             </div>
         </div>
     </div>
-    <script src="/sources/main.js"></script>
+    
     <script src="/sources/employee/js/index.js"></script>
-    <script src="/sources/employee/js/printcard.js"></script>
+    
     <script>
         async function generateNewCardsProcessor(self) {
             self.disabled = true;
@@ -94,7 +94,7 @@ $myId = $me->id;
                         icon: "error",
                         title: 'لا يمكن ان تكون الكمية اكثر من 100 او اقل من 1',
                         showConfirmButton: true,
-                    });
+                });
                 self.disabled = false;
                 return;
             }
@@ -109,7 +109,7 @@ $myId = $me->id;
                 } else {
                     Swal.fire({
                         icon: "success",
-                        title: v.Message,
+                        title: "تم توليد الكروت بنجاح",
                         showConfirmButton: true,
                         showDenyButton: true,
                         denyButtonText: `طباعة الكروت`,

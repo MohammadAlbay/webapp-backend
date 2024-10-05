@@ -36,7 +36,7 @@ class EmployeeViewResourceLoader extends Controller {
                 $params['roles'] = Role::all();
             }
             else if($path == "prepaidcards-list") {
-                $params['prepaidCards'] = PrepaidCard::all();
+                $params['prepaidcardGenerations'] = PrepaidCard::getGenerationsDetails();
             }
             return view($viewPath, $params);
         } catch(Exception $e) {
