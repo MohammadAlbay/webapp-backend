@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('description');
             $table->bigInteger('specialization_id');
+            $table->date('birthdate');
             $table->enum('gender', ["Male", "Female"]);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('verification_code');

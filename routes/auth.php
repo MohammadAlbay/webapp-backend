@@ -7,6 +7,7 @@ use App\Http\Controllers\ProgrammerViewController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\Employee\EmployeeViewController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Auth\PasswordResetController;
 
 Route::name('login.')->prefix('login')->group(function () {
     Route::get('/', [LoginController::class, "index"])->name("index");
@@ -34,4 +35,12 @@ Route::name('verify.')->prefix('verify')->group(function() {
     Route::get('/resend/{id}/{user_type}', [VerificationController::class , "resendVerificationCode"]);
     Route::get('/{email}/{secret}/{uer_type}',[VerificationController::class , "verifyEmail"]);
 });
+
+
+Route::name('reset-request.')->prefix('reset-request')->group(function() {
+    Route::post('/make', [PasswordResetController::class, "makeResetRequestEmail"])->name('make');
+    Route::get('/{id}/{secret}/{uer_type}',[PasswordResetController::class , "verifyRequestAndShowView"]);
+    Route::post('/set-new', [PasswordResetController::class, "setNewPassword"]);
+});
+
 

@@ -29,4 +29,13 @@ class Technicain extends Authenticatable  implements MustVerifyEmail
     public function transactions() {
         return $this->morphMany(PrepaidCardMovement::class, 'owner');
     }
+
+    public function specializationName():String {
+        return Specialization::find($this->specialization_id)->name;
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(PostComment::class, 'owner');
+    }
 }

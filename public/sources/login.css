@@ -1,0 +1,171 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    direction: rtl; /* تحديد الاتجاه من اليمين إلى اليسار */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40%;
+    width: 50%;
+}
+
+.login-box {
+    display: flex;
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: -1px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    max-width: 900px;
+    width: 100%;
+}
+
+.half-circle {
+    position: absolute;
+    top: 0;
+    right: 0px;
+    width: 30%;
+    height: 100%;
+    background-color: #1e2c3b;
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+    z-index: 0;
+}
+
+.image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    z-index: 1;
+}
+
+.image-container img {
+    width: 100%;
+    max-width: 180px;
+}
+
+.form-container {
+    padding: 40px;
+    width: 70%;
+    text-align: right; /* محاذاة النص إلى اليمين */
+    z-index: 1;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+form p {
+    font-size: 14px;
+    color: #666;
+}
+p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: right; /* محاذاة النص في حقول الإدخال إلى اليمين */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.options label {
+    margin: 0;
+    display: flex;
+}
+.options input[type='checkbox']{
+    margin-left: 5px;
+}
+
+.options a {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.options a:hover {
+    text-decoration: underline;
+}
+
+form p {
+    text-align: center;
+    margin-top: 20px;
+}
+
+form a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+form a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 902px) {
+    .login-box {
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    .half-circle {
+        width: 100%;
+        height: 10%;
+        top: 0;
+        left: 0;
+    }
+
+    .image-container {
+        width: 100%;
+        padding: 10px;
+    }
+    .image-container img {
+        width: 100%;
+        max-width: 120px;
+    }
+
+    .form-container {
+        width: 100%;
+        padding: 20px;
+    }
+}

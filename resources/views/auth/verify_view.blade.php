@@ -20,7 +20,12 @@
     @if($errors->has('verify-limit-error'))
     <a style="color:grey; font-style:underline">resend activation link</a>
     @else
-    <a href="/verify/resend/{{ session(key: 'id') }}/{{ session(key: 'type') }}">resend activation link</a>
+        @if(session(key: 'id'))
+        <a href="/verify/resend/{{ session(key: 'id') }}/{{ session(key: 'type') }}">resend activation link</a>
+        @else
+        <a href="#" style="color:Red">خطأ في النظام</a>
+        @endif
+    
     @endif
     
 </body>

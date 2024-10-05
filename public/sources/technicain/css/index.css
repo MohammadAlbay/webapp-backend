@@ -357,12 +357,13 @@ body:has(.md-navmenu-expand-manualy) .md-container {
     grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
     align-items: start;
     gap: 7px;
+    row-gap: 0;
     /* Adjust the gap between grid items as needed */
     padding: 1px;
     /* Optional padding around the grid */
     overflow-y: auto;
     /* min-height: 50vh; */
-    grid-auto-rows: min-content;
+    grid-auto-rows: minmax(100px, auto);
 }
 
 /* Grid items */
@@ -463,12 +464,20 @@ body:has(.md-navmenu-expand-manualy) .md-container {
     .md-grid-item.half-width {
         grid-column: 1 / -1;
     }
+
+    .md-grid-container {
+        grid-auto-rows: minmax(100px, auto) minmax(max-content, 2fr) minmax(20%, 80vmax);
+    }
+    .md-grid-item.full-height {
+        grid-row: span 6;
+    }
 }
 
 @media only screen and (max-width: 500px) {
     .md-navbar .md-navbar-container .title {
         font-size: 6vw;
     }
+
 
     :root {
         --nav-menu-width: 100%;

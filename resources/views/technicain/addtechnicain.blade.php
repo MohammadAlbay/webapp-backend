@@ -109,6 +109,12 @@
                     </select>
                     <br>
                 </div>
+                <div class="input-group">
+                    <label>التخصصات</label>
+                    <br>
+                    <input type="date" name="signup_birthdate" required>
+                    <br>
+                </div>
                 <div class="checkbox">
                     <label>الجنس</label>
                     <br>

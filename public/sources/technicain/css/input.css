@@ -83,3 +83,19 @@ div.ux-input2:has(select:not(:checked)) select {
     height: 1.4em;
     border-bottom-color:#2962FF;  
 }
+
+div.ux-input2.btn {
+    font-size: 15pt;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 1em;
+    height: 1.5em;
+    color: white;
+    font-weight: bold;
+    transition: box-shadow 0.5s ease-out;
+    cursor: pointer;
+}
+div.ux-input2.btn:hover {box-shadow: rgba(26, 26, 26, 0.4) 0px 0px 10px 0.5px;}
+div.ux-input2.btn.success {background-color: rgb(28, 175, 30);}
+div.ux-input2.btn.dangour {background-color: rgb(216, 32, 32);}
+div.ux-input2.btn.primary {background-color: rgb(58, 123, 236);}

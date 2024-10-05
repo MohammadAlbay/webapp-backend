@@ -49,9 +49,7 @@ class VerificationController extends Controller
     {
         $url = request()->getSchemeAndHttpHost();
         $message = $url.'/verify/' . \base64_encode($email) . '/' . \base64_encode($code).'/'.\base64_encode($type);
-        Log::info("Reg: make it here");
         Mail::to($email)->send(new \App\Mail\VerificaionEmail($message));
-        Log::info("Reg: Mail sent");
     }
 
 

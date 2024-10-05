@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('profile')->nullable(true);
             $table->string('phone');
             $table->string('address');
+            $table->date('birthdate');
             $table->enum('gender', ["Male", "Female"]);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('verification_code');
