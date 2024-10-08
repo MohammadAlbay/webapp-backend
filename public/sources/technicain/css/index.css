@@ -1,3 +1,5 @@
+@import "dialogs.css";
+
 :root {
     --navbar-height: 5em;
     --navbar-menu-offset: 70px;

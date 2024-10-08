@@ -44,7 +44,7 @@
 </head>
 
 <body>
-    
+    @include("technicain.mdashboard.rate-dialog")
     @include("technicain.mdashboard.md-dash-nav-bar")
     @if($viewer === '')
         @include("technicain.mdashboard.md-dash-nav-barmenu")
@@ -71,7 +71,7 @@
                     <div class="rate-block">
                         <img src="https://img.icons8.com/?size=100&id=19417&format=png&color=000000">
                         <i>3.6</i>
-                        <i>تقييم</i>
+                        <i onclick="RateProcessor.show(rate_dialog);">تقييم</i>
                     </div>
                     @endif
                 </div>
@@ -244,7 +244,7 @@
         @endif
     </div>
 
-
+    
     <dialog id="add-post-dialog" class="fullscreen-dialog">
         <div class="topbar-container">
             <div class="close" onclick="showDialog()"></div>
@@ -295,6 +295,8 @@
 
         PostsView.isTechnicain = false;
         PostsView.actorId = {{$viewer->id}}
+
+        RateProcessor.setupRateDialog(rate_dialog);
     </script>
     @else
     <script>
