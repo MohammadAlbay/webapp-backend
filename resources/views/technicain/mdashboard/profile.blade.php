@@ -73,6 +73,26 @@
                         <i>3.6</i>
                         <i onclick="RateProcessor.show(rate_dialog);">تقييم</i>
                     </div>
+                    <div class="featured-buttons">
+                            
+                    </div>
+                    @else
+                    <div class="featured-buttons">
+                            <!-- <b>
+                            انت غير مشترك. للاشتراك توجه لقائمة الخيارات على اليمين. ثم اختر اشتراكاتي
+                            </b> -->
+                            <div>
+                                
+                                <button class="button-image warning">
+                                    <img src="https://img.icons8.com/?size=100&id=F6dUI1dnIQZI&format=png&color=000000" alt="">
+                                    <i>بلاغ</i>
+                                </button>
+                                <button class="button-image primary">
+                                    <img src="https://img.icons8.com/?size=100&id=7979&format=png&color=000000" alt="">
+                                    <i>حجز</i>
+                                </button>
+                            </div>
+                    </div>
                     @endif
                 </div>
             </div>

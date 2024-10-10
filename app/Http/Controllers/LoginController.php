@@ -49,7 +49,9 @@ class LoginController extends Controller
                 //Log::info("Account act. date : '".$tempUser->email_verified_at."'");
                 if ($tempUser->email_verified_at == null || $tempUser->email_verified_at == '') {
                     return redirect()->back()->withErrors(['activate-account-first' =>'قم بتفعيل حسابك اولا']);
-                } 
+                } else if($tempUser->state == "Bloced") {
+                    return redirect()->back()->withErrors(['blocked-account' =>'لقد تم تقييد الوصول الى حسابك']);
+                }
             }
 
             if (Auth::guard($g)->attempt($credentials, $rememberMe)) {

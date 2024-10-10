@@ -40,16 +40,24 @@ class RoleSeeder extends Seeder
             "name" => "Finance Manager"
         ]);
 
+        Role::create([ //8
+            "name" => "System"
+        ]);
         $this->addAdminPermissions();
         $this->addFinancePermissions();
         $this->addDataInsertorPermissions();
+        $this->addSystemPermissions();
     }
 
+    private function addSystemPermissions() {
+        // 
+    }
     private function addDataInsertorPermissions() {
         $permissions = [
             Permission::PERMISSION_ADD_EMPLOYEE_ID,
             Permission::PERMISSION_VIEW_EMPLOYEE_ID,
-            Permission::PERMISSION_EDIT_EMPLOYEE_ID
+            Permission::PERMISSION_EDIT_EMPLOYEE_ID,
+            Permission::PERMISSION_ALLOW_LOGIN_ID
         ];
 
         foreach($permissions as $p) {
@@ -68,7 +76,8 @@ class RoleSeeder extends Seeder
             Permission::PERMISSION_MODIFY_PREPAIDCARDS_ID,
             Permission::PERMISSION_PREPAIDCARDS_HISTORY_ID,
             Permission::PERMISSION_VIEW_TRANSACTIONS_ID,
-            Permission::PERMISSION_MANAGE_WALLETS_ID
+            Permission::PERMISSION_MANAGE_WALLETS_ID,
+            Permission::PERMISSION_ALLOW_LOGIN_ID
         ];
 
         foreach($permissions as $p) {
