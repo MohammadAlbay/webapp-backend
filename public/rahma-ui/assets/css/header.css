@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+@import url('fonts.css');
+header {
+    background-color: #fff; /* White background for the header */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px; /* Adjusted padding for a cleaner look */
+}
+
+.arabic-text {
+    font-size: 1.8em; /* Slightly larger font size */
+    font-family: 'Sp_Morvarid', serif; /* Ensure this font supports Arabic */
+}
+
+.green-text {
+    color: #28a745; /* Green color for emphasis */
+}
+
+.black-text {
+    color: #333; /* Dark text for contrast */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px; /* Increased gap for better spacing */
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #333; /* Dark color for links */
+    font-size: 1.1em; /* Slightly larger font size */
+    transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+.nav-links li a:hover {
+    color: #28a745; /* Change color on hover */
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px; /* Increased gap for better spacing */
+}
+
+.signup-btn,
+.login-btn {
+    background-color: #28a745; /* Green background */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.signup-btn:hover,
+.login-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}

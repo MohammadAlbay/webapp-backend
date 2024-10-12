@@ -9,4 +9,10 @@ class PostComment extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+
+    public function owner()
+    {
+        return $this->morphTo();
+    }
 }

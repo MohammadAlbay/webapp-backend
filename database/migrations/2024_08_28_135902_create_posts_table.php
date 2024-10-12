@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->bigInteger('id')->autoIncrement();
             $table->bigInteger('technicain_id');
-            $table->string("description");
+            $table->string("description", 2000); // max characters
             $table->timestamps();
         });
     }
