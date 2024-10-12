@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\PostComment;
+use App\Models\Specialization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -12,7 +13,9 @@ use Illuminate\Support\Facades\View;
 class CustomerViewController extends Controller {
     private $guard = 'customer';
     public function index() {
-        return view("customer.index", ['me' => Auth::guard($this->guard)->user()]);
+        $services = Specialization::all();
+        $me = Customer::find(Auth::guard($this->guard)->user()->id);
+        return view("customer.homepage", compact('services', 'me'));
     }
 
     /**

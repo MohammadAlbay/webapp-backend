@@ -19,8 +19,8 @@
             <!--here we are going to signup and login page -->
             @if(isset($isLoggedIn))
             @if(!$isLoggedIn)
-            <a href="signup.html" class="signup-btn">إنشاء حساب</a>
-            <a href="login.html" class="login-btn">تسجيل دخول</a>
+            <a href="/signup" class="signup-btn">إنشاء حساب</a>
+            <a href="/login" class="login-btn">تسجيل دخول</a>
             @else
             <a href="{{$userType}}" class="login-btn"> 
                 متابعة كـ 
@@ -28,8 +28,8 @@
             </a>
             @endif
             @else
-            <a href="signup.html" class="signup-btn">إنشاء حساب</a>
-            <a href="login.html" class="login-btn">تسجيل دخول</a>
+            <a href="/signup" class="signup-btn">إنشاء حساب</a>
+            <a href="/login" class="login-btn">تسجيل دخول</a>
             @endif
         </div>
     </nav>

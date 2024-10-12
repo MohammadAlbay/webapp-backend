@@ -74,13 +74,6 @@
                         <i onclick="RateProcessor.show(rate_dialog);">تقييم</i>
                     </div>
                     <div class="featured-buttons">
-                            
-                    </div>
-                    @else
-                    <div class="featured-buttons">
-                            <!-- <b>
-                            انت غير مشترك. للاشتراك توجه لقائمة الخيارات على اليمين. ثم اختر اشتراكاتي
-                            </b> -->
                             <div>
                                 
                                 <button class="button-image warning">
@@ -92,6 +85,12 @@
                                     <i>حجز</i>
                                 </button>
                             </div>
+                    </div>
+                    @else
+                    <div class="featured-buttons">
+                    <b>
+                            انت غير مشترك. للاشتراك توجه لقائمة الخيارات على اليمين. ثم اختر اشتراكاتي
+                            </b>
                     </div>
                     @endif
                 </div>

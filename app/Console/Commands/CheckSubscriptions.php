@@ -12,7 +12,7 @@ class CheckSubscriptions extends Command
      *
      * @var string
      */
-    protected $signature = 'app:check-subscriptions';
+    protected $signature = 'subscriptions:check';
 
     /**
      * The console command description.
