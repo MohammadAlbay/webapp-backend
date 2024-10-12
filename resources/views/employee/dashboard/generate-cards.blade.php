@@ -116,7 +116,7 @@ $myId = $me->id;
                         confirmButtonText: `تم`
                     }).then((result) => {
                         if(result.isConfirmed) 
-                            ViewFetch.Load('generate -cards')
+                            ViewFetch.Load('generate-cards')
                         else if(result.isDenied) 
                             printCards(v.Message);
                     });

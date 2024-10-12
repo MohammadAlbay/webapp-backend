@@ -43,7 +43,8 @@ class SignupController extends Controller
         ]);
     }
 
-    public function addCustomerView(Request $request) {
+    public function addCustomerView(Request $request)
+    {
         return view('customer.addcustomer', []);
     }
     private function createCustomer(Request $request)
@@ -90,11 +91,10 @@ class SignupController extends Controller
             "gender"       => $request->input("signup_gender"),
             "birthdate" => $request->input("signup_birthdate"),
             "verification_code" => $code,
-            "profile" => 
-                    ($request->input("signup_gender") == 'Male' ? 'Male' : 'Female').'.jpg'
+            "profile" => ($request->input("signup_gender") == 'Male' ? 'Male' : 'Female') . '.jpg'
         ]);
 
-        
+
         $this->createUserSpace($accountType, $user);
         (new \App\Http\Controllers\Auth\VerificationController())->sendActivationEmail($request, $email, $code, $accountType);
         return redirect("/verify/")->with(['id' => $user->id, "type" => $accountType]);
@@ -143,8 +143,7 @@ class SignupController extends Controller
             "password"   => Hash::make($request->input("signup_password")),
             "address"    => $request->input("signup_address"),
             "description" => $request->input("signup_desc"),
-            "profile" => 
-                    ($request->input("signup_gender") == 'Male' ? 'Male' : 'Female').'.jpg',
+            "profile" => ($request->input("signup_gender") == 'Male' ? 'Male' : 'Female') . '.jpg',
             "nationality" => $request->input("signup_nationality"),
             "phone"       => $request->input("signup_phone"),
             "gender"       => $request->input("signup_gender"),
@@ -154,7 +153,7 @@ class SignupController extends Controller
 
         $this->createUserSpace($accountType, $user);
 
-        
+
         (new \App\Http\Controllers\Auth\VerificationController())->sendActivationEmail($request, $email, $code, $accountType);
         return redirect("/verify/")->with(['id' => $user->id, "type" => $accountType]);
     }
@@ -180,8 +179,7 @@ class SignupController extends Controller
             "address"    => $request->input("add_employee_address"),
             "phone"    => $request->input("add_employee_phone"),
             "role_id" => $request->input("add_employee_role"),
-            "profile" => 
-                    ($request->input("signup_gender") == 'Male' ? 'Male' : 'Female').'.jpg',
+            "profile" => ($request->input("signup_gender") == 'Male' ? 'Male' : 'Female') . '.jpg',
         ]);
 
         $this->createUserSpace('employee', $user);
@@ -194,13 +192,13 @@ class SignupController extends Controller
     }
 
 
-    public function createUserSpace($accountType, $user) {
-        
-        $userdir = public_path()."/cloud/$accountType/".$user->id;
+    public function createUserSpace($accountType, $user)
+    {
+        //dd($accountType);
+        $userdir = public_path() . "/cloud/$accountType/" . $user->id;
         Controller::deleteFolder($userdir);
         mkdir($userdir);
-        mkdir($userdir.'/documents');
-        mkdir($userdir.'/images');
-
+        mkdir($userdir . '/documents');
+        mkdir($userdir . '/images');
     }
 }
