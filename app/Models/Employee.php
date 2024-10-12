@@ -51,4 +51,11 @@ class Employee extends Authenticatable
         }
         return false; 
     }
+
+
+
+
+    public static function getSystem() {
+        return Employee::where("email", "system@comapny.com")->first();
+    }
 }

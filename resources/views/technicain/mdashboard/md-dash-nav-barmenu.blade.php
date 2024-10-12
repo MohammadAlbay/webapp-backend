@@ -45,7 +45,11 @@
         <img src="https://img.icons8.com/?size=100&id=3OuYDC5fGbfm&format=png&color=000000" alt="">
         <i>الزبائن المتعامل معهم </i>
     </span>
-    <span class="md-menu-section">
+    <span class="md-menu-section" onclick="location.href = '/technicain/subscription'">
+        <img src="https://img.icons8.com/?size=100&id=23103&format=png&color=000000" alt="">
+        <i>اشتراكاتي </i>
+    </span>
+    <span class="md-menu-section" onclick="location.href = '/technicain/wallet'">
         <img src="https://img.icons8.com/?size=100&id=13016&format=png&color=000000" alt="">
         <i>المحفظة </i>
     </span>

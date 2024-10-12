@@ -5,15 +5,20 @@ namespace App\Http\Controllers\Technicain;
 use App\Http\Controllers\Auth\EmailUtility;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Employee;
 use App\Models\Post;
 use App\Models\PostComment;
 use App\Models\PostImage;
+use App\Models\PrepaidCard;
 use App\Models\Specialization;
 use App\Models\Technicain;
+use App\Models\WalletTransaction;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 
@@ -49,6 +54,16 @@ class TechnicainViewController extends Controller
         );
     }
 
+    public function viewSubscription(Request $request) {
+        return view('technicain.mdashboard.subscription', [
+            'me' => Technicain::find(Auth::guard($this->guard)->user()->id),
+        ]);
+    }
+    public function viewWallet(Request $request) {
+        return view('technicain.mdashboard.wallet', [
+            'me' => Technicain::find(Auth::guard($this->guard)->user()->id),
+        ]);
+    }
     public function viewProfile(Request $request, $id = null)
     {
 
@@ -189,6 +204,91 @@ class TechnicainViewController extends Controller
         ]);
     }
 
+
+    public function subscripe(Request $request) {
+
+        $desc = "تم خصم قيمة 15د.ل من محفظتك للإشتراك في خدماتنا";
+        // get user
+        $user = Technicain::find(
+            Auth::guard($this->guard)->user()->id
+        );
+        // get user wallet
+        $wallet = $user->wallet;
+
+        // get system wallet
+        $systemWallet = Employee::getSystem()->wallet;
+
+        // check if user have sufficient money (15 LYD)
+        if($wallet->balance < 15) {
+            return redirect()->back()->withErrors(['insufficient-wallet' => "رصيد المحفظة غير كافي لإجراء الاشتراك"]);
+        }
+        
+        // make the transaction
+        $outTransaction = WalletTransaction::create([
+            "due" => now()->addDays(30),
+            "type" => "Sub",
+            "description" => $desc,
+            "money" => 15,
+            "wallet_out_id" => $wallet->id,
+            "wallet_in_id" => $systemWallet->id
+        ]);
+
+        // add to system wallet
+        $systemWallet->balance += 15;
+        $systemWallet->save();
+
+        // substract from techniain wallet
+        $wallet->balance -= 15;
+        $wallet->save();
+
+        // activate technicain account
+        $user->state = "Active";
+        $user->save(); 
+
+        // send email for subscription
+        $email = new \App\Mail\TransactionsEmail([
+            'inWallet' => $systemWallet,
+            'outWallet' => $wallet,
+            'balance' => 15,
+            'type' => 'Sub',
+            'desc' =>  $desc,
+            'due' => now()->addDays(30)->toString()
+        ]);
+        
+        Mail::to($user->email)->send($email);
+
+        return redirect()->back()->with('task-complet', "تم الاتشراك بنجاح ");
+    }
+    public function topUp(Request $request) {
+        $v = Validator::make($request->all(), [
+            'prepaidcard_number' => 'required',
+        ], [
+            'prepaidcard_number.required' => 'حقل رقم البطاقة مطلوب .',
+        ]);
+
+        if ($v->fails()) {
+            return redirect()->back()->withErrors($v->errors());
+        } 
+        
+        // get user
+        $user = Auth::guard($this->guard)->user();
+        $card = PrepaidCard::where('serial',$request->input('prepaidcard_number'))
+                ->where('state', 'Active')->first();
+
+        if(!$card) {
+            return redirect()->back()->withErrors(['unknown-card' => "رقم بطاقة الشحن غير صحيح"]);
+        }
+
+        
+        $wallet = $user->wallet;
+        $wallet->balance += $card->money;
+        $wallet->save();
+        $card->state = "Used";
+        $card->markAsTransaction($user);
+        $card->save();
+
+        return redirect()->back()->with('task-complet', "تم تعبئة المحفظة بقيمة ".$card->money." د.ل ");
+    }
     public function addPost(Request $request) {
         $v = Validator::make($request->all(), [
             'text' => 'required'

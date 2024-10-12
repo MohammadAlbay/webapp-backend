@@ -105,6 +105,24 @@
 .profile-headblock .rate-block i:nth-of-type(2):hover {
     color:  rgb(81, 107, 78);
 }
+.profile-headblock .featured-buttons {
+    position: absolute;     bottom: 1em;
+    left: 1em;  width: 60%;
+    height: 3em;    overflow: hidden;
+    transition: width 0.5s ease-out;
+}
+.profile-headblock .featured-buttons > b {
+    display: block;     text-align: right;
+    height: 100%;   width: 100%;
+    color: rgb(204, 77, 77);     padding-top: 0.5em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.profile-headblock .featured-buttons > div {
+    height: 100%;   width: 100%;    text-align: right;
+    color: rgb(204, 77, 77);     padding-top: 0.5em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 
 div.ux-input2 {
     width: 90%;
@@ -165,6 +183,10 @@ div.ux-input2 {
         right: 22em;
         bottom: 6.5em;
     }
+
+    .profile-headblock .featured-buttons {width: 50%;}
+    .profile-headblock .featured-buttons > b {font-size: 10pt;}
+    .profile-headblock .featured-buttons > div {text-align: center;}
 }
 
 
@@ -179,9 +201,10 @@ div.ux-input2 {
         bottom: 6.5em;
         right: 20em;
     }
+
 }
 
-@media only screen and (max-width:600px) {
+/* @media only screen and (max-width:600px) {
     .profile-headblock .pic {
         right: 2em;
     }
@@ -189,7 +212,7 @@ div.ux-input2 {
         right: 15em;
         bottom: 7em;
     }
-}
+} */
 
 @media only screen and (max-width:600px) {
     .profile-headblock .pic {
@@ -200,4 +223,6 @@ div.ux-input2 {
         right: 1em;
         bottom: 7em;
     }
+
+    .profile-headblock .featured-buttons {width: 93%;}
 }

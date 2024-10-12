@@ -3,24 +3,15 @@
 use App\Mail\Email;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SpecializationController;
 use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function () {
-    $user = null;
 
-    $guars =  [
-        'customer',
-        'technicain',
-        'employee'
-    ];
 
-    foreach ($guars as $guard) {
-        if (!Auth::guard($guard)->guest()) {
-            $user = $guard;
-            break;
-        }
-    }
-    return view('index', ["user" => $user]);
+    // Redirecting to Rahma's UI :)
+    return redirect('/homepage');
 });
 
 
@@ -29,10 +20,13 @@ Route::get('/hash/{pass}', function ($pass) {
 });
 
 
-Route::get("/tmail", function () {
-    Mail::to("mohamed.albay@laportadiroma.com")->send(new \App\Mail\VerificaionEmail("code"));
-    return "Done!";
-});
+// rahma was here 
+// i add route just to see my page 
+Route::get('/homepage', [HomeController::class, 'index']);
+
+Route::get('/specializations', [SpecializationController::class, 'index'])->name('specializations.index');
+Route::get('/specializations/{id}/technicians', [SpecializationController::class, 'showTechnicians'])->name('specializations.technicians');
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/customer.php';
 require __DIR__ . '/technicain.php';
