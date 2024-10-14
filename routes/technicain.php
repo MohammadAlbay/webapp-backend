@@ -21,6 +21,8 @@ Route::group(['middleware' => 'auth:technicain'], function () {
         Route::post('/topup', [TechnicainViewController::class, 'topUp']);
         Route::post('/subscripe', [TechnicainViewController::class, 'subscripe']);
 
+        Route::get('/reservation/{state}/{id}', [TechnicainViewController::class, 'reservation']);
+
         Route::get('/posts', [TechnicainViewController::class, 'viewPosts']);
         Route::post('/post/addcomment', [TechnicainViewController::class, 'addComment']);
         Route::get('/post/deletecomment/{id}', [TechnicainViewController::class, 'deleteComment']);

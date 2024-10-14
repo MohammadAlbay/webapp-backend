@@ -77,10 +77,26 @@
                     <label>المدينة</label>
                     <br>
                     <select name="signup_address" id="" class="select" required>
-                        <option value="city1">طرابلس</option>
-                        <option value="city1">مصراتة</option>
-                        <option value="city1">بنغازي</option>
-                        <option value="city1">سبها</option>
+                        <option value="طرابلس">طرابلس</option>
+                        <option value="جنزور">جنزور</option>
+                        <option value="الزاوية">الزاوية</option>
+                        <option value="سوق الجمعة">سوق الجمعة</option>
+                        <option value="تاجوراء">تاجوراء</option>
+                        <option value="عين زارة">عين زارة</option>
+                        <option value="غريان"> غريان</option>
+                        <option value="غرب طرابلس">غرب طرابلس</option>
+                        <option value="شرق طرابلس">شرق طرابلس</option>
+                        <option value="جنوب طرابلس">جنوب طرابلس</option>
+                        <option value="تاجوراء">تاجوراء</option>
+                        <option value="القره بوللي">القره بوللي</option>
+                        <option value="وادي الربيع">وادي الربيع</option>
+                        <option value="مسلاته">مسلاته</option>
+                        <option value="درنه">درنه</option>
+                        <option value="ترهونة">ترهونة</option>
+                        <option value="وازن">وازن</option>
+                        <option value="مصراتة">مصراتة</option>
+                        <option value="بنغازي">بنغازي</option>
+                        <option value="سبها">سبها</option>
                     </select>
                 </div>
                 <div class="input-group">
@@ -90,12 +106,16 @@
                         <option value="city1">ليبي</option>
                         <option value="city1">مصري</option>
                         <option value="city1">تونسي</option>
+                        <option value="مغربي">مغربي</option>
+                        <option value="موريتاني">موريتاني</option>
+                        <option value="جزائري">جزائري</option>
                         <option value="city1">نيجري</option>
                         <option value="city1">سوداني</option>
                         <option value="city1">تشادي</option>
                         <option value="city1">اسيوي</option>
                         <option value="city1">اوروبي</option>
                         <option value="city1">اخرى</option>
+                        <option value="ليبي">ليبي</option>
                     </select>
                     <br>
                 </div>

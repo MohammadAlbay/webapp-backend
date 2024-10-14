@@ -1,3 +1,4 @@
+@if(count($posts) != 0)
 @foreach ($posts as $post)
 
 <div class="post">
@@ -85,4 +86,6 @@
 </div>
 
 @endforeach
-
+@else
+<h4 style="width:100%;text-align:center;color:gray">لا يوجد مناشير لعرضها</h4>
+@endif

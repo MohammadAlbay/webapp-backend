@@ -21,6 +21,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/sources/main.js"></script>
     <script src="/sources/employee/js/index.js"></script>
+    @if($viewer !== '')
+        <script src="/sources/technicain/js/reservations.js"></script>
+    @endif
 
     <style>
         .error-card {
@@ -40,6 +43,11 @@
         }
     </style>
 
+@if($viewer !== '')
+        <style>
+            .md-container {width:100%; right:0px}
+        </style>
+@endif
 
 </head>
 
@@ -49,6 +57,7 @@
     @if($viewer === '')
         @include("technicain.mdashboard.md-dash-nav-barmenu")
     @endif
+    @include('technicain.mdashboard.calendar');
     <div class="md-container" style="overflow-y: auto;padding-top:0px;">
 
         <div class="md-grid-container" style="overflow: auto;">
@@ -80,7 +89,7 @@
                                     <img src="https://img.icons8.com/?size=100&id=F6dUI1dnIQZI&format=png&color=000000" alt="">
                                     <i>بلاغ</i>
                                 </button>
-                                <button class="button-image primary">
+                                <button class="button-image primary"  onclick={{$me->state == 'Active' ? "Calendar.toggle()" : "Calendar.notAllowed()"}}>
                                     <img src="https://img.icons8.com/?size=100&id=7979&format=png&color=000000" alt="">
                                     <i>حجز</i>
                                 </button>
@@ -307,6 +316,8 @@
     @if($viewer != '')
     <script src="/sources/technicain/js/posts.js"></script>
     <script>
+        Calendar.prepare(document.querySelector('#reservation-cc'));
+
         let slideshows = document.querySelectorAll('.slideshow-container');
         slideshows.forEach(e => {
             PostsView.setupNewSlider(e, e.querySelector('.next'), e.querySelector('.prev'))

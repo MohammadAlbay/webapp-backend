@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\PostComment;
 use App\Models\PostImage;
 use App\Models\PrepaidCard;
+use App\Models\Reservation;
 use App\Models\Specialization;
 use App\Models\Technicain;
 use App\Models\WalletTransaction;
@@ -381,5 +382,29 @@ class TechnicainViewController extends Controller
         else
             return redirect()->back()->withErrors(['access-denied', 'طلب غير مسموح به']);
         return redirect()->back()->with('task-complet', 'تم حذف تعليقك بنجاح');
+    }
+
+    public function reservation(Request $request, $state, $id) {
+        $reservation = Reservation::find($id);
+        if($reservation == null || ($state != 'Accepted' && $state != 'Refused')) {
+            dd($state);
+            return ;//redirect('/technicain');
+        }
+
+        $reservation->state = $state;
+        $reservation->save();
+
+        $customer = $reservation->customer();
+        $data = [
+            'from' => 'technicain',
+            'customer' => $customer,
+            'technicain' => $reservation->technicain(),
+            'date' => $reservation->date,
+            'id' => $reservation->id,
+            'url' => $url = request()->getSchemeAndHttpHost()
+        ];
+        Mail::to($customer->email)->send(new \App\Mail\ReservationEmail($data));
+        return redirect('/technicain')->with('task-complet', "تم قبول الحجز");
+
     }
 }

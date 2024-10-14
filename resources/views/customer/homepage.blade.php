@@ -8,8 +8,11 @@ $user = $me;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>فني لعندك</title>
+    <script src="/sources/main.js"></script>
     <link rel="stylesheet" href="/sources/customer/css/search-view.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/homepage/style.css') }}">
@@ -157,8 +160,10 @@ $user = $me;
 
 
     @include('customer.search-view')
+    <script src="/sources/employee/js/index.js"></script>
+    <script src="/sources/customer/js/index.js"></script>
     <script>
-        
+        Homepage.prepare(document.querySelector('div.search-view'));
     </script>
 
 </body>
