@@ -13,6 +13,8 @@ $myId = $me->id;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/sources/main.css">
     <link rel="stylesheet" href="/sources/employee/css/index.css">
     <title>Document</title>
@@ -29,7 +31,7 @@ $myId = $me->id;
         </nav>
     </div>
 
-    <div class="col-md-6 grid-margin stretch-card">
+    <div class="col-md-6s grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">بيانات الموظفين</h4>
@@ -47,6 +49,7 @@ $myId = $me->id;
                         <td>رقم الهاتف</td>
                         <td>الحالة</td>
                         <td>تاريخ الانضمام</td>
+                        <td> - </td>
                         <td> - </td>
                         <td> - </td>
                     </tr>

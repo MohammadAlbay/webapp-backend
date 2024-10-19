@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/sources/technicain/css/button.css">
     <link rel="stylesheet" href="/sources/technicain/css/input.css">
@@ -13,6 +16,7 @@
     <link rel="stylesheet" href="/sources/technicain/css/profile.css">
     <link rel="stylesheet" href="/sources/technicain/css/mycustomers.css">
     <link rel="stylesheet" href="/sources/technicain/css/image-stack.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/sources/main.js"></script>

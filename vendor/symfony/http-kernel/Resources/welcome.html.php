@@ -132,7 +132,7 @@ SVG;
             background: var(--light-color);
             color: var(--dark-color);
             font-feature-settings: normal;
-            font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+            font-family:'Cairo', ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
             margin: 0;
             padding: 0;
         }
@@ -162,7 +162,7 @@ SVG;
         .info li { display: flex; }
         .info li + li { margin-top: 30px; }
         .info svg { height: 20px; width: 20px; margin-right: 10px; flex-shrink: 0; }
-        .info code { display: block; font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace; font-size: .9em; margin-top: 5px; }
+        .info code { display: block; font-family:'Cairo', ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace; font-size: .9em; margin-top: 5px; }
         .info .next-step { background: rgba(255, 255, 255, 0.2); border-radius: 4px; line-height: 1.5; margin: 0 0 20px; padding: 10px 15px; }
         .info .next-step strong { display: block; text-transform: uppercase; font-size: 90%; }
         .info .next-step svg { display: none; }

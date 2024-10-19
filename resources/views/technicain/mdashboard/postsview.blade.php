@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Profile</title>
 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/sources/main.css">
     <link rel="stylesheet" href="/sources/technicain/css/button.css">
     <link rel="stylesheet" href="/sources/technicain/css/input.css">
