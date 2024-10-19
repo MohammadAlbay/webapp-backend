@@ -8,7 +8,7 @@
     overflow: hidden;
     border-radius: 0.5em;
     border: 1px solid darkgray;
-    transition: all 0.5 ease-in;
+    transition: color 0.5 ease-out;
 }
 
 .button-image img {
@@ -31,13 +31,23 @@
 .button-image:hover {
     background-color: rgba(81, 81, 81, 0.7);
 }
+
+.button-image.primary {color: rgba(21, 63, 170, 0.8);transition: color 0.5 ease-out;}
 .button-image.primary:hover {
     background-color: rgba(21, 63, 170, 0.8);
     color: white;
 }
 
+.button-image.warning {color: rgba(211, 77, 36, 0.8);transition: color 0.5 ease-out;}
+.button-image.warning:hover {
+    background-color: rgba(211, 77, 36, 0.8);
+    color: white;
+}
 
-
+.button-image.error:hover {
+    background-color: rgba(178, 53, 53, 0.8);
+    color: white;
+}
 
 .button-image.full {
     width: 100%;

@@ -1,3 +1,5 @@
+@import "dialogs.css";
+
 :root {
     --navbar-height: 4em;
     --navbar-menu-offset: 70px;
@@ -93,6 +95,8 @@ body {
     max-width: var(--nav-menu-width);
     opacity: 1;
     border-left: 1px solid darkgray;
+    overflow-y: auto!important;
+
     transition: box-shadow 0.3s linear;
     /* box-shadow: rgba(121, 117, 117, 0.5) 0px 0px 50px 0.5px; */
     /* outline: 50000px rgba(38, 35, 35, 0.5) solid; */
@@ -174,7 +178,7 @@ body {
     margin-left: 2.5%;
     border-radius: 0.5em;
     box-sizing: border-box;
-    margin-top: 1em;
+    margin-top: 0.5em;
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;

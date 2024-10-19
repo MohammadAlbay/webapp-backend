@@ -329,3 +329,54 @@ class AddPost {
         this.imagesContainer.replaceChildren();
     }
 }
+
+
+
+
+var RateProcessor = {
+    show(dialog) {dialog.classList.replace("hide","show");dialog.classList.toggle("show", true);},
+    hide(dialog) {dialog.classList.replace("show", "hide");dialog.classList.toggle("hide", true);},
+    setupRateDialog(dialog) {
+        let stars = dialog.querySelectorAll('.stars-container > img[star-value]');
+        stars.forEach(star => {
+            star.addEventListener('mouseenter', e => {
+                if(star.getAttribute("checked")) return;
+                loopThroughPreStars(star, (preStar) => {
+                    preStar.setAttribute("src", "/rahma-ui/storage/images/icons8-star-48_colored.png");
+                });
+            });
+
+            star.addEventListener('mouseleave', e => {
+                if(star.getAttribute("checked")) return;
+                loopThroughPreStars(star, (preStar) => {
+                    if(preStar.getAttribute("checked")) return;
+                    preStar.setAttribute("src", "/rahma-ui/storage/images/icons8-star-48_uncolored.png");
+                });
+            });
+
+            star.addEventListener('click', e => {
+                // unselect all
+                loopThroughPreStars(star, (preStar) => {
+                    preStar.removeAttribute("checked");
+                    preStar.setAttribute("src", "/rahma-ui/storage/images/icons8-star-48_uncolored.png");
+                    
+                }, 5);
+                
+                //select new
+                loopThroughPreStars(star, (preStar) => {
+                    preStar.setAttribute("checked", true);
+                    preStar.setAttribute("src", "/rahma-ui/storage/images/icons8-star-48_colored.png");
+                });
+            });
+        });
+
+        function loopThroughPreStars(star, callback, from_last = null) {
+            let starLevel = parseInt(star.getAttribute("star-value"));
+
+                for(let i = from_last ?? starLevel; i > 0; i--) {
+                    let preStar = document.querySelector(`.stars-container > img[star-value="${i}"]`);
+                    callback(preStar, i);
+                }
+        }
+    } 
+}

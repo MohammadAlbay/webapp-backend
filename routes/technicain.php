@@ -10,12 +10,17 @@ Route::group(['middleware' => 'auth:technicain'], function () {
 
         Route::get('/profile', [TechnicainViewController::class, 'viewProfile'])->name('profile');
         Route::get('/mycustomers', [TechnicainViewController::class, 'viewCustomers']);
+        Route::get('/wallet', [TechnicainViewController::class, 'viewWallet']);
+        Route::get('/subscription', [TechnicainViewController::class, 'viewSubscription']);
 
         Route::post('/edit', [TechnicainViewController::class, 'edit']);
         Route::post('/addpost', [TechnicainViewController::class, 'addPost']);
 
         Route::post('/set-profile', [TechnicainViewController::class, 'setProfileImage']);
         Route::post('/set-cover', [TechnicainViewController::class, 'setCoverImage']);
+
+        Route::post('/topup', [TechnicainViewController::class, 'topUp']);
+        Route::post('/subscripe', [TechnicainViewController::class, 'subscripe']);
 
         Route::get('/posts', [TechnicainViewController::class, 'viewPosts']);
         Route::post('/post/addcomment', [TechnicainViewController::class, 'addComment']);
