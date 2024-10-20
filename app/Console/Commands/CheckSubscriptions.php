@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Technicain;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class CheckSubscriptions extends Command
 {
@@ -35,6 +36,7 @@ class CheckSubscriptions extends Command
             if ($lastOutgoingTransaction->due <= now()) {
                 // Renew subscription logic
                 $technician->state = "Inactive";
+                Mail::to($technician->email)->send(new \App\Mail\SubscriptionEnded($technician));
                 $technician->save();
                 // send email to technicain telling his/her subscription is done
             }

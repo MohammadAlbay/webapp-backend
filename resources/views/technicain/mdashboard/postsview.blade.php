@@ -145,9 +145,10 @@
             })
             .then(response => response.text())
             .then(data => {
-                document.querySelector('#posts_list').insertAdjacentHTML('beforeend', data);
-
-                if (!data.trim()) {
+                if(!data.includes(`<h4 style="width:100%;text-align:center;color:gray">لا يوجد مناشير لعرضها</h4>`) && data != "")
+                    document.querySelector('#posts_list').insertAdjacentHTML('beforeend', data);
+                if (data.includes(`<h4 style="width:100%;text-align:center;color:gray">لا يوجد مناشير لعرضها</h4>`) || data === "") {
+                    ///!data.trim()
                     container.removeEventListener('scroll', handleScroll);
                     document.getElementById('loading').style.display = 'none';
                 }
@@ -191,31 +192,7 @@
     @endif
     @endif
 
-    <!-- For Regular tasks -->
-    @if(session('task-complet'))
-    @if(session('task-complet') == true)
-    <script>
-        Swal.fire({
-                toast: true,
-                icon: "success",
-                title: 'اكتملت العملية',
-                text: "{{session('task-complet')}}",
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 990,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                },
-
-                didClose: () => {
-                    location.reload();
-                }
-            });
-    </script>
-    @endif
-    @endif
+    @include('successful-task');
 
 
     <!-- For Regular Errors -->

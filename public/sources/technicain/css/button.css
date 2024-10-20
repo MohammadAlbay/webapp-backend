@@ -44,6 +44,11 @@
     color: white;
 }
 
+.button-image.disabled {
+    cursor: not-allowed; pointer-events: none;
+    color: rgba(195, 195, 195, 0.8);transition: color 0.5 ease-out; border: 1px solid darkgray;}
+
+
 .button-image.error:hover {
     background-color: rgba(178, 53, 53, 0.8);
     color: white;

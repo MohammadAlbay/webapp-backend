@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('specializations', function (Blueprint $table) {
             $table->bigInteger('id')->autoIncrement();
             $table->string('name')->unique();
+            $table->string('image')->nullable(true);
             $table->enum('state', ["Active", "Inactive"])->default("Active");
             $table->timestamps();
         });

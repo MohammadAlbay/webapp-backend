@@ -5,7 +5,7 @@
     <div class="header">
         <img class="profile-icon" src="{{($me->profile == "Male.jpg" || $me->profile == "Female.jpg") ? "/sources/img/$me->profile" : "/cloud/technicain/$me->id/images/$me->profile"}}" alt="">
         @if($viewer === '')
-        <img class="edit-icon" src="https://img.icons8.com/?size=100&id=49&format=png&color=000000" alt="">
+        <img onclick="location.href = '/technicain/editpost/{{$post->id}}'" class="edit-icon" src="https://img.icons8.com/?size=100&id=49&format=png&color=000000" alt="">
         @endif
         <b class="original-poster">{{$me->fullname}}</b>
         <i class="publish-date">{{$post->created_at}}</i>

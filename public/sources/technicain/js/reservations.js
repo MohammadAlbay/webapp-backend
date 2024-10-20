@@ -85,7 +85,7 @@ var Calendar = {
         // clear dates..
         this.calendarBody.replaceChildren();
         // setup dates
-        let date = new Date('10-29-2024');
+        let date = new Date();
         let day = date.getDate();
         let dayNameIndex = date.getDay();
         let dayName = getDayName(dayNameIndex);
@@ -129,7 +129,7 @@ var Calendar = {
                 k = 1;
                 month += 1;
             }
-            if(k < 14)
+            if(fromTheDay < 14)
                 kids.push(document.createChild('TD', {date: `${k}-${month}-${year}`, text:`${k}/${month}`, 'class': "new", 'onclick': `Calendar.setDate(this)`}));
             else
                 kids.push(document.createChild('TD', {date: `${k}-${month}-${year}`, text:`${k}/${month}`, 'class': "outbound", 'onclick': `Calendar.setDate(this)`}));
@@ -147,7 +147,7 @@ var Calendar = {
                 month += 1;
             }
             
-            if(k < 14)
+            if(fromTheDay < 14)
                 kids.push(document.createChild('TD', {date: `${k}-${month}-${year}`, text:`${k}/${month}`, 'class': "new", 'onclick': `Calendar.setDate(this)`}));
             else
                 kids.push(document.createChild('TD', {date: `${k}-${month}-${year}`, text:`${k}/${month}`, 'class': "outbound", 'onclick': `Calendar.setDate(this)`}));

@@ -79,12 +79,15 @@
                     @if($viewer !== '')    
                     <div class="rate-block">
                         <img src="https://img.icons8.com/?size=100&id=19417&format=png&color=000000">
-                        <i>3.6</i>
-                        <i onclick="RateProcessor.show(rate_dialog);">تقييم</i>
+                        <i>{{$me->rateValue()}}</i>
+                        @if($viewer->canRateTechnicain($me->id))
+                            <i onclick="RateProcessor.show(rate_dialog);">تقييم</i>
+                        @else
+                            <i style="cursor:not-allowed">تقييم</i>
+                        @endif
                     </div>
                     <div class="featured-buttons">
                             <div>
-                                
                                 <button class="button-image warning">
                                     <img src="https://img.icons8.com/?size=100&id=F6dUI1dnIQZI&format=png&color=000000" alt="">
                                     <i>بلاغ</i>
@@ -96,11 +99,34 @@
                             </div>
                     </div>
                     @else
-                    <div class="featured-buttons">
-                    <b>
-                            انت غير مشترك. للاشتراك توجه لقائمة الخيارات على اليمين. ثم اختر اشتراكاتي
+                        @if($me->state == 'Inactive')
+                        <div class="featured-buttons">
+                            <b>
+                             انت غير مشترك. للاشتراك توجه لقائمة الخيارات على اليمين. ثم اختر اشتراكاتي
                             </b>
-                    </div>
+                        
+                        </div>
+                        @else
+                        <div class="featured-buttons">
+                            <div>
+                            @if($me->state == 'Active')
+                            <button class="button-image primary" onclick="switchAccountState('pause')">
+                                <img src="https://img.icons8.com/?size=100&id=F6dUI1dnIQZI&format=png&color=000000" alt="">
+                                <i>
+                                    أخذ استراحة
+                                </i>
+                            </button>
+                            @else
+                            <button class="button-image primary" onclick="switchAccountState('continue')">
+                                <img src="https://img.icons8.com/?size=100&id=F6dUI1dnIQZI&format=png&color=000000" alt="">
+                                <i>
+                                    عودة للعمل
+                                </i>
+                            </button>
+                            @endif
+                            </div>
+                        </div>
+                        @endif
                     @endif
                 </div>
             </div>
@@ -116,73 +142,8 @@
             <div>Not yet</div>
         </div>
         <div class="md-grid-container full-width" dir="rtl" style="background: transparent; border:none;">
-            <div class="md-grid-item half-width" style="border-radius: 1em;">
-                <b class="title">جدول الاعمال الحالي</b>
-                <div>
-                    <table class="calendar">
-                        <thead>
-                            <tr>
-                                <th>Sun</th>
-                                <th>Mon</th>
-                                <th>Tue</th>
-                                <th>Wed</th>
-                                <th>Thu</th>
-                                <th>Fri</th>
-                                <th>Sat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>10</td>
-                                <td>11</td>
-                                <td>12</td>
-                                <td>13</td>
-                                <td>14</td>
-                            </tr>
-                            <tr>
-                                <td>15</td>
-                                <td>16</td>
-                                <td>17</td>
-                                <td>18</td>
-                                <td>19</td>
-                                <td>20</td>
-                                <td>21</td>
-                            </tr>
-                            <tr>
-                                <td>22</td>
-                                <td>23</td>
-                                <td>24</td>
-                                <td>25</td>
-                                <td>26</td>
-                                <td>27</td>
-                                <td>28</td>
-                            </tr>
-                            <tr>
-                                <td>29</td>
-                                <td>30</td>
-                                <td>31</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                            </tr>
-                            <!-- Add more rows as needed -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="md-grid-item half-width" style="border-radius: 1em; padding-bottom:1em">
+            
+            <div class="md-grid-item full-width" style="border-radius: 1em; padding-bottom:1em">
                 <b class="title">بياناتك الشخصية</b>
                 <div>
                     @if($errors->any())

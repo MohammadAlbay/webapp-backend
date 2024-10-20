@@ -99,3 +99,8 @@ div.ux-input2.btn:hover {box-shadow: rgba(26, 26, 26, 0.4) 0px 0px 10px 0.5px;}
 div.ux-input2.btn.success {background-color: rgb(28, 175, 30);}
 div.ux-input2.btn.dangour {background-color: rgb(216, 32, 32);}
 div.ux-input2.btn.primary {background-color: rgb(58, 123, 236);}
+div.ux-input2.btn.disabled {
+    background-color: rgb(218, 218, 218); color: rgb(147, 147, 147); 
+    cursor: not-allowed; pointer-events: none;
+    box-shadow: none;
+}

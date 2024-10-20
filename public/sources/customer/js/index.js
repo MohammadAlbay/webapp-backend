@@ -37,6 +37,18 @@ var Homepage = {
         this.container.replaceChildren();
         
         technicains.forEach(t => {
+            console.log("The rate is",t.rate);
+            let starsArray = [];
+            let i = 1;
+            for(; i <= t.rate; i++) {
+                starsArray.push(document.createChild('SPAN', {'class': "fa fa-star checked"}));
+            }
+
+            if(starsArray.length < 5) {
+                while(starsArray.length < 5) {
+                    starsArray.push(document.createChild('SPAN', {'class': "fa fa-star"}));
+                }
+            }
             let profile = t.profile == "Male.jpg" || t.profile == "Female.jpg" ? 
              `/sources/img/${t.profile}` : `/cloud/technicain/${t.id}/images/${t.profile}`;
             let container = document.createChild('DIV', {
@@ -47,13 +59,13 @@ var Homepage = {
                     document.createChild('I', {'class': "desc", text: t.description}),
                     document.createChild('DIV', {
                         'class': "rate-block",
-                        child: [
-                            document.createChild('SPAN', {'class': "fa fa-star checked"}),
-                            document.createChild('SPAN', {'class': "fa fa-star checked"}),
-                            document.createChild('SPAN', {'class': "fa fa-star checked"}),
-                            document.createChild('SPAN', {'class': "fa fa-star checked"}),
-                            document.createChild('SPAN', {'class': "fa fa-star checked"}),
-                        ]
+                         child: starsArray//[
+                        //     document.createChild('SPAN', {'class': "fa fa-star checked"}),
+                        //     document.createChild('SPAN', {'class': "fa fa-star checked"}),
+                        //     document.createChild('SPAN', {'class': "fa fa-star checked"}),
+                        //     document.createChild('SPAN', {'class': "fa fa-star checked"}),
+                        //     document.createChild('SPAN', {'class': "fa fa-star checked"}),
+                        // ]
                     }),
                 ],
                 event: {

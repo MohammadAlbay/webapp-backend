@@ -17,6 +17,21 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/sources/main.js"></script>
     <script src="/sources/employee/js/index.js"></script>
+
+    <style>
+        .no-data-section {
+            margin: 0 auto;
+            width: 80%;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 2em;
+            background-color: #3e84e6;
+            border-radius: 1em;
+            border: 1px solid darkgray;
+            min-width: 15em;
+            max-width: 35em;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,34 +60,53 @@
 
         </div>
         <div class="md-grid-item full-width" style="border-radius: 1em;">
+        <h1 dir="rtl" class="title" style="text-indent:80px;width:100%;font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">قائمة الزبائن</h1>
+        
+        <div>
+        @if($customers->count() > 0)
             <table class="green-table" dir="rtl">
                 <tr>
                     <th>#</th>
                     <th></th>
                     <th>Customer</th>
                     <th>Email</th>
+                    <th>Phone</th>
                     <th>Date</th>
-                    <th>State</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>
-                        <div class="profile-stack-container xxl">
-                            <img src="https://images.unsplash.com/photo-1727447903891-f4a3bad38598?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-                        </div>
-                    </td>
-                    <td>Mohammad albay</td>
-                    <td>12/10/2024 2:50 PM</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td class="profile-stack-container">
-                        <img src="" alt="">
-                    </td>
-                    <td>Ali Khalid</td>
-                    <td>30/11/2024 6:50 PM</td>
-                </tr>
+                @php
+                $counter = 1;
+                @endphp
+                @foreach($customers as $s)
+                    @php
+                    $c = $s->customer();
+                    @endphp
+                    <tr>
+                        <td>{{$counter++}}</td>
+                        <td>
+                            <div class="profile-stack-container xxl">
+                                <img src="{{($c->profile == "Male.jpg" || $c->profile == "Female.jpg") ? "/sources/img/$c->profile" : "/cloud/customer/$c->id/images/$c->profile"}}" alt="">
+                            </div>
+                        </td>
+                        <td>{{$c->fullname}}</td>
+                        <td>{{$c->email}}</td>
+                        <td>{{$c->phone}}</td>
+                        <td>{{$s->created_at}}</td>
+
+                    </tr>
+
+                @php
+                $counter++;
+                @endphp
+                @endforeach
             </table>
+        @else
+                <div class="no-data-section">
+                        <h3>لا توجد أي سجلات لعرضها</h3>
+                    </div>
+        @endif
+        </div>
+                
+            
         </div>
     </div>
     </div>

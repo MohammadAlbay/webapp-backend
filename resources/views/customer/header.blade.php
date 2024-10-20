@@ -10,8 +10,9 @@
             <li><a href="/customer">الصفحة الرئيسية</a></li>
             <li><a href="/specializations">التخصصات</a></li>
             <li><a href="/customer/myreservations">حجوزاتي</a></li>
-            <li><a href="#">محفظتي</a></li>
-            <li><a href="#">شن متعرفيش</a></li>
+            <li><a href="/customer/mywallet">محفظتي</a></li>
+            <li><img class="user-icon" src="{{($me->profile == "Male.jpg" || $me->profile == "Female.jpg") ? "/sources/img/$me->profile" : "/cloud/customer/$me->id/images/$me->profile"}}">
+            <a href="/customer/editview">{{$me->fullname}}</a></li>
         </ul>
         <div class="auth-buttons">
             <a onclick="Homepage.show()" class="login-btn">

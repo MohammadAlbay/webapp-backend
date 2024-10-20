@@ -12,6 +12,7 @@ $user = $me;
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>فني لعندك</title>
     <script src="/sources/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="/sources/customer/css/search-view.css">
     <link rel="stylesheet" href="/sources/technicain/css/mycustomers.css">
     <link rel="stylesheet" href="/sources/technicain/css/image-stack.css">
@@ -41,6 +42,11 @@ $user = $me;
     @include('customer.header')
 
     <h1 class="title">حجوزاتي</h1>
+    <div style="margin: 0 auto; margin-top:2em; text-align:center">
+        <p>
+            يرجى الانتباه قبل القيام بالغاء لحجز. قيامك بالغاء حجز لم يتبقى عليه الى 24 ساعة سوف يتسبب في قيام النظام بإجراء خصم من محفظتك كـ إجراء تأديبي
+        </p>
+    </div>
     <div>
         <table class="green-table">
             <tr>
@@ -69,9 +75,15 @@ $user = $me;
                 <td>{{$r->date}}</td>
                 <td>{{$r->created_at}}</td>
                 <td>
-                    <a href="/login/end/customer" class="login-btn" style="background-color: red;">
+                    @if($r->state !== 'Done' && $r->state !== 'Refused')
+                    <a href="/customer/reservation/cancel/{{$r->id}}" class="login-btn" style="background-color: red;">
                          الغاء الحجز
                     </a>
+                    @else
+                    <a href="" class="login-btn" style="background-color: gray; pointer-events:none">
+                         الغاء الحجز
+                    </a>
+                    @endif
                 </td>
             </tr>
             @endforeach
@@ -89,6 +101,28 @@ $user = $me;
         Homepage.prepare(document.querySelector('div.search-view'));
     </script>
 
+
+        @if($errors->any()) 
+            @foreach ($errors->all() as $e)
+                <script>
+                    swal.fire({
+                        'icon': 'error',    'title': 'فشل في العملية',
+                        'text': '{{$e}}'
+                    });
+                </script>
+            @endforeach
+        @endif
+
+
+
+    @include('successful-task');
+
+    @include('customer.search-view')
+    <script src="/sources/employee/js/index.js"></script>
+    <script src="/sources/customer/js/index.js"></script>
+    <script>
+        Homepage.prepare(document.querySelector('div.search-view'));
+    </script>
 </body>
 
 </html>
