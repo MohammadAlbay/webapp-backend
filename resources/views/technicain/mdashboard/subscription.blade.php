@@ -85,12 +85,12 @@
 
                     </div>
                     <div class="name">{{$me->fullname}}</div>
-
+<!-- 
                     <div class="rate-block">
                         <img src="https://img.icons8.com/?size=100&id=19417&format=png&color=000000">
                         <i>3.6</i>
                         <i>تقييم</i>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
@@ -99,11 +99,12 @@
                 <div>
                     <div class="balance-box">
                         <h2 style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"> 
-                            @if($me->state == 'Active')
+                            @if($me->state == 'Inactive')
+                            انت غير مشترك
+                           
+                            @else
                             انت مشترك وتاريخ انتهاء صلاحية الاشتراك
                             {{$me->wallet->lastOutgoingTransactions()->due}}
-                            @else
-                            انت غير مشترك
                             @endif
                         </h2>
                     </div>
@@ -116,7 +117,7 @@
                             عند الاشتراك لايمكنك الغاء الامر.
                             
                         </p>
-                        <div class="ux-input2 btn success" onclick="form_topup.submit()">
+                        <div class="{{$me->state == 'Active' ? 'ux-input2 btn disabled' : 'ux-input2 btn success'}}" onclick="form_topup.submit()">
                             اشتراك
                         </div>
                         </form>
@@ -199,32 +200,7 @@
     <script src="/sources/technicain/js/posts.js"></script>
 
 
-    <!-- For Regular tasks -->
-    @if(session('task-complet'))
-    @if(session('task-complet') == true)
-    <script>
-        Swal.fire({
-            toast: true,
-            icon: "success",
-            title: 'اكتملت العملية',
-            text: "{{session('task-complet')}}",
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 990,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-            },
-
-            didClose: () => {
-                location.reload();
-            }
-        });
-    </script>
-    @endif
-    @endif
-
+    @include('successful-task');
 
     <!-- For Regular Errors -->
     @if($errors->any())
@@ -237,7 +213,7 @@
             text: "{{$err}}",
             position: "top-end",
             showConfirmButton: false,
-            timer: 900,
+            timer: 1500,
             timerProgressBar: true,
             didOpen: (toast) => {
                 toast.onmouseenter = Swal.stopTimer;

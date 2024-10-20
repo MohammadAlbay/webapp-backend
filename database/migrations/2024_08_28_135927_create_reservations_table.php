@@ -15,8 +15,9 @@ return new class extends Migration
             $table->bigInteger('id')->autoIncrement();
             $table->bigInteger('customer_id');
             $table->bigInteger('technicain_id');
-            $table->enum('state', ['Pending', 'Accepted', 'Refused', 'Done'])->default('Pending');
+            $table->enum('state', ['Pending', 'Accepted', 'InProgress', 'Refused', 'Done'])->default('Pending');
             $table->string('description');
+            $table->date('date');
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customers');

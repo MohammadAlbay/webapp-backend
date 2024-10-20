@@ -27,6 +27,34 @@
             });
         </script>
     @endif
+
+
+
+     <!-- For Regular tasks -->
+     @if(session('task-complet'))
+    @if(session('task-complet') == true)
+    <script>
+        Swal.fire({
+            toast: true,
+            icon: "success",
+            title: 'اكتملت العملية',
+            text: "{{session('task-complet')}}",
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 1200,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            },
+
+            didClose: () => {
+                location.reload();
+            }
+        });
+    </script>
+    @endif
+    @endif
 </body>
 
 </html>

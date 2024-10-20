@@ -11,6 +11,18 @@ class PostImage extends Model
     use HasFactory;
     protected $guarded = [];
 
+
+    public static function boot()
+    {
+        parent::boot();
+        
+        // Attach event handler, on deleting of the file
+        PostImage::deleting(function($postMedia)
+        {   
+            unlink(public_path(). $postMedia->image);
+        });
+    }
+
     public function post() : BelongsTo
     {
         return $this->belongsTo(Post::class);

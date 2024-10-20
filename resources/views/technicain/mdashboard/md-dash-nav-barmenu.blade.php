@@ -31,13 +31,13 @@
         <img src="https://img.icons8.com/?size=100&id=117507&format=png&color=000000" alt="">
         <i>الاعمال</i>
         <div class="md-menu-section-list">
-            <span class="md-menu-section" onclick="alert('add');">
+            <span class="md-menu-section"  onclick="location.href = '/technicain/scheduled-work';">
                 <img src="https://img.icons8.com/?size=100&id=43117&format=png&color=000000" alt="">
                 <i>سجل الاعمال</i>
             </span>
-            <span class="md-menu-section" id="view_posts">
+            <span onclick="location.href = '/technicain/previouse-work'" class="md-menu-section" id="view_posts">
                 <img src="https://img.icons8.com/?size=100&id=3ebjmwQGezZx&format=png&color=000000" alt="">
-                <i>الاعمال الحالية و القديمة</i>
+                <i>الاعمال المكتملة</i>
             </span>
         </div>
     </span>
