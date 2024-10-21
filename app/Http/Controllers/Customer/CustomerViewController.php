@@ -86,6 +86,7 @@ class CustomerViewController extends Controller
             // search by technicain name
             $results = Technicain::where('fullname', 'like', "%$value%")
                 ->where('state', 'Active')
+                ->where('address', 'like', "%$customer->address%")
                 ->orWhere('address', 'like', "%$customer->address%")
                 ->where('state', 'Active')->get();
         } else {
@@ -125,7 +126,8 @@ class CustomerViewController extends Controller
 
         // check if user have an active reservation in this Specialization
         $reservations = Reservation::where('customer_id', $customer->id)
-            ->where('state', 'Pending')
+            ->where('state', '!=','Refused')
+            ->where('state', '!=','Done')
             ->orWhere('customer_id', $customer->id)
             ->where('state', 'Accepted')->get();
         if ($reservations->count() > 0) {

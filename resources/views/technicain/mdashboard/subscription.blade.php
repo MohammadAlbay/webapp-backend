@@ -65,7 +65,7 @@
 </head>
 
 <body>
-    @include("technicain.mdashboard.md-dash-nav-bar")
+    @include("technicain.mdashboard.md-dash-nav-bar", ['location' => " اشتراكاتي"])
     @include("technicain.mdashboard.md-dash-nav-barmenu")
     <div class="md-container" style="overflow-y: auto;padding-top:0px">
 

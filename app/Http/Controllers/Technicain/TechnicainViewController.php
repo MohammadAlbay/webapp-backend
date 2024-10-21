@@ -104,13 +104,16 @@ class TechnicainViewController extends Controller
         }
 
         $viewer = null;
-
+        $reservation = null;
         if ($id ==  null) {
             $tech = Auth::guard($this->guard)->user();
             $viewer = '';
         } else {
             $tech = Technicain::find($id);
             $viewer = Customer::find(Auth::guard('customer')->user()->id);
+            $reservation = Reservation::where('technicain_id', $tech->id)
+                            ->where('customer_id', $viewer->id)
+                            ->where('state', 'Done')->latest()->first();
         }
 
         if ($tech == null) {
@@ -123,7 +126,8 @@ class TechnicainViewController extends Controller
                 'me' => $tech,
                 'viewer' => $viewer,
                 'posts' => $posts,
-                'specialization' => Specialization::where('state', 'Active')->get()
+                'specialization' => Specialization::where('state', 'Active')->get(),
+                'reservation' => $reservation
             ]
         );
     }
@@ -448,10 +452,11 @@ class TechnicainViewController extends Controller
             'technicain' => $reservation->technicain(),
             'date' => $reservation->date,
             'id' => $reservation->id,
+            'state' => $state,
             'url' => $url = request()->getSchemeAndHttpHost()
         ];
         Mail::to($customer->email)->send(new \App\Mail\ReservationEmail($data));
-        return redirect('/technicain')->with('task-complet', "تم قبول الحجز");
+        return redirect('/technicain')->with('task-complet',$state == 'Accepted' ? "تم قبول الحجز" : "تم رفض الحجز");
     }
 
 

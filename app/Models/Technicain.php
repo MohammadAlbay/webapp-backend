@@ -63,6 +63,10 @@ class Technicain extends Authenticatable  implements MustVerifyEmail
         return true;
     }
 
+    public function pendingReservations() {
+        return Reservation::where('technicain_id', $this->id)
+                        ->where('state', 'Pending')->get();
+    }
     public function rateValue() {
         $rates = Rate::where('technicain_id', $this->id)->get('rate');
         $value = 0;
@@ -75,8 +79,6 @@ class Technicain extends Authenticatable  implements MustVerifyEmail
             $value += $r->rate;
         }
 
-        
-        
         return $value / $count;
     }
 }

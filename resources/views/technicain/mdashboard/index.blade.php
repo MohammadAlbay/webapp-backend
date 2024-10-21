@@ -7,13 +7,16 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="/sources/technicain/css/index.css">
-    <link rel="stylesheet" href="/sources/technicain/css/calendar.css">
+    <link rel="stylesheet" href="/sources/technicain/css/homepage.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-    @include("technicain.mdashboard.md-dash-nav-bar")
+    @include("technicain.mdashboard.md-dash-nav-bar", ['location' => ""])
     @include("technicain.mdashboard.md-dash-nav-barmenu")
     <div class="md-container" style="overflow-y: auto;">
         @include("technicain.mdashboard.homepage")
@@ -28,32 +31,19 @@
         </script>
     @endif
 
+    @include('successful-task');
 
 
-     <!-- For Regular tasks -->
-     @if(session('task-complet'))
-    @if(session('task-complet') == true)
+    @php
+    $newReservations = $me->pendingReservations()->count();
+    @endphp
+    @if($newReservations > 0)
     <script>
         Swal.fire({
-            toast: true,
-            icon: "success",
-            title: 'اكتملت العملية',
-            text: "{{session('task-complet')}}",
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 1200,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-            },
-
-            didClose: () => {
-                location.reload();
-            }
+            icon:'info',
+            title: "لديك حجوزات جديدة", text: "لديك عدد "+ " {{$newReservations}} " + " حجز جديد. تفقد بريدك الالكتروني"
         });
     </script>
-    @endif
     @endif
 </body>
 

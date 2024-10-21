@@ -53,7 +53,7 @@
 
 <body>
     @include("technicain.mdashboard.rate-dialog")
-    @include("technicain.mdashboard.md-dash-nav-bar")
+    @include("technicain.mdashboard.md-dash-nav-bar", ['location' => " ملفي الشخصي"])
     @if($viewer === '')
         @include("technicain.mdashboard.md-dash-nav-barmenu")
     @endif
@@ -88,14 +88,18 @@
                     </div>
                     <div class="featured-buttons">
                             <div>
-                                <button class="button-image warning">
+                                @if($reservation != null)
+                                <button onclick="reportTechnicain({{$reservation->id}})" class="button-image warning">
                                     <img src="https://img.icons8.com/?size=100&id=F6dUI1dnIQZI&format=png&color=000000" alt="">
                                     <i>بلاغ</i>
                                 </button>
+                                @endif
                                 <button class="button-image primary"  onclick={{$me->state == 'Active' ? "Calendar.toggle()" : "Calendar.notAllowed()"}}>
                                     <img src="https://img.icons8.com/?size=100&id=7979&format=png&color=000000" alt="">
                                     <i>حجز</i>
                                 </button>
+                                <b style="margin-top:0.5em;color:black; padding:0em 0.5em 0.5em 0.5em; background-color:white; border-radius:0.5em">يقيم في {{$me->address}}
+                                </b>
                             </div>
                     </div>
                     @else
@@ -138,8 +142,28 @@
         @else
 
         <div class="md-grid-container md-grid-item full-width" dir="rtl" style="border-radius: 1em;">
-            <b class="title">مركز التنبيهات</b>
-            <div>Not yet</div>
+            <div class="md-grid-item full-width" style="border:none"><b class="title">مركز التنبيهات</b></div>
+            <div class="md-grid-item full-width" style="border:none">
+                @php
+                $newReservations = $me->pendingReservations()->count();
+                @endphp
+                @if($newReservations > 0)
+                <div onclick="location.href='/technicain/scheduled-work';" class="notice-div" style="cursor:pointer">
+                لديك 
+                {{$newReservations}}
+                حجز جديد! 
+                تفقد بريدك الاكتروني للقبول او الرفض
+                </div>
+                @else
+                <div class="notice-div">لا يوجد أي حجوزات جديدة</div>
+                @endif
+                @if($me->state == 'Active')
+                <div class="notice-div">
+                انت مشترك وتاريخ انتهاء صلاحية الاشتراك
+                {{$me->wallet->lastOutgoingTransactions()->due}}
+                </div>
+                @endif
+            </div>
         </div>
         <div class="md-grid-container full-width" dir="rtl" style="background: transparent; border:none;">
             
@@ -174,7 +198,9 @@
                         <div class="ux-input2">
                             <img src="https://img.icons8.com/?size=100&id=19949&format=png&color=000000" alt="">
                             <label for="technicain_field_address">العنوان</label>
-                            <input type="text" id="technicain_field_address" name="technicain_field_address" placeholder="" form="form_technicain_edit" value='{{$me->address}}'>
+                            <select id="technicain_field_address" name="technicain_field_address" placeholder="" form="form_technicain_edit" value='{{$me->address}}'>
+                            @include('addresses-option');
+                            </select>
                         </div>
                         <div class="ux-input2">
                             <img src="https://img.icons8.com/?size=100&id=19949&format=png&color=000000" alt="">
@@ -289,10 +315,64 @@
 
         RateProcessor.setupRateDialog(rate_dialog);
     </script>
+    <script>
+        async function reportTechnicain(reservationID) {
+            const {
+                value: reportDesc
+            } = await Swal.fire({
+                title: 'تقديم بلاغ عن فني',
+                text: 'قم بالاختيار من مربع الخيارات ادناه',
+                showCancelButton: true,
+                cancelButtonText: 'الغاء',
+                cancelButtonColor: "#d33",
+                showConfirmButton: true,
+                confirmButtonText: 'اختيار',
+                confirmButtonColor: "#3085d6",
+                input: 'select',
+                inputPlaceholder: 'اختر سبب البلاغ',
+                inputOptions: {
+                    harmlvl1: 'السب والشتم وسوء المعاملة',
+                    harmlvl2: 'افساد ممتلكات شخصية او اضاعت مواد كان قد اشتراها الزبون',
+                    harmlvl3: 'التعدي الجسدي او اي شيء قد يمس بصحة الزبون',
+                },
+            });
+
+            if (!reportDesc) return;
+            const url = "/customer/report";
+            const data = {
+                reason: reportDesc,
+                reservation: reservationID
+            };
+            let result = await sendFormDataNoCallback(url, "POST", data);
+
+            if (result.State == 1) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'فشل الاجراء',
+                    text: result.Message
+                });
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'اكتمل الاجراء',
+                    text: result.Message
+                });
+            }
+
+        }
+    </script>
     @else
     <script>
-        PostsView.isTechnicain = true;
-        PostsView.actorId = {{$me->id}}
+        // PostsView.isTechnicain = true;
+        // PostsView.actorId = {{$me->id}}
+
+        setTimeout(() => {
+            [...document.querySelector('#technicain_field_address').options]
+            .forEach(o => {
+                if(o.value == "{{$me->address}}")
+                    o.selected = true;
+            });
+        }, 200);
     </script>
     @if(session('info-updated'))
     @if(session('info-updated') == true)
