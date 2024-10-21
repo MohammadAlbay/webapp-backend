@@ -5,6 +5,7 @@ $technicain = $data['technicain'];
 $date = $data['date'];
 $id = $data['id'];
 $url = $data['url'];
+$state = $data['state'] ?? "";
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -25,9 +26,14 @@ $url = $data['url'];
             <p>
                 قام
                 {{$technicain->fullname}}
-                بقبول الخدمة المطلوبة بتاريخ 
+                @if($state == 'Accepted')
+                    بقبول
+                    سوف يقوم بالتواصل معك عبر رقم هاتفك المسجل به فالنظام
+                @else
+                    برفض
+                    الخدمة المطلوبة بتاريخ 
                 {{$date}}
-                سوف يقوم بالتواصل معك عبر رقم هاتفك المسجل به فالنظام
+                @endif
             </p>
         </div>
 

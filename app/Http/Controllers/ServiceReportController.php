@@ -21,6 +21,14 @@ class ServiceReportController extends Controller
         $customerID = $reservation->customer()->id;
         $technicainID = $reservation->technicain()->id;
 
+        // check to see if there's an active report
+        $activeReport = TechnicainReport::where('technicain_id', $technicainID)
+                            ->where("customer_id", $customerID)
+                            ->where('state', 'Pending')->latest()->first(); 
+        if($activeReport) {
+            return response()->json(["State" => 1, "Message" => "لا يمكنك تقديم اكثر من بلاغ على نفس الزبون في نفس الوقت"]);
+        }
+
         TechnicainReport::create([
             "technicain_id" => $technicainID,
             "customer_id" => $customerID,
@@ -43,6 +51,15 @@ class ServiceReportController extends Controller
         $customerID = $reservation->customer()->id;
         $technicainID = $reservation->technicain()->id;
 
+        // check to see if there's an active report
+        $activeReport = CustomerReport::where('technicain_id', $technicainID)
+                            ->where("customer_id", $customerID)
+                            ->where('state', 'Pending')->latest()->first(); 
+        if($activeReport) {
+            return response()->json(["State" => 1, "Message" => "لا يمكنك تقديم اكثر من بلاغ على نفس الفني في نفس الوقت"]);
+        }
+
+        // otherwise, create new report
         CustomerReport::create([
             "technicain_id" => $technicainID,
             "customer_id" => $customerID,

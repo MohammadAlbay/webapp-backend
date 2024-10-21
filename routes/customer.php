@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Customer\CustomerViewController;
+use App\Http\Controllers\ServiceReportController;
 use App\Http\Controllers\Technicain\TechnicainViewController;
 
 Route::group(['middleware' => 'auth:customer'], function () {
@@ -28,6 +29,8 @@ Route::group(['middleware' => 'auth:customer'], function () {
         Route::get('/mywallet', [CustomerViewController::class, 'myWallet']);
 
         Route::post('/rate/{id}/{stars}', [CustomerViewController::class, 'rateTechnicain']);
+
+        Route::post('/report', [ServiceReportController::class, "reportTechnicain"]);
     });
 
     

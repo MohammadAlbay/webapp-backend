@@ -10,7 +10,7 @@
         <i>الملف الشخصي</i>
     </span>
     <span class="md-menu-section" onclick="location.href = '/technicain'">
-        <img src="/imgs/icons8-home-40.png" alt="">
+        <img src="https://img.icons8.com/?size=100&id=21081&format=png&color=000000" alt="">
         <i>الصفحة الرئيسية </i>
     </span>
     <span class="md-menu-section">
