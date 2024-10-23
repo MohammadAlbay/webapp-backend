@@ -1,0 +1,251 @@
+.posts-header {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-indent: 30px;
+}
+.posts-list {
+    width: 100%;
+    padding-left: 1em; padding-right: 1em;
+    padding-bottom: 1em;
+    
+}
+
+.posts-list .post {
+    background-color: rgb(240, 240, 240);
+    width: calc(100% - 2em); height: auto;
+    padding: 1em 0.5em 1em 0.5em;
+    display: block;
+    border-radius: 0.5em;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 4px 1px;
+    box-sizing: border-box;
+    margin-top: 1em;
+    position: relative;
+    overflow: hidden;
+}
+
+.posts-list .post .header {  /* Post Header Class */
+    position: relative;
+    width: 100%;
+    height: 4em;
+    border-bottom: 2px solid lightgray;
+}
+
+.posts-list .post .header img.profile-icon { /* Post Icon Class */
+    position: absolute;
+    right: 0em; top: 0em;
+    border-radius: 50%;
+    width: 3.2vw; height: 3.2vw;
+    min-width: 2.5em; min-height: 2.5em;
+}
+.posts-list .post .header img.edit-icon { /* Post Edit Icon Class */
+    position: absolute;
+    left: 1em; top: 40%;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    transform: translateY(-50%);
+    width: 1.6vw; height: 1.6vw;
+    min-width: 1.0em; min-height: 1.0em;
+    box-sizing: content-box;
+}
+.posts-list .post .header img.edit-icon:hover {background-color: rgba(255, 255, 255, 0.5);}
+.posts-list .post .header .original-poster { /* Post O.P Class */
+    position: absolute;
+    right: 4em; top: 20%;
+    transform: translateY(-50%);
+    width: auto;
+    max-width: calc(75% - 2em); text-overflow: ellipsis;
+    overflow: hidden; text-wrap: nowrap;
+    font-size: 11pt; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.posts-list .post .header .publish-date {
+    font-size: 9pt; color: rgb(86, 82, 82);
+    font-weight: bold;
+    position: absolute;
+    right: 5em; top: 40%;
+    font-style: normal;
+}
+
+
+
+.posts-list .post .comment-section {
+    position: absolute; top: 0px;
+    left: 0px; width: 50%; background-color: rgba(235, 235, 235,0.9); height: 100%;
+    
+    transition: all 0.5s;
+    border-right: 1px solid rgb(185, 185, 185);
+}
+.posts-list .post .comment-section.open {
+    transform: translateX(0%);
+}
+.posts-list .post .comment-section.close {
+    transform: translateX(-100%);
+}
+.posts-list .post .comment-section .head {
+    background-color: rgb(222, 222, 222); 
+    height: 5em; width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.posts-list .post .comment-section .head .close-icon {
+    background-image: url('https://img.icons8.com/?size=100&id=1806&format=png&color=000000');
+    background-position: center; background-size: 1.5em;
+    background-repeat: no-repeat;
+    padding: 0.5em;
+    border-radius: 50%; background-color: rgb(189, 189, 189, 0.7);
+    top: 50%; transform: translateY(-50%);
+    left: 1em; width: 1.5em; height: 1.5em;
+    cursor: pointer;
+    position: absolute;
+}
+
+.posts-list .post .comment-section .head .input-block {
+    top: 1em; height: calc(100% - 2em);
+    width: calc(100% - 5em);
+    left: 4em; position: absolute;
+    display: flex;
+    overflow: hidden;
+}
+.posts-list .post .comment-section .head .input-block input {
+    flex-grow: 1; outline: none; border: 2px solid rgb(212, 212, 212);
+    margin-right: 0.2em; border-radius: 0.5em;
+}
+.posts-list .post .comment-section .head .input-block input:hover {
+    border: 2px solid rgb(47, 83, 226);
+}
+.posts-list .post .comment-section .body {
+    height: calc(100% - 5em); position: relative;
+    width: 100%; overflow-y: auto!important;
+}
+
+.posts-list .post .comment-section .body .comment-container { 
+    width: 100%;
+    height: auto;
+}
+.posts-list .post .comment-section .body .comment-container .comment-head {
+    position: relative; width: calc(100% - 1em); height: 3em; 
+    overflow: hidden; margin-top: 1em; margin-right: 1em;
+}
+.posts-list .post .comment-section .body .comment-container .comment-head img.commenter-icon {
+    border-radius: 50%;
+    width: 3vw; height: 3vw;
+    min-width: 2.2em; min-height: 2.2em;
+    position: absolute; top: 0px; right: 0px;
+}
+
+.posts-list .post .comment-section .body .comment-container .comment-head img.delete-icon {
+    border-radius: 50%;
+    width: 2vw; height: 2vw;
+    min-width: 2.0em; min-height: 2.0em;
+    position: absolute; top: 0px; left: 1em;
+    cursor: pointer;
+}
+
+.posts-list .post .comment-section .body .comment-container .comment-head b.commenter-name {
+    font-size: 10pt;  right: 4em;
+    position: absolute; top: 30%; transform: translateY(-50%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.posts-list .post .comment-section .body .comment-container .comment-head i.commenter-date {
+    font-size: 8.5pt;  right: 5em; font-style: normal;
+    font-family: 'Times New Roman', Times, serif;
+    position: absolute; top: 65%; transform: translateY(-50%);
+    color: rgb(116, 116, 116);
+}
+
+.posts-list .post .comment-section .body .comment-container .comment-body {
+    width: calc(100% - 3em); height: auto;
+    margin: 0px 1em 0.5em 1em;
+    border-radius: 1em;
+    padding: 1em 0.5em;
+    background-color: rgb(248, 248, 248);
+    border: 1px solid rgb(214, 214, 214);
+}
+
+.show-comments-button {/* Show Comments Button class*/
+    width: 1005; padding: 1em 0em;
+    text-align: center;
+    display: block;
+    color: rgb(33, 71, 183);
+    font-size: 13pt;
+    margin-top: 1em;
+    border-radius: 1em;
+    cursor: pointer;
+    transition: all 0.5s linear;
+}
+
+.show-comments-button:hover {
+    background-color: rgb(213, 213, 213);
+    color: rgb(50, 50, 50);
+}
+/*  Slideshow classes */
+
+.posts-list .post .slideshow-container {
+    border-radius: 0.5em;
+    border: 1px solid darkgray;
+}
+
+.slideshow {
+    position: relative;
+    width: 100%;
+    /* max-width: 5200px; */
+    margin: auto;
+    height: auto; /* Reduced height */
+    max-height: 40em; /* Reduced max-height */
+    overflow: hidden;
+}
+
+.slides {
+    display: flex;
+    flex-direction: row; /* Ensure slides are in a row */
+    transition: transform 0.5s ease-in-out;
+    max-height: 25em; /* Reduced max-height */
+    width: 100%;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    max-height: 25em;
+    text-align: center;
+}
+
+.slide img,
+.slide video {
+    width:auto;
+    max-width: 100%;
+    height: 100%;
+}
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer
+}
+
+.prev {
+    left: 10px
+}
+
+.next {
+    right: 10px
+}
+
+@media (max-width:768px) {
+
+    .prev,
+    .next {
+        padding: 5px
+    }
+}
+
+@media only screen and (max-width:660px) {
+    .posts-list .post .comment-section {width: 100%;}
+}

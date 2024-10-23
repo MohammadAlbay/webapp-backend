@@ -14,30 +14,39 @@ class PrepaidCard extends Model
 
     public static function getGenerationsDetails()
     {
-        return DB::select('SELECT concat("Gen ", Cast(ROW_NUMBER() OVER(PARTITION BY \'a\' ) As char)) AS row_num,'.
-                            'DATE_FORMAT(created_at, "%Y-%m-%d %h:%i") As Date, count(*) AS \'Generated\', money As Category, '.
-                            'money * count(*) As Total '.
-                            ' FROM prepaid_cards '.
-                            'GROUP BY DATE_FORMAT(created_at, "%i-%h-%d-%m-%y"), money '.
-                            'ORDER BY DATE_FORMAT(created_at, "%i-%h-%d-%m-%y"), money DESC');
+        return DB::select('SELECT concat("Gen ", Cast(ROW_NUMBER() OVER(PARTITION BY \'a\' ) As char)) AS row_num,' .
+            'DATE_FORMAT(created_at, "%Y-%m-%d %h:%i") As Date, count(*) AS \'Generated\', money As Category, ' .
+            'money * count(*) As Total ' .
+            ' FROM prepaid_cards ' .
+            'GROUP BY DATE_FORMAT(created_at, "%i-%h-%d-%m-%y"), money ' .
+            'ORDER BY DATE_FORMAT(created_at, "%i-%h-%d-%m-%y"), money DESC');
     }
 
-    public static function getGenerationModelList($genDate, $money) {
+    public static function getGenerationModelList($genDate, $money)
+    {
         $results = DB::select('select * from prepaid_cards where DATE_FORMAT(created_at, "%Y-%m-%d %h:%i") like ? AND money = ?;', [$genDate, $money]);
         return PrepaidCard::hydrate($results);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+    public function markAsTransaction($user): PrepaidCardMovement
+    {
+        return PrepaidCardMovement::create([
+            "owner_type" => get_class($user),
+            "owner_id" => $user->id,
+            "prepaidcard_id" => $this->id,
+            "balance" => $this->money
+        ]);
+    }
+
+
+
+
+
+
+
     // public static function getGenerationsDetailsDecorated()
     // {
     //     return DB::select("SELECT concat(\"Gen \", Cast(ROW_NUMBER() OVER(PARTITION BY 'some column' ) As char)) AS row_num, 

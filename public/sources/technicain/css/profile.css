@@ -1,0 +1,228 @@
+.profile-headblock {
+    position: relative;
+    width: 100%; height: 25em;
+    background-color: rgb(235, 235, 235);
+    overflow-x: hidden;
+    padding: 0px;
+    display: block;
+}
+
+.profile-headblock .cover {
+    position: absolute; top: 0px; right: 0px!important; width: 100%;
+    height: 22em;
+    max-height: 20em;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover; 
+    object-fit: cover;
+}
+
+.profile-headblock .cover .edit {
+    position: absolute;
+    background-image: url('https://img.icons8.com/?size=100&id=47749&format=png&color=000000');
+    background-position: center;
+    background-size: 36px;
+    background-repeat: no-repeat;
+    width: 50px; height: 50px; padding: 2em; border-radius: 0.5em;
+    left: 1em; top: 1em;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0; box-sizing: border-box;
+    transition: opacity 0.5s; 
+    cursor: pointer;
+}
+.profile-headblock .cover:hover .edit {opacity: 1;}
+
+.profile-headblock .pic {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    width: 13em; height: 13em;
+    background-color: transparent;
+    border: 10px solid rgba(250, 250, 250, 0.3);
+    position: absolute; bottom: 1em; right: 5em;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background-origin: border-box;
+    background-clip: padding-box;
+    box-shadow: 0px 0px 30px 1px rgba(122, 122, 122, 0.5);
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+}
+.profile-headblock .pic .pic-hover-content {
+    width: 100%; height: 50%; border-radius: 0px 0px 100% 100%;
+    margin-top: 50%;
+    background-color: rgba(10, 10, 10, 0.4);
+    vertical-align: middle; text-align: center;
+    padding-top: 1em; box-sizing: border-box;
+    opacity: 0; 
+    color: white; font-size: 11pt;
+    mix-blend-mode: revert-layer;
+    cursor: pointer;
+    transition: opacity 0.4s linear;
+}
+.profile-headblock .pic:hover .pic-hover-content {
+    opacity: 1;
+}
+.profile-headblock .name {
+    position: absolute; right: 17em; bottom: 5em;
+    padding: 0.5em 1em; direction: rtl;
+    filter: brightness(150%);
+    background-color: rgba(247, 247, 247,0.5);
+    /* background-image: inherit; */
+    mix-blend-mode: revert-layer;
+    border-radius: 0.5em; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15pt; font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 30px 0.5px;
+}
+
+.profile-headblock .rate-block {
+    position: absolute; left: 1em; top: 1em;
+    width: auto; max-width: 50px; height: auto; 
+    background-color: rgba(92, 92, 92, 0.5);
+    padding: 0.4em; border-radius: 1em;
+    
+}
+.profile-headblock .rate-block img {
+    width: 46px; height: 46px;
+    margin: 0 auto; margin-top: 0.0em;
+    display: block;
+}
+.profile-headblock .rate-block i {
+    font-style:normal;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    font-size: 12pt;
+
+}
+.profile-headblock .rate-block i:nth-of-type(2){
+    font-size: 15pt;cursor: pointer;
+    color: rgb(156, 204, 152);
+    transition: color 0.4s;
+}
+.profile-headblock .rate-block i:nth-of-type(2):hover {
+    color:  rgb(81, 107, 78);
+}
+.profile-headblock .featured-buttons {
+    position: absolute;     bottom: 1em;
+    left: 1em;  width: 60%;
+    height: 3em;    overflow: hidden;
+    transition: width 0.5s ease-out;
+}
+.profile-headblock .featured-buttons > b {
+    display: block;     text-align: right;
+    height: 100%;   width: 100%;
+    color: rgb(204, 77, 77);     padding-top: 0.5em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.profile-headblock .featured-buttons > div {
+    height: 100%;   width: 100%;    text-align: right;
+    color: rgb(204, 77, 77);     padding-top: 0.5em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+div.ux-input2 {
+    width: 90%;
+    margin-right: 3%;
+    margin-top: 1.5em;
+}
+
+
+
+.post-textarea {
+    width: 97%;
+    max-width: 97%;
+    min-width: 97%;
+    display: block;
+    margin: 0 auto;
+    height: 25em;
+    min-height: 15em;
+    max-height: 30em;
+    border: 2px solid rgb(32, 163, 32);
+    border-radius: 0.5em;
+}
+
+.post-img-container {
+    display: inline;
+    position: relative;
+    width: auto; height: calc(100% - 1em);
+    max-width: 5em;
+    min-width: 5em;
+    padding:0.4em;
+    border-radius: 1em;
+}
+.post-img-container img {
+    width: auto; max-width: 30em; height: 100%;
+}
+.post-img-container .remove {
+    position: absolute;
+    top: -100%; left:1em;
+    width: 32px; height: 32px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 32px;
+    background-image: url('https://img.icons8.com/?size=100&id=OZuepOQd0omj&format=png&color=000000');
+    z-index: 2;
+    opacity: 0; 
+    background-color: white;
+    padding: 0.5em; border-radius: 50%;
+    transition: opacity 0.4s;
+    cursor: pointer;
+}
+.post-img-container:hover .remove {
+    opacity: 1;
+}
+
+
+@media only screen and (max-width:950px) {
+    .profile-headblock .name {
+        font-size: 12pt;
+        right: 22em;
+        bottom: 6.5em;
+    }
+
+    .profile-headblock .featured-buttons {width: 50%;}
+    .profile-headblock .featured-buttons > b {font-size: 10pt;}
+    .profile-headblock .featured-buttons > div {text-align: center;}
+}
+
+
+@media only screen and (max-width:700px) {
+    .profile-headblock .pic {
+        width: 10em;
+        height: 10em;
+    }
+
+    .profile-headblock .name {
+        font-size: 11pt;
+        bottom: 6.5em;
+        right: 20em;
+    }
+
+}
+
+/* @media only screen and (max-width:600px) {
+    .profile-headblock .pic {
+        right: 2em;
+    }
+    .profile-headblock .name {
+        right: 15em;
+        bottom: 7em;
+    }
+} */
+
+@media only screen and (max-width:600px) {
+    .profile-headblock .pic {
+        right: 2em; bottom: 10em;
+        width: 7em; height: 7em;
+    }
+    .profile-headblock .name {
+        right: 1em;
+        bottom: 7em;
+    }
+
+    .profile-headblock .featured-buttons {width: 93%;}
+}

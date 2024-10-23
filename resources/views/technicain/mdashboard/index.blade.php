@@ -6,22 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/calendar.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/sources/technicain/css/index.css">
+    <link rel="stylesheet" href="/sources/technicain/css/calendar.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-    @include("main.md-dash-nav-barmenu")
+    @include("technicain.mdashboard.md-dash-nav-bar")
+    @include("technicain.mdashboard.md-dash-nav-barmenu")
     <div class="md-container" style="overflow-y: auto;">
-        @include("main.homepage")
+        @include("technicain.mdashboard.homepage")
     </div>
-    <script src="/js/index.js"></script>
-    <script>
-        document.getElementById('view_posts').addEventListener('click', e => {
-            e.stopPropagation();
-            alert('ff');
-        });
-    </script>
+    <script src="/sources/technicain/js/index.js"></script>
+    @if($me->profile == 'Male.jpg' || $me->profile == 'Female.jpg')
+        <script>
+            Swal.fire({
+                icon: 'warning', title: 'تنبيه',
+                text: "يرجى تغيير الصورة الشخصية حتى تتكمن من تفعيل خدمات حسابك"
+            });
+        </script>
+    @endif
 </body>
 
 </html>

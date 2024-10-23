@@ -24,4 +24,27 @@ class Wallet extends Model
     {
         return $this->morphTo();
     }
+
+
+    public function allTransactions() {
+        return WalletTransaction::where('wallet_out_id', $this->id)
+                ->orWhere('wallet_in_id', $this->id)->get();
+    }
+
+    public function ingoingTransactions() {
+        return WalletTransaction::where('wallet_in_id', $this->id)->get();
+    }
+
+    public function outgoingTransactions() {
+        return WalletTransaction::where('wallet_out_id', $this->id)->get();
+    }
+
+    public function lastOutgoingTransactions() {
+        return WalletTransaction::where('wallet_out_id', $this->id)->latest()->first();
+    }
+
+    public function lastIngoingTransactions() {
+        return WalletTransaction::where('wallet_in_id', $this->id)->latest()->first();
+    }
+
 }

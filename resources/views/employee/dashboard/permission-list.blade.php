@@ -29,7 +29,7 @@ $myId = $me->id;
         </nav>
     </div>
 
-    <div class="col-md-6 grid-margin stretch-card">
+    <div class="col-md-6s grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">قائمة بالصلاحيات</h4>

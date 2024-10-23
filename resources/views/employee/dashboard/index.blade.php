@@ -27,7 +27,10 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="assets/images/favicon.png" />
-
+<!---font-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+ 
   <script src="/sources/main.js"></script>
   <script src="/sources/employee/js/printcard.js"></script>
 </head>

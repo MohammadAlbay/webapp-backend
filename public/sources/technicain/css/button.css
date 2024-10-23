@@ -1,0 +1,54 @@
+.button-image {
+    display: inline-block;
+    position: relative;
+    margin: 0px; padding: 0px;
+    padding: 1em 1em;
+    min-width: 7em;
+    width: auto; height: auto; min-height: 1.7em;
+    overflow: hidden;
+    border-radius: 0.5em;
+    border: 1px solid darkgray;
+    transition: color 0.5 ease-out;
+}
+
+.button-image img {
+    position: absolute;
+    top: 50%; right: 0.5em;
+    transform: translateY(-50%);
+    width: 16px; height: 16px;
+}
+
+.button-image i {
+    position: absolute;
+    top: 50%; right: 30px;
+    font-style: normal;
+    transform: translateY(-60%);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 9.5pt;
+}
+
+.button-image:hover {
+    background-color: rgba(81, 81, 81, 0.7);
+}
+
+.button-image.primary {color: rgba(21, 63, 170, 0.8);transition: color 0.5 ease-out;}
+.button-image.primary:hover {
+    background-color: rgba(21, 63, 170, 0.8);
+    color: white;
+}
+
+.button-image.warning {color: rgba(211, 77, 36, 0.8);transition: color 0.5 ease-out;}
+.button-image.warning:hover {
+    background-color: rgba(211, 77, 36, 0.8);
+    color: white;
+}
+
+.button-image.error:hover {
+    background-color: rgba(178, 53, 53, 0.8);
+    color: white;
+}
+
+.button-image.full {
+    width: 100%;
+}

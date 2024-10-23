@@ -30,7 +30,7 @@ $myId = $me->id;
         </nav>
     </div>
 
-    <div class="col-md-6 grid-margin stretch-card">
+    <div class="col-md-6s grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title"></h4>
@@ -99,7 +99,7 @@ $myId = $me->id;
                                                 style="color: white;"
                                                 {{$stateSwtch == 'Active' ? 'disabled' : ''}}
                                                 onclick="switchPrepaidcard('{{$card->id}}')">
-                                                {{$stateSwtch == 'Active'? "Activate" : "Deactivate"}}
+                                                {{$stateSwtch == 'Active'? "تفعيل" : "الغاء"}}
                                             </button>
                                         </td>
                                         <td>
@@ -160,7 +160,7 @@ $myId = $me->id;
                             showConfirmButton: true,
                         }).then((result) => ViewFetch.Load('prepaidcards-list'));
                     } else {
-                        await disabledCard(id);
+                        await disabledCard(ids);
                     }
                 }
             });
