@@ -177,6 +177,18 @@ div.ux-input2 {
 }
 
 
+
+
+.notice-div {
+    width: fit-content; padding: 0.2em 1em;
+    background-color:rgba(90, 200, 12, 0.5);
+    text-align: right;
+    padding: 0.4em 0.5em;
+    margin: 0.5em;
+    border-radius: 0.5em;
+}
+
+
 @media only screen and (max-width:950px) {
     .profile-headblock .name {
         font-size: 12pt;

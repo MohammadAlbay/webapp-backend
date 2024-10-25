@@ -1,0 +1,136 @@
+
+
+.homepage-container {
+    background-color: white;
+    border: none;
+}
+
+
+body {
+    
+    background-color: #f0f4f8;
+    color: #333;
+    
+}
+
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Cairo', sans-serif;
+    direction: rtl;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.arabic-text {
+    font-size: 32px;
+    font-family: 'Sp_Morvarid', serif;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.black-text {
+    color: #333;
+}
+
+.green-text {
+    color: #2ecc71;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column; /* Stack vertically by default */
+}
+
+.content {
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #cc0000;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 17px;
+    line-height: 1.6;
+    position: relative;
+}
+
+ul li::before {
+    content: '•';
+    color: #2ecc71;
+    font-size: 24px;
+    position: absolute;
+    right: -20px;
+}
+
+.note {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #888;
+}
+
+.image-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.image-container img {
+    width: 450px; 
+    height: auto;
+    border-radius: 10px;
+}
+
+/************************** Responsive Styles *******************/
+@media (min-width: 768px) {
+    .main-content {
+        flex-direction: row; /* Switch to row layout on larger screens */
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .content {
+        flex: 1;
+        margin-right: 20px;
+    }
+
+    .image-container {
+        flex: 1;
+        margin-left: 20px;
+        text-align: left;
+    }
+
+    .image-container img {
+        max-width: 100%; /* Make sure the image can scale down */
+        height: auto; /* Maintain aspect ratio */
+    }
+}
+
+@media (max-width: 767px) {
+    .content, .image-container {
+        width: 100%; /* Full width on smaller screens */
+        margin-left: 0; /* Remove left margin for full width */
+        margin-right: 0; /* Remove right margin for full width */
+    }
+
+    .image-container img {
+        max-width: 100%; /* Allow full width on small screens */
+        height: auto; /* Maintain aspect ratio */
+    }
+}

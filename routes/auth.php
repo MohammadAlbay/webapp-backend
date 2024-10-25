@@ -25,6 +25,11 @@ Route::name('signup.')->prefix('signup')->group(function () {
     Route::get('/registertechnicain', [SignupController::class, "addTechnicainView"])->name("registertechnicain_view");
     Route::get('/registercustomer', [SignupController::class, "addCustomerView"])->name("registercustomer_view");
     Route::post('/create', [SignupController::class, "create"])->name("create");
+    /*
+    Route::post('/redirect', [SignupController::class, "redirect"])->name("redirect");
+    Route::get('/customer', [SignupController::class, "showcustomerform"])->name("customer.add");
+    Route::get('/technician', [SignupController::class, "showtechnicianform"])->name("technician.add");
+    */
 });
 
 

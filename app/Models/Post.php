@@ -22,6 +22,6 @@ class Post extends Model
     }
 
     public function hasMedia(): bool {
-        return $this->media()->count() != 0;
+        return $this->media->count() != 0;
     }
 }

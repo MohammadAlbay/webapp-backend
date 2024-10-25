@@ -26,3 +26,10 @@ Schedule::command('outdated-prepaidcards:check')
     ->onFailure(fn() => failure("outdated-prepaidcards:check"))
     ->onSuccess(fn() => success("outdated-prepaidcards:check"))
     ->twiceDaily();
+
+
+
+Schedule::command('outdated-reservations:check')
+    ->onFailure(fn() => failure("outdated-prepaidcards:check"))
+    ->onSuccess(fn() => success("outdated-prepaidcards:check"))
+    ->daily();

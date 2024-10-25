@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $specialization->name }} - الفنيين</title>
-    <link rel="stylesheet" href="{{ asset('assets/css/header.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/footer.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/specializations/viewTecnican.css') }}">
+    <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/specializations/viewTecnican.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
 
     <!-- Navbar -->
+    @isset($me)
+    @include('customer.header')
+    @else
     @include('partials.header')
+    @endisset
 
     <!-- Search Section -->
     <section class="search-section text-center">
@@ -26,7 +30,7 @@
     <div class="container">
         <h3>الفنيين المتخصصين في {{ $specialization->name }}</h3>
         <div class="row">
-            @if($technicians->isEmpty())
+            @if($technicians == null || $technicians->isEmpty())
                 <p>لا توجد فنيين لهذا التخصص.</p>
             @else
                 @foreach($technicians as $technician)

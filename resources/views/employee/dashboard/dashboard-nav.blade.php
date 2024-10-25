@@ -198,9 +198,9 @@
                   <span class="menu-title">Take Tour</span></a>
               </div>
             </li>
-            <li class="nav-item sidebar-user-actions">
+            <li class="nav-item sidebar-user-actions" onclick="location.href = '/login/end/employee'">
               <div class="sidebar-user-menu">
-                <a href="#" class="nav-link"><i class="mdi mdi-logout menu-icon"></i>
+                <a href="/login/end/employee" class="nav-link"><i class="mdi mdi-logout menu-icon"></i>
                   <span class="menu-title">Log Out</span></a>
               </div>
             </li>

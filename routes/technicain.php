@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ServiceReportController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Technicain\TechnicainViewController;
@@ -21,8 +22,24 @@ Route::group(['middleware' => 'auth:technicain'], function () {
         Route::post('/topup', [TechnicainViewController::class, 'topUp']);
         Route::post('/subscripe', [TechnicainViewController::class, 'subscripe']);
 
+        Route::get('/reservation/{state}/{id}', [TechnicainViewController::class, 'reservation']);
+
         Route::get('/posts', [TechnicainViewController::class, 'viewPosts']);
         Route::post('/post/addcomment', [TechnicainViewController::class, 'addComment']);
         Route::get('/post/deletecomment/{id}', [TechnicainViewController::class, 'deleteComment']);
+
+        Route::get('/reservation-level/{id}/{state}', [TechnicainViewController::class, 'setReservationState']);
+        Route::get('/scheduled-work', [TechnicainViewController::class, 'viewScheduedWork']);
+        Route::get('/previouse-work', [TechnicainViewController::class, 'viewPreviouseWork']);
+
+        Route::get('/editpost/{id}', [TechnicainViewController::class, 'editPost']);
+        Route::post('/editpost/{id}', [TechnicainViewController::class, 'editPostContent']);
+
+        Route::post('/report', [ServiceReportController::class, "reportCustomer"]);
+
+        Route::post('/take-break', [TechnicainViewController::class, 'takeBreake']);
+        Route::post('/back-to-business', [TechnicainViewController::class, 'backToBusiness']);
+
+        
     });
 });

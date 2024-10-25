@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\PostComment;
 use App\Models\PostImage;
 use App\Models\PrepaidCard;
+use App\Models\Reservation;
 use App\Models\Specialization;
 use App\Models\Technicain;
 use App\Models\WalletTransaction;
@@ -27,17 +28,41 @@ class TechnicainViewController extends Controller
     private $guard = 'technicain';
     public function index(Request $request, $id = null)
     {
-        
 
-        
+
+
         return view("technicain.mdashboard.index", ['me' => Auth::guard($this->guard)->user(), 'viewer' => '']);
     }
+<<<<<<< HEAD
+   
 
-    public function viewPosts(Request $request) {
+}
+=======
+
+    public function viewPreviouseWork(Request $request)
+    {
+        $me = Technicain::find(Auth::guard($this->guard)->user()->id);
+        return view('technicain.mdashboard.previouse-work', [
+            'me' => $me,
+            'reservations' => Reservation::where('technicain_id', $me->id)->where('state', 'Done')->paginate(20)
+        ]);
+    }
+    public function viewScheduedWork(Request $request)
+    {
+        $me = Technicain::find(Auth::guard($this->guard)->user()->id);
+        return view('technicain.mdashboard.scheduled-work', [
+            'me' => $me,
+            'reservations' => Reservation::where('technicain_id', $me->id)->where('state', '!=', 'Done')->paginate(20)
+        ]);
+    }
+    public function viewPosts(Request $request)
+    {
         $me = Technicain::find(Auth::guard($this->guard)->user()->id);
         $viewer = '';
-        $posts = Post::where('technicain_id', 
-        Auth::guard($this->guard)->user()->id)->orderBy('created_at', 'desc')->paginate(5);
+        $posts = Post::where(
+            'technicain_id',
+            Auth::guard($this->guard)->user()->id
+        )->orderBy('created_at', 'desc')->paginate(5);
 
         if ($request->ajax() || $request->wantsJson()) {
             return view('technicain.mdashboard.post', compact('posts', 'me', 'viewer'))->render();
@@ -54,12 +79,14 @@ class TechnicainViewController extends Controller
         );
     }
 
-    public function viewSubscription(Request $request) {
+    public function viewSubscription(Request $request)
+    {
         return view('technicain.mdashboard.subscription', [
             'me' => Technicain::find(Auth::guard($this->guard)->user()->id),
         ]);
     }
-    public function viewWallet(Request $request) {
+    public function viewWallet(Request $request)
+    {
         return view('technicain.mdashboard.wallet', [
             'me' => Technicain::find(Auth::guard($this->guard)->user()->id),
         ]);
@@ -67,25 +94,29 @@ class TechnicainViewController extends Controller
     public function viewProfile(Request $request, $id = null)
     {
 
-        $posts = Post::where('technicain_id', 
-        $id ?? Auth::guard($this->guard)->user()->id)->orderBy('created_at', 'desc')->paginate(5);
+        $posts = Post::where(
+            'technicain_id',
+            $id ?? Auth::guard($this->guard)->user()->id
+        )->orderBy('created_at', 'desc')->paginate(5);
 
         if ($request->ajax() || $request->wantsJson()) {
             return view('technicain.mdashboard.post', compact('posts'))->render();
         }
 
         $viewer = null;
-
-        if($id ==  null) {
+        $reservation = null;
+        if ($id ==  null) {
             $tech = Auth::guard($this->guard)->user();
             $viewer = '';
-        }
-        else {
+        } else {
             $tech = Technicain::find($id);
             $viewer = Customer::find(Auth::guard('customer')->user()->id);
+            $reservation = Reservation::where('technicain_id', $tech->id)
+                            ->where('customer_id', $viewer->id)
+                            ->where('state', 'Done')->latest()->first();
         }
 
-        if($tech == null) {
+        if ($tech == null) {
             return redirect()->back();
         }
 
@@ -95,7 +126,8 @@ class TechnicainViewController extends Controller
                 'me' => $tech,
                 'viewer' => $viewer,
                 'posts' => $posts,
-                'specialization' => Specialization::where('state', 'Active')->get()
+                'specialization' => Specialization::where('state', 'Active')->get(),
+                'reservation' => $reservation
             ]
         );
     }
@@ -174,14 +206,14 @@ class TechnicainViewController extends Controller
             'technicain_field_gender.required' => 'حقل الجنس مطلوب.',
             'technicain_field_nationality.required' => 'حقل الجنسية مطلوب.',
             'technicain_field_phone.required' => 'حقل الهاتف مطلوب.',
-            'technicain_field_address.required' => 'حقل الهاتف مطلوب.',
+            'technicain_field_address.required' => 'حقل العنوان مطلوب.',
             'technicain_field_phone.regex' => 'رقم الهاتف غير صحيح',
             'technicain_field_birthdate.required' => 'تاريخ الميلاد مطلوب',
             'technicain_field_birthdate.before' => 'تاريخ الميلاد لا يجب ان يكون بعد 2005',
         ]);
         if (!$v->fails()) {
             $user = Technicain::find(Auth::guard($this->guard)->user()->id);
-            if($user != null) {
+            if ($user != null) {
                 $user->fullname = $request->input('technicain_field_name');
                 $user->phone = $request->input('technicain_field_phone');
                 $user->address = $request->input('technicain_field_address');
@@ -191,21 +223,25 @@ class TechnicainViewController extends Controller
                 $user->birthdate = $request->input('technicain_field_birthdate');
                 $user->save();
                 return redirect('/technicain/profile')->with('info-updated', true);
-            } 
-        } 
+            }
+        }
 
 
         return redirect()->back()->withErrors($v->errors())->withInput();
     }
 
-    public function viewCustomers() {
+    public function viewCustomers()
+    {
+        $me = Technicain::find(Auth::guard($this->guard)->user()->id);
         return view('technicain.mdashboard.mycustomers', [
             'me' => Auth::guard($this->guard)->user(),
+            'customers' => Reservation::where('technicain_id', $me->id)->where('state', 'Done')->paginate(20)
         ]);
     }
 
 
-    public function subscripe(Request $request) {
+    public function subscripe(Request $request)
+    {
 
         $desc = "تم خصم قيمة 15د.ل من محفظتك للإشتراك في خدماتنا";
         // get user
@@ -219,10 +255,10 @@ class TechnicainViewController extends Controller
         $systemWallet = Employee::getSystem()->wallet;
 
         // check if user have sufficient money (15 LYD)
-        if($wallet->balance < 15) {
+        if ($wallet->balance < 15) {
             return redirect()->back()->withErrors(['insufficient-wallet' => "رصيد المحفظة غير كافي لإجراء الاشتراك"]);
         }
-        
+
         // make the transaction
         $outTransaction = WalletTransaction::create([
             "due" => now()->addDays(30),
@@ -243,7 +279,7 @@ class TechnicainViewController extends Controller
 
         // activate technicain account
         $user->state = "Active";
-        $user->save(); 
+        $user->save();
 
         // send email for subscription
         $email = new \App\Mail\TransactionsEmail([
@@ -254,12 +290,13 @@ class TechnicainViewController extends Controller
             'desc' =>  $desc,
             'due' => now()->addDays(30)->toString()
         ]);
-        
+
         Mail::to($user->email)->send($email);
 
         return redirect()->back()->with('task-complet', "تم الاتشراك بنجاح ");
     }
-    public function topUp(Request $request) {
+    public function topUp(Request $request)
+    {
         $v = Validator::make($request->all(), [
             'prepaidcard_number' => 'required',
         ], [
@@ -268,18 +305,18 @@ class TechnicainViewController extends Controller
 
         if ($v->fails()) {
             return redirect()->back()->withErrors($v->errors());
-        } 
-        
+        }
+
         // get user
         $user = Auth::guard($this->guard)->user();
-        $card = PrepaidCard::where('serial',$request->input('prepaidcard_number'))
-                ->where('state', 'Active')->first();
+        $card = PrepaidCard::where('serial', $request->input('prepaidcard_number'))
+            ->where('state', 'Active')->first();
 
-        if(!$card) {
+        if (!$card) {
             return redirect()->back()->withErrors(['unknown-card' => "رقم بطاقة الشحن غير صحيح"]);
         }
 
-        
+
         $wallet = $user->wallet;
         $wallet->balance += $card->money;
         $wallet->save();
@@ -287,17 +324,30 @@ class TechnicainViewController extends Controller
         $card->markAsTransaction($user);
         $card->save();
 
-        return redirect()->back()->with('task-complet', "تم تعبئة المحفظة بقيمة ".$card->money." د.ل ");
+        return redirect()->back()->with('task-complet', "تم تعبئة المحفظة بقيمة " . $card->money . " د.ل ");
     }
-    public function addPost(Request $request) {
+
+    public function editPost(Request $request, $id)
+    {
+        $post = Post::find($id);
+
+        if (!$post) {
+            return redirect()->back()->withErrors(['unknown-post' => "المنشور غير موجود"]);
+        }
+
+        $me = Technicain::find(Auth::guard($this->guard)->user()->id);
+        return view('technicain.mdashboard.editpost', compact('me', 'post'));
+    }
+    public function addPost(Request $request)
+    {
         $v = Validator::make($request->all(), [
             'text' => 'required'
         ]);
 
-        if($v->failed()) {
+        if ($v->failed()) {
             return Controller::jsonMessage('محتوى المنشور مطلوب', 1);
         }
-        
+
         $technicain_id = Auth::guard($this->guard)->user()->id;
 
         $text = $request->input('text'); // post text
@@ -310,19 +360,19 @@ class TechnicainViewController extends Controller
         // now, we need to store the image(s) and video(s) to the technicain folder
         // located at /public/cloud/technicain/{$Technicain_ID}/documents
         // let's make a new folder for our newely created post in documents folder
-        $userdir = public_path()."/cloud/technicain/$technicain_id/documents";
-        mkdir($userdir."/$post->id");
+        $userdir = public_path() . "/cloud/technicain/$technicain_id/documents";
+        mkdir($userdir . "/$post->id");
         // store each media file into that folder.. 
         // as well as storing the post images into database
-        foreach($files as $file) {
-            if($request->hasFile($file)) {
+        foreach ($files as $file) {
+            if ($request->hasFile($file)) {
                 $img = $request->file($file);
 
                 $fileName = preg_replace('/[^A-Za-z0-9\-_\.]/', '_', $img->getClientOriginalName());
                 //$sanitizedFilename = preg_replace('/[^A-Za-z0-9\-_\.]/', '_', $originalName);
                 $fullFilePath = "/cloud/technicain/$technicain_id/documents/$post->id/$fileName";
-                $img->move($userdir."/$post->id", $fileName);
-                
+                $img->move($userdir . "/$post->id", $fileName);
+
                 // create image post record
                 PostImage::create([
                     'post_id' => $post->id,
@@ -330,7 +380,7 @@ class TechnicainViewController extends Controller
                 ]);
             }
         }
-        
+
 
         return Controller::jsonMessage('تم النشر بنجاح', 0);
     }
@@ -342,8 +392,9 @@ class TechnicainViewController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return void
      */
-    public function addComment(Request $request) {
-        
+    public function addComment(Request $request)
+    {
+
         $v = Validator::make($request->all(), [
             'post-id' => 'required',
             'comment' => 'required',
@@ -373,13 +424,127 @@ class TechnicainViewController extends Controller
      * @param mixed $id
      * @return mixed|\Illuminate\Http\JsonResponse
      */
-    public function deleteComment(Request $request, $id) {
+    public function deleteComment(Request $request, $id)
+    {
         $comment = PostComment::find($id);
-        
-        if($comment->owner->id == Auth::guard($this->guard)->user()->id)
+
+        if ($comment->owner->id == Auth::guard($this->guard)->user()->id)
             $comment->delete();
         else
             return redirect()->back()->withErrors(['access-denied', 'طلب غير مسموح به']);
         return redirect()->back()->with('task-complet', 'تم حذف تعليقك بنجاح');
     }
+
+    public function reservation(Request $request, $state, $id)
+    {
+        $reservation = Reservation::find($id);
+        if ($reservation == null || ($state != 'Accepted' && $state != 'Refused')) {
+            return redirect('/technicain');
+        }
+
+        $reservation->state = $state;
+        $reservation->save();
+
+        $customer = $reservation->customer();
+        $data = [
+            'from' => 'technicain',
+            'customer' => $customer,
+            'technicain' => $reservation->technicain(),
+            'date' => $reservation->date,
+            'id' => $reservation->id,
+            'state' => $state,
+            'url' => $url = request()->getSchemeAndHttpHost()
+        ];
+        Mail::to($customer->email)->send(new \App\Mail\ReservationEmail($data));
+        return redirect('/technicain')->with('task-complet',$state == 'Accepted' ? "تم قبول الحجز" : "تم رفض الحجز");
+    }
+
+
+    public function editPostContent(Request $request, $id)
+    {
+        $v = Validator::make($request->all(), [
+            'text' => 'required'
+        ]);
+
+        if ($v->failed()) {
+            return Controller::jsonMessage('محتوى المنشور مطلوب', 1);
+        }
+
+        $technicain_id = Auth::guard($this->guard)->user()->id;
+
+        $text = $request->input('text'); // post text
+        $files = explode(",", $request->input('files-list')); // comma separated string of files sent
+        // get the post
+        $post = Post::find($id);
+        if (!$post) {
+            return Controller::jsonMessage('المنشور غير موجود', 1);
+        }
+        // modify post description text. save done
+        $post->description = $text;
+        $post->save();
+        // post folder
+        $userdir = public_path() . "/cloud/technicain/$technicain_id/documents";
+        // remove old media files
+        foreach ($post->media as $media) {
+            $media->delete();
+        }
+        // place new uploaded files
+        foreach ($files as $file) {
+            if ($request->hasFile($file)) {
+                $img = $request->file($file);
+
+                $fileName = preg_replace('/[^A-Za-z0-9\-_\.]/', '_', $img->getClientOriginalName());
+                //$sanitizedFilename = preg_replace('/[^A-Za-z0-9\-_\.]/', '_', $originalName);
+                $fullFilePath = "/cloud/technicain/$technicain_id/documents/$post->id/$fileName";
+                $img->move($userdir . "/$post->id", $fileName);
+
+                // create image post record
+                PostImage::create([
+                    'post_id' => $post->id,
+                    'image' => $fullFilePath
+                ]);
+            }
+        }
+
+
+        return Controller::jsonMessage('تم الحفظ بنجاح', 0);
+    }
+
+    public function setReservationState(Request $request, $id, $state)
+    {
+        $reservation = Reservation::find($id);
+        if ($reservation == null || ($state != 'InProgress' && $state != 'Done')) {
+            return redirect('/technicain/scheduled-work')->withErrors(['reservation-unknown' => 'الحجز المطلوب غير موجود']);
+        }
+
+        $reservation->state = $state;
+        $reservation->save();
+
+        return redirect('/technicain/scheduled-work')->with('task-complet', " تم تغيير حالة الحجز بنجاح");
+    }
+
+
+    public function takeBreake(Request $request) {
+        $technicain = Technicain::find(Auth::guard($this->guard)->user()->id);
+        $technicain->state = "Paused";
+        $technicain->save();
+
+        return Controller::jsonMessage("تم تغيير حالة حسابك بنجاح ", 0);
+    }
+
+    public function backToBusiness(Request $request) {
+        // Active only if sub is ok!
+        $technicain = Technicain::find(Auth::guard($this->guard)->user()->id);
+        if($technicain->subscriptionCheck()) {
+            $technicain->state = "Active";
+            $technicain->save();
+
+            return Controller::jsonMessage("تم تفعيل الحساب من جديد", 0);
+        } else {
+            return Controller::jsonMessage("حسابك غير مفعل. يرجى الاشتراك حتى تتمكن من تفعيله من جديد", 1);
+        }
+    }
+
+    
 }
+>>>>>>> MD

@@ -56,6 +56,6 @@ class Employee extends Authenticatable
 
 
     public static function getSystem() {
-        return Employee::where("email", "system@comapny.com")->first();
+        return Employee::find(2);
     }
 }
