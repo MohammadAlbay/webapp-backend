@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Models\CustomerReport;
 use App\Models\Employee;
 use App\Models\Permission;
 use App\Models\PrepaidCard;
 use App\Models\Role;
+use App\Models\Specialization;
+use App\Models\Technicain;
+use App\Models\TechnicainReport;
+use App\Models\WalletTransaction;
 use Exception;
 use Illuminate\Http\Request;
 use \Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Log;
 
@@ -20,7 +27,38 @@ class EmployeeViewResourceLoader extends Controller {
             
             $params = [];
             //dd($path);
-            if($path == "add-employee") {
+            if($path == "homepage") {
+            }
+            else if($path == "finance-stats-report") {
+                $params['systemWallet'] = Employee::getSystem()->wallet;
+                $params['transactionTypeOther'] = WalletTransaction::selectRaw('sum(money) as value')
+                                                    ->where('type', 'Other')
+                                                    ->whereRaw('YEAR(created_at) = ?', [now()->year])
+                                                    ->groupBy('money')
+                                                    ->first(['value']);
+                $params['transactionTypeSub'] = WalletTransaction::selectRaw('sum(money) as value')
+                                                    ->where('type', 'Sub')
+                                                    ->whereRaw('YEAR(created_at) = ?', [now()->year])
+                                                    ->groupBy('money')
+                                                    ->first(['value']);
+            }
+            else if($path == "manage-customers") {
+                $params['customers'] = Customer::latest('created_at')->take(100)->get();
+            }
+            else if($path == "manage-technicain") {
+                $params['technicains'] = Technicain::latest('created_at')->take(100)->get();
+            }
+            else if($path == "manage-customers-reports") {
+                $params['reports'] = CustomerReport::latest('created_at')->take(100)->get();
+            }
+            else if($path == "manage-technicain-reports") {
+                $params['reports'] = TechnicainReport::latest('created_at')->take(100)->get();
+            }
+            else if($path == "edit-mydata") {
+                $params['roles'] = Role::all();
+                $params['me'] = Auth::guard('employee')->user();
+            }
+            else if($path == "add-employee") {
                 $params['roles'] = Role::all();
             }
             else if($path == "employee-list") {
@@ -37,6 +75,9 @@ class EmployeeViewResourceLoader extends Controller {
             }
             else if($path == "prepaidcards-list") {
                 $params['prepaidcardGenerations'] = PrepaidCard::getGenerationsDetails();
+            }
+            else if($path == "specializations-list") {
+                $params['specializations'] = Specialization::all();
             }
             return view($viewPath, $params);
         } catch(Exception $e) {

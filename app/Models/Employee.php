@@ -53,7 +53,9 @@ class Employee extends Authenticatable
     }
 
 
-
+    public function haveUpperHandOver($admin_id) {
+        return $this->id < $admin_id;
+    }
 
     public static function getSystem() {
         return Employee::find(2);

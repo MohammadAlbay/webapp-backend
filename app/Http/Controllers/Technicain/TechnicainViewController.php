@@ -86,6 +86,40 @@ class TechnicainViewController extends Controller
             'me' => Technicain::find(Auth::guard($this->guard)->user()->id),
         ]);
     }
+
+    public function viewProfileSupervised(Request $request, $id = null) {
+        $posts = Post::where(
+            'technicain_id',
+            $id ?? Auth::guard($this->guard)->user()->id
+        )->orderBy('created_at', 'desc')->paginate(5);
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return view('technicain.mdashboard.post', compact('posts'))->render();
+        }
+
+
+        $tech = Technicain::find($id);
+        $viewer = Employee::find(Auth::guard(name: 'employee')->user()->id);
+        $reservation = Reservation::where('technicain_id', $tech->id)
+                            ->where('customer_id', $viewer->id)
+                            ->where('state', 'Done')->latest()->first();
+
+        if ($tech == null) {
+            return redirect()->back();
+        }
+
+        return view(
+            'technicain.mdashboard.profile-supervised',
+            [
+                'me' => $tech,
+                'viewer' => $viewer,
+                'posts' => $posts,
+                'specialization' => Specialization::where('state', 'Active')->get(),
+                'reservation' => $reservation,
+                'no_comments' => true
+            ]
+        );
+    }
     public function viewProfile(Request $request, $id = null)
     {
 

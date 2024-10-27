@@ -22,15 +22,9 @@ $myId = $me->id;
 <body>
     <div class="page-header">
         <h3 class="page-title">توليد كروت جديدة </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/employee">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Employee</li>
-            </ol>
-        </nav>
     </div>
 
-    <div class="col-md-6 grid-margin stretch-card">
+    <div class="d-flex grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title"></h4>

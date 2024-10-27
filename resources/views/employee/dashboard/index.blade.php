@@ -30,6 +30,18 @@
 
   <script src="/sources/main.js"></script>
   <script src="/sources/employee/js/printcard.js"></script>
+
+  <style>
+    body {
+    direction: rtl;
+    text-align: right;
+}
+
+* {
+    /* direction: rtl; */
+    text-align: right;
+}
+  </style>
 </head>
 
 <body>
@@ -41,7 +53,7 @@
       <!-- partial -->
       <div id="main_panel" class="main-panel">
         <div class="content-wrapper">
-          <div class="row" id="proBanner">
+          <!-- <div class="row" id="proBanner">
             <div class="col-12">
               <span class="d-flex align-items-center purchase-popup">
                 <p>Like what you see? Check out our premium version for more.</p>
@@ -50,8 +62,8 @@
                 <i class="mdi mdi-close" id="bannerClose"></i>
               </span>
             </div>
-          </div>
-          <div class="d-xl-flex justify-content-between align-items-start">
+          </div> -->
+          <!-- <div class="d-xl-flex justify-content-between align-items-start">
             <h2 class="text-dark font-weight-bold mb-2"> Overview dashboard </h2>
             <div class="d-sm-flex justify-content-xl-between align-items-center mb-2">
               <div class="btn-group bg-white p-3" role="group" aria-label="Basic example">
@@ -244,7 +256,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
@@ -280,6 +292,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <!-- The file used to fetch & m manage dynalic content  -->
   <script src="/sources/employee/js/app.js"></script>
+  <script>
+    ViewFetch.Load('homepage')
+  </script>
 </body>
 
 </html>

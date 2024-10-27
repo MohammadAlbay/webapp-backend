@@ -10,15 +10,9 @@
 <body>
     <div class="page-header">
         <h3 class="page-title"> اضافة موظف </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/employee">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Employee</li>
-            </ol>
-        </nav>
     </div>
 
-    <div class="col-md-6 grid-margin stretch-card">
+    <div class="d-flex grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">بيانات موظف جديد</h4>
@@ -107,10 +101,11 @@
                 } else {
                     Swal.fire({
                     icon: "success",
-                    title: v.Message,
+                    title: "اكتمل الاجراء",
+                    text: v.Message,
                     showConfirmButton: true,
                     //timer: 1500
-                });
+                    }).then((result) => ViewFetch.Load('add-employee'));
                 }
                 
             });

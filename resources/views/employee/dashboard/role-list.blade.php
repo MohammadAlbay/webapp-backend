@@ -20,22 +20,18 @@ $myId = $me->id;
 
 <body>
     <div class="page-header">
-        <h3 class="page-title"> قائمة الصلاحيات </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/employee">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Employee</li>
-            </ol>
-        </nav>
+        <h3 class="page-title"> قائمة المسميات الوظيفية </h3>
+
     </div>
 
-    <div class="col-md-8 grid-margin stretch-card">
+    <div class="d-flex grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">قائمة بالصلاحيات</h4>
-                <p class="card-description">تعرض هذه الصفحة قائمة بالصلاحيات المدعومة فالنظام
+                <h4 class="card-title">قائمة المسميات الوظيفية</h4>
+                <p class="card-description">تعرض هذه الصفحة قائمة بالمسميات الوظيفية المدعومة فالنظام
                     . لاضافة مسمى وظيفي جديد 
-                    <a style="text-decoration: underline; color:blue; cursor:pointer" onclick="add_role_dialog.setAttribute('open', '')">انقر هنا</a>
+                    انقر على
+                    <a style="text-decoration: underline; color:blue; cursor:pointer" onclick="add_role_dialog.setAttribute('open', '')">اضافة مسمى وظيفي</a>
                 </p>
 
 
@@ -87,14 +83,15 @@ $myId = $me->id;
                                         <td>{{$rolePermission->getPermissionName()}}</td>
                                         <td>{{$rolePermission->state}}</td>
                                         <td>
-                                            <a href="#" style="color: {{$stateSwtch == 'Active' ? 'green' : 'orange'}};" onclick="switchRolePermission({{$rolePermission->id}})">
-                                                {{$stateSwtch == 'Active'? "Activate" : "Deactivate"}}
-                                            </a>
+                                            @if($stateSwtch == 'Active')
+                                            <button class="btn btn-primary" onclick="switchRolePermission({{$rolePermission->id}})">تفعيل</button>
+                                            @else
+                                            <button class="btn btn-danger" onclick="switchRolePermission({{$rolePermission->id}})">الغاء التفعيل</button>
+                                            @endif
+                                            
                                         </td>
                                         <td>
-                                            <a href="#" style="color: red;" onclick="deleteRolePermission({{$rolePermission->id}})">
-                                                Remove
-                                            </a>
+                                            <button class="btn btn-danger" onclick="deleteRolePermission({{$rolePermission->id}})">حذف</button>
                                         </td>
                                     </tr>
 

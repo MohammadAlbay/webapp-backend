@@ -21,15 +21,10 @@ $myId = $me->id;
 <body>
     <div class="page-header">
         <h3 class="page-title"> قائمة الموظفين </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/employee">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Employee</li>
-            </ol>
-        </nav>
+
     </div>
 
-    <div class="col-md-6 grid-margin stretch-card">
+    <div class="d-flex grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">بيانات الموظفين</h4>
@@ -57,28 +52,41 @@ $myId = $me->id;
                     @endphp
                     <tr>
                         <td>{{$employee->id}}</td>
-                        <td><img style="width: 41px; height:41px" src={{ $employee->profile == "" ? "/sources/img/icons8_circled_user_male_skin_type_4_127px.png" : $employee->profile}} alt=""></td>
+                        <td><img style="width: 41px; height:41px; border-radius:50%;" src='/sources/img/{{ $employee->profile}}' alt=""></td>
                         <td>{{$employee->fullname}}</td>
                         <td>{{$employee->email}}</td>
                         <td>{{$employee->role()->name}}</td>
                         <td>{{$employee->gender}}</td>
                         <td>{{$employee->address}}</td>
                         <td>{{$employee->phone}}</td>
-                        <td>{{$employee->state}}</td>
+                        <td>{{$employee->state == 'Active' ? "مفعل" : "غير مفعل"}}</td>
                         <td>{{$employee->created_at}}</td>
                         @if($myId != $employee->id)
-                        <td><b style="color:green;cursor:pointer;" onclick="prepareDialog(add_employee_dialog_edit_employee, '{{$employee->id}}')">Edit</b></td>
+                        <td><button class="btn btn-primary" onclick="prepareDialog(add_employee_dialog_edit_employee, '{{$employee->id}}')">تعديل</button></td>
                             @if($employee->role()->name != "Admin")
-                                <td><b style="color:red;cursor:pointer;" onclick='processEmployee(this, "{{$employee->id}}",  "{{$stateSwtch}}")'>
-                                    {{$stateSwtch == "Active" ? "Activate" : "Deactivate"}}
-                                </b></td>
-                                <td><b style="color:red;cursor:pointer;" onclick="processDeleteEmployee(this, '{{$employee->id}}')">Delete</b></td>
+                                <td>
+                                    <button class="btn btn-{{$employee->state == 'Active' ? 'danger' : 'primary' }}"
+                                        onclick='processEmployee(this, "{{$employee->id}}",  "{{$stateSwtch}}")'>
+                                    {{$stateSwtch == "Active" ? "تفعيل" : "الغاء التفعيل"}}
+                                    </button>
+                                </td>
+                                <td><button class="btn btn-danger" onclick="processDeleteEmployee(this, '{{$employee->id}}')">حذف</button></td>
                             @else
-                                <td>-</td>
-                                <td>-</td>
+                                @if($me->haveUpperHandOver($employee->id))
+                                    <td>
+                                        <button class="btn btn-{{$employee->state == 'Active' ? 'danger' : 'primary' }}"
+                                            onclick='processEmployee(this, "{{$employee->id}}",  "{{$stateSwtch}}")'>
+                                        {{$stateSwtch == "Active" ? "تفعيل" : "الغاء التفعيل"}}
+                                        </button>
+                                    </td>
+                                    <td><button class="btn btn-danger" onclick="processDeleteEmployee(this, '{{$employee->id}}')">حذف</button></td>
+                                    @else
+                                    <td>🚫</td>
+                                    <td>🚫</td>
+                                @endif
                             @endif
                         @else
-                        <td>-</td>
+                        <td><button class="btn btn-primary" onclick="ViewFetch.Load('edit-mydata');">تعديل</button></td>
                         <td>-</td>
                         <td>-</td>
                         @endif
