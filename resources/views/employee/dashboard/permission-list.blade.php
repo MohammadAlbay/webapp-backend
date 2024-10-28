@@ -21,15 +21,9 @@ $myId = $me->id;
 <body>
     <div class="page-header">
         <h3 class="page-title"> قائمة الصلاحيات </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/employee">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Employee</li>
-            </ol>
-        </nav>
     </div>
 
-    <div class="col-md-6 grid-margin stretch-card">
+    <div class="d-flex grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">قائمة بالصلاحيات</h4>
@@ -50,13 +44,25 @@ $myId = $me->id;
                     <tr>
                         <td>{{$permission->id}}</td>
                         <td>{{$permission->name}}</td>
-                        <td>{{$permission->state}}</td>
-                        <td>
-                            <b style="color:{{$stateSwtch == 'Active' ? 'green' : 'red'}};cursor:pointer;"
-                                onclick="switchPermissionState({{$permission->id}});">
-                                {{($stateSwtch == 'Active') ? "Activate" : "Deactivate"}}
-                            </b>
-                        </td>
+                        <td>{{$permission->state == 'Active' ? 'مفعلة' : 'غير مفعلة'}}</td>
+                        @if($me->hasPermission(\App\Models\Permission::PERMISSION_EDIT_PERMISSION_NAME))
+                            @if($permission->name == 'Allow Login' 
+                            || $permission->name == 'View Role'
+                            || $permission->name == 'View Permission')
+                            <td>-</td>
+                            @else
+                            <td>
+                                @if($stateSwtch == 'Active')
+                                <button class="btn btn-primary" onclick="switchPermissionState({{$permission->id}});">تفعيل</button>
+                                @else
+                                <button class="btn btn-danger" onclick="switchPermissionState({{$permission->id}});">الغاء التفعيل</button>
+                                @endif
+                            </td>
+                            @endif
+                        @else
+                            <td>🚫</td>
+                        @endif  
+                        
                     </tr>
                     @endforeach
 
@@ -72,7 +78,7 @@ $myId = $me->id;
 
             Swal.fire({
                 title: "هل انت متأكد?",
-                text: "تغييرك لحالة الصلاحية سينعكس على كافة الموظفين المتحصلين علظ هذه الصلاحية",
+                text: "تغييرك لحالة الصلاحية سينعكس على كافة الموظفين المتحصلين على هذه الصلاحية",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",

@@ -64,4 +64,11 @@ class Customer extends Authenticatable
 
         return false;
     }
+
+    public function reportsUponMe($only_active = false) {
+        return $only_active ? 
+            TechnicainReport::where('customer_id', $this->id)
+            ->where('state', '!=', 'Done')->get()
+            : TechnicainReport::where('customer_id', $this->id)->get();
+    }
 }

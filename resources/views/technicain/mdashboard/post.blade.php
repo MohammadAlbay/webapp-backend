@@ -47,11 +47,11 @@
         <div class="head">
             <div class="close-icon" onclick="PostsView.toggleCommentsSection(comments_{{$post->id}})"></div>
             <div class="input-block ">
-                <button onclick="PostsView.addComment('{{$post->id}}', input_comment_{{$post->id}})" class="button-image primary" style="height: 100%;flex-grow: 0;">
+                <button {{isset($no_comments) ? 'disabled' : ''}} onclick="PostsView.addComment('{{$post->id}}', input_comment_{{$post->id}})" class="button-image primary" style="height: 100%;flex-grow: 0;">
                     <img src="https://img.icons8.com/?size=100&id=368&format=png&color=000000" alt="">
                     <i>ارسال</i>
                 </button>
-                <input type="text" id="input_comment_{{$post->id}}">
+                <input type="text" id="input_comment_{{$post->id}}" {{isset($no_comments) ? 'readonly' : ''}}>
             </div>
         </div>
         <div class="body">

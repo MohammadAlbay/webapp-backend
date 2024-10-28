@@ -87,8 +87,9 @@ class CustomerViewController extends Controller
             $results = Technicain::where('fullname', 'like', "%$value%")
                 ->where('state', 'Active')
                 ->where('address', 'like', "%$customer->address%")
-                ->orWhere('address', 'like', "%$customer->address%")
-                ->where('state', 'Active')->get();
+                ->get();
+                // ->orWhere('address', 'like', "%$customer->address%")
+                // ->where('state', 'Active')->get();
         } else {
             // search by specialization'id
             $specializeId = $results->id;

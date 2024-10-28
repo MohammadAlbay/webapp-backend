@@ -81,4 +81,11 @@ class Technicain extends Authenticatable  implements MustVerifyEmail
 
         return $value / $count;
     }
+
+    public function reportsUponMe($only_active = false) {
+        return $only_active ? 
+            CustomerReport::where('technicain_id', $this->id)
+            ->where('state', '!=', 'Done')->get()
+            : CustomerReport::where('technicain_id', $this->id)->get();
+    }
 }
