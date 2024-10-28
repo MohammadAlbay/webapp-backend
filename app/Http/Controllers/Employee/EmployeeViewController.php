@@ -287,8 +287,8 @@ class EmployeeViewController extends Controller
         if ($search == "") return "";
 
         $customers = Customer::where('fullname', 'LIKE', "%$search%")->get();
-
-        return view('employee.dashboard.customer-searchview', compact('customers'))->render();
+        $me = Auth::guard('employee')->user();
+        return view('employee.dashboard.customer-searchview', compact('customers', 'me'))->render();
     }
     public function searchForTechnicains(Request $request)
     {
@@ -297,8 +297,8 @@ class EmployeeViewController extends Controller
         if ($search == "") return "";
 
         $technicains = Technicain::where('fullname', 'LIKE', "%$search%")->get();
-
-        return view('employee.dashboard.technicain-searchview', compact('technicains'))->render();
+        $me = Auth::guard('employee')->user();
+        return view('employee.dashboard.technicain-searchview', compact('technicains', 'me'))->render();
     }
 
     public function setCustomerState(Request $request)

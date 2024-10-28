@@ -73,16 +73,16 @@ $myId = $me->id;
                             بيانات واحصائات تتعلق بالاشتراكات
                         </h3>
                         <div class="stats">
-                            <div id="sub-count-vs-month" class="flex-item" style="height:500px;"></div>
-                            <div id="sub-money-vs-month" class="flex-item" style="height:500px;"></div>
+                            <div id="sub-count-vs-month" class="flex-item" style="height:500px;width:40%"></div>
+                            <div id="sub-money-vs-month" class="flex-item" style="height:500px;width:40%"></div>
                         </div>
                         <br>
                         <h3 style="color:black; text-align:right; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                             بيانات واحصائات تتعلق ببطاقات الدفع (الكروت)
                         </h3>
                         <div class="stats">
-                            <div id="prepaidcard-state-vs-percentage" class="flex-item" style="height:400px;"></div>
-                            <div id="prepaidcard-fav-vs-percentage" class="flex-item" style="height:400px;"></div>
+                            <div id="prepaidcard-state-vs-percentage" class="flex-item" style="height:400px;width:40%"></div>
+                            <div id="prepaidcard-fav-vs-percentage" class="flex-item" style="height:400px;width:40%"></div>
                         </div>
                     </div>
                 </div>

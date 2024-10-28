@@ -39,14 +39,14 @@ class Employee extends Authenticatable
 
     public function hasPermissionId(int $permissionID) : bool {
         foreach($this->getPermissionList() as $p) {
-            if($p->permission_id == $permissionID)
+            if($p->permission_id == $permissionID && $p->state == 'Active')
                 return true;
         }
         return false;
     }
     public function hasPermission(string $permission) : bool {
         foreach($this->getPermissionList() as $p) {
-            if($p->getPermissionName() == $permission)
+            if($p->getPermissionName() == $permission && $p->state == 'Active')
                 return true;
         }
         return false; 

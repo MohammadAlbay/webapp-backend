@@ -61,34 +61,67 @@ $myId = $me->id;
                         <td>{{$employee->phone}}</td>
                         <td>{{$employee->state == 'Active' ? "مفعل" : "غير مفعل"}}</td>
                         <td>{{$employee->created_at}}</td>
-                        @if($myId != $employee->id)
-                        <td><button class="btn btn-primary" onclick="prepareDialog(add_employee_dialog_edit_employee, '{{$employee->id}}')">تعديل</button></td>
+                        @if($employee->role()->name == 'System')
+                            <td> - </td>
+                            <td> - </td>
+                            <td> - </td>
+                        @else
+                            @if($myId != $employee->id)
+                            <td>
+                                @if($me->hasPermission(\App\Models\Permission::PERMISSION_EDIT_EMPLOYEE_NAME))
+                                <button class="btn btn-primary" onclick="prepareDialog(add_employee_dialog_edit_employee, '{{$employee->id}}')">تعديل</button>
+                                @else
+                                🚫
+                                @endif
+                            </td>
+                        
                             @if($employee->role()->name != "Admin")
                                 <td>
+                                    @if($me->hasPermission(\App\Models\Permission::PERMISSION_EDIT_EMPLOYEE_NAME))
                                     <button class="btn btn-{{$employee->state == 'Active' ? 'danger' : 'primary' }}"
                                         onclick='processEmployee(this, "{{$employee->id}}",  "{{$stateSwtch}}")'>
-                                    {{$stateSwtch == "Active" ? "تفعيل" : "الغاء التفعيل"}}
+                                        {{$stateSwtch == "Active" ? "تفعيل" : "الغاء التفعيل"}}
                                     </button>
+                                    @else
+                                    🚫
+                                    @endif
                                 </td>
-                                <td><button class="btn btn-danger" onclick="processDeleteEmployee(this, '{{$employee->id}}')">حذف</button></td>
+                                <td>
+                                    @if($me->hasPermission(\App\Models\Permission::PERMISSION_DELETE_EMPLOYEE_NAME))
+                                    <button class="btn btn-danger" onclick="processDeleteEmployee(this, '{{$employee->id}}')">حذف</button>
+                                    @else
+                                    🚫
+                                    @endif
+                                </td>
                             @else
                                 @if($me->haveUpperHandOver($employee->id))
                                     <td>
+                                        @if($me->hasPermission(\App\Models\Permission::PERMISSION_EDIT_EMPLOYEE_NAME))
                                         <button class="btn btn-{{$employee->state == 'Active' ? 'danger' : 'primary' }}"
                                             onclick='processEmployee(this, "{{$employee->id}}",  "{{$stateSwtch}}")'>
-                                        {{$stateSwtch == "Active" ? "تفعيل" : "الغاء التفعيل"}}
+                                            {{$stateSwtch == "Active" ? "تفعيل" : "الغاء التفعيل"}}
                                         </button>
+                                        @else
+                                        🚫
+                                        @endif
                                     </td>
-                                    <td><button class="btn btn-danger" onclick="processDeleteEmployee(this, '{{$employee->id}}')">حذف</button></td>
-                                    @else
+                                    <td>
+                                        @if($me->hasPermission(\App\Models\Permission::PERMISSION_DELETE_EMPLOYEE_NAME))
+                                        <button class="btn btn-danger" onclick="processDeleteEmployee(this, '{{$employee->id}}')">حذف</button>
+                                        @else
+                                        🚫
+                                        @endif
+                                    </td>
+                                @else
                                     <td>🚫</td>
                                     <td>🚫</td>
                                 @endif
                             @endif
-                        @else
-                        <td><button class="btn btn-primary" onclick="ViewFetch.Load('edit-mydata');">تعديل</button></td>
-                        <td>-</td>
-                        <td>-</td>
+                            @else
+                            <td><button class="btn btn-primary" onclick="ViewFetch.Load('edit-mydata');">تعديل</button></td>
+                            <td>-</td>
+                            <td>-</td>
+                            @endif
                         @endif
                     </tr>
                     @endforeach

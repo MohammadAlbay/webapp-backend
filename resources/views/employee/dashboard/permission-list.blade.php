@@ -44,14 +44,25 @@ $myId = $me->id;
                     <tr>
                         <td>{{$permission->id}}</td>
                         <td>{{$permission->name}}</td>
-                        <td>{{$permission->state}}</td>
-                        <td>
-                            @if($stateSwtch == 'Active')
-                            <button class="btn btn-primary" onclick="switchPermissionState({{$permission->id}});">تفعيل</button>
+                        <td>{{$permission->state == 'Active' ? 'مفعلة' : 'غير مفعلة'}}</td>
+                        @if($me->hasPermission(\App\Models\Permission::PERMISSION_EDIT_PERMISSION_NAME))
+                            @if($permission->name == 'Allow Login' 
+                            || $permission->name == 'View Role'
+                            || $permission->name == 'View Permission')
+                            <td>-</td>
                             @else
-                            <button class="btn btn-danger" onclick="switchPermissionState({{$permission->id}});">الغاء التفعيل</button>
+                            <td>
+                                @if($stateSwtch == 'Active')
+                                <button class="btn btn-primary" onclick="switchPermissionState({{$permission->id}});">تفعيل</button>
+                                @else
+                                <button class="btn btn-danger" onclick="switchPermissionState({{$permission->id}});">الغاء التفعيل</button>
+                                @endif
+                            </td>
                             @endif
-                        </td>
+                        @else
+                            <td>🚫</td>
+                        @endif  
+                        
                     </tr>
                     @endforeach
 

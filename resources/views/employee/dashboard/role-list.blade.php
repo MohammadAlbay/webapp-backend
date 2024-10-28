@@ -29,13 +29,12 @@ $myId = $me->id;
             <div class="card-body">
                 <h4 class="card-title">قائمة المسميات الوظيفية</h4>
                 <p class="card-description">تعرض هذه الصفحة قائمة بالمسميات الوظيفية المدعومة فالنظام
-                    . لاضافة مسمى وظيفي جديد 
-                    انقر على
-                    <a style="text-decoration: underline; color:blue; cursor:pointer" onclick="add_role_dialog.setAttribute('open', '')">اضافة مسمى وظيفي</a>
+                @if($me->hasPermission(\App\Models\Permission::PERMISSION_ADD_ROLE_NAME))
+                        . لاضافة مسمى وظيفي جديد 
+                        انقر على
+                        <a style="text-decoration: underline; color:blue; cursor:pointer" onclick="add_role_dialog.setAttribute('open', '')">اضافة مسمى وظيفي</a>
+                @endif
                 </p>
-
-
-
 
                 <div id="accordion">
                     @foreach ($roles as $role)
@@ -51,6 +50,7 @@ $myId = $me->id;
                         <div id="collapse{{$role->id}}" class="accordion-collapse collapse" aria-labelledby="heading{{$role->id}}" data-parent="#accordion">
                             <div class="card-body">
 
+                            @if($me->hasPermission(\App\Models\Permission::PERMISSION_EDIT_ROLE_NAME))
                                 <form class="form-inline" id="add_permission_form_id_{{$role->id}}">
                                     <div class="form-group mx-sm-3 mb-2">
                                         <label for="add_permission_select_{{$role->id}}" class="sr-only">الصلاحية</label>
@@ -64,7 +64,7 @@ $myId = $me->id;
                                     <button type="submit" class="btn btn-primary mb-2"
                                         onclick="addPermissionToRole(this)" formid="add_permission_form_id_{{$role->id}}">اضافة</button>
                                 </form>
-
+                            @endif
                                 @if($role->permissions->count() > 0)
                                 <table>
                                     <tr>
@@ -83,15 +83,22 @@ $myId = $me->id;
                                         <td>{{$rolePermission->getPermissionName()}}</td>
                                         <td>{{$rolePermission->state}}</td>
                                         <td>
+                                        @if($me->hasPermission(\App\Models\Permission::PERMISSION_EDIT_ROLE_NAME))
                                             @if($stateSwtch == 'Active')
                                             <button class="btn btn-primary" onclick="switchRolePermission({{$rolePermission->id}})">تفعيل</button>
                                             @else
                                             <button class="btn btn-danger" onclick="switchRolePermission({{$rolePermission->id}})">الغاء التفعيل</button>
                                             @endif
-                                            
+                                        @else
+                                            🚫
+                                        @endif
                                         </td>
                                         <td>
-                                            <button class="btn btn-danger" onclick="deleteRolePermission({{$rolePermission->id}})">حذف</button>
+                                            @if($me->role()->name == 'Admin')
+                                                <button class="btn btn-danger" onclick="deleteRolePermission({{$rolePermission->id}})">حذف</button>
+                                            @else
+                                                🚫
+                                            @endif
                                         </td>
                                     </tr>
 

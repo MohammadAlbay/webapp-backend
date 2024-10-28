@@ -1,3 +1,4 @@
+@if($me->hasPermission(\App\Models\Permission::PERMISSION_ADD_EMPLOYEE_NAME))
 <!DOCTYPE html>
 <html lang="ar">
 
@@ -114,3 +115,4 @@
 </body>
 
 </html>
+@endif

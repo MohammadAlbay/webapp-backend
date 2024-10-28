@@ -38,11 +38,23 @@ $reportLevels = [
         <td>{{$report->created_at}}</td>
         @if($report->state == 'Done')
         <td><button class="btn btn-danger" disabled>ارسال تنبيه</button></td>
-        <td><button class="btn btn-danger" disabled>حظر الفني</button></td>
+        <td>
+        @if($me->hasPermission(\App\Models\Permission::PERMISSION_TECHNICAIN_BLOCK_NAME))
+            <button class="btn btn-danger" disabled>حظر الفني</button>
+        @else
+            🚫
+        @endif  
+        </td>
         <td><button class="btn btn-warning" disabled>تعيين كـ مكتمل</button></td>
         @else
         <td><button onclick="sendWarning({{$report->id}})" class="btn btn-danger">ارسال تنبيه</button></td>
-        <td><button onclick="blockTehcnicain({{$report->id}})" class="btn btn-danger">حظر الفني</button></td>
+        <td>
+        @if($me->hasPermission(\App\Models\Permission::PERMISSION_TECHNICAIN_BLOCK_NAME))
+            <button onclick="blockTehcnicain({{$report->id}})" class="btn btn-danger">حظر الفني</button>
+        @else
+            🚫
+        @endif  
+        </td>
         <td><button onclick="markDone({{$report->id}})" class="btn btn-warning">تعيين كـ مكتمل</button></td>
         @endif
     </tr>

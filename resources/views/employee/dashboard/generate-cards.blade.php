@@ -105,8 +105,10 @@ $myId = $me->id;
                         icon: "success",
                         title: "تم توليد الكروت بنجاح",
                         showConfirmButton: true,
+                        @if($me->hasPermission(\App\Models\Permission::PERMISSION_PRINT_PREPAIDCARDS_NAME))
                         showDenyButton: true,
                         denyButtonText: `طباعة الكروت`,
+                        @endif
                         confirmButtonText: `تم`
                     }).then((result) => {
                         if(result.isConfirmed) 
