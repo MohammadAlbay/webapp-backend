@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>فني لعندك</title>
+    
     @isset($me)
     <link rel="stylesheet" href="/sources/customer/css/search-view.css">
+    <script src="/sources/main.js"></script>
     @endisset
     <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/footer.css') }}">

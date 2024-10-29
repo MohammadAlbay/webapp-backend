@@ -14,8 +14,12 @@ class Technicain extends Authenticatable  implements MustVerifyEmail
     use Notifiable;
     protected $guarded = [];
 
-    protected $appends = ['rate'];
+    protected $appends = ['rate', 'specializationName'];
     public $rate;
+
+    public function getspecializationNameAttribute() {
+        return $this->specializationName();
+    }
 
     public function getRateAttribute()
     {

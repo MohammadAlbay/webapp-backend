@@ -14,7 +14,7 @@ use App\Models\Reservation;
 use App\Models\Specialization;
 use App\Models\Technicain;
 use App\Models\WalletTransaction;
-use Illuminate\Contracts\Auth\Guard;
+use necrox87\NudityDetector\NudityDetector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,9 +28,6 @@ class TechnicainViewController extends Controller
     private $guard = 'technicain';
     public function index(Request $request, $id = null)
     {
-
-
-
         return view("technicain.mdashboard.index", ['me' => Auth::guard($this->guard)->user(), 'viewer' => '']);
     }
 
@@ -139,6 +136,10 @@ class TechnicainViewController extends Controller
             $viewer = '';
         } else {
             $tech = Technicain::find($id);
+            // Can't visit technicain profile if he/she not active
+            if($tech != null && $tech->state != 'Active') {
+                return redirect()->back();
+            }
             $viewer = Customer::find(Auth::guard('customer')->user()->id);
             $reservation = Reservation::where('technicain_id', $tech->id)
                             ->where('customer_id', $viewer->id)
@@ -163,12 +164,21 @@ class TechnicainViewController extends Controller
 
     public function setCoverImage(Request $request)
     {
+        
         try {
             $user = Technicain::find(Auth::guard('technicain')->user()->id);
             $img = $request->file('img');
             $fileName = $img->getClientOriginalName();
-            //$file->store(public_path()."/cloud/$user_type/$user->id/images");
+            $path = public_path() . "/cloud/technicain/$user->id/images/$fileName";
             $img->move(public_path() . "/cloud/technicain/$user->id/images/", $fileName);
+
+
+            $detector = new NudityDetector($path);
+            $result = $detector->isPorn(0.3);
+            if ($result) {
+                unlink($path);
+                throw new \Exception(" EmailUtility::setCoverImage() result is false");
+            }
 
             $user->cover = $fileName;
             $user->save();
@@ -185,7 +195,7 @@ class TechnicainViewController extends Controller
             return Controller::whichReturn(
                 $request,
                 redirect()->back()->with('image-updated', false),
-                Controller::jsonMessage('حدثت مشكلة اثناء تغيير صورة الغلاف', 0),
+                Controller::jsonMessage('حدثت مشكلة اثناء تغيير صورة الغلاف', 1),
             );
         }
     }
@@ -212,7 +222,7 @@ class TechnicainViewController extends Controller
             return Controller::whichReturn(
                 $request,
                 redirect()->back()->with('image-updated', false),
-                Controller::jsonMessage('حدثت مشكلة اثناء تغيير صورة الحساب', 0),
+                Controller::jsonMessage('حدثت مشكلة اثناء تغيير صورة الحساب', 1),
             );
         }
     }

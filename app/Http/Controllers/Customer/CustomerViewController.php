@@ -114,6 +114,13 @@ class CustomerViewController extends Controller
                 '/',
                 Controller::jsonMessage('الفني غير موجود فالنظام', 1)
             );
+            
+        if ($technicain->state != 'Active')
+            return Controller::whichReturn(
+                $request,
+                '/',
+                Controller::jsonMessage('فشل الحجز. اعد المحاولة لاحقا', 1)
+            );
 
         if ($customer->wallet->balance < 15) {
             return Controller::whichReturn(

@@ -51,21 +51,17 @@ var Homepage = {
             }
             let profile = t.profile == "Male.jpg" || t.profile == "Female.jpg" ? 
              `/sources/img/${t.profile}` : `/cloud/technicain/${t.id}/images/${t.profile}`;
+            let specialize = `<b style="font-size:9pt;background-color:green; margin:0px 5px 0px 10px; padding:0px 10px; border-radius:1em; color:white;">${t.specializationName}</b>`;
+            let address = `<b style="font-size:9pt;background-color:lightgray; margin:0px 5px; padding:0px 10px; border-radius:1em; color:black;">${t.address}</b>`;
             let container = document.createChild('DIV', {
                 'class': 'item',
                 child: [
                     document.createChild('IMG', {'class': "icon", src: profile}),
-                    document.createChild('I', {'class': "name", text: t.fullname}),
+                    document.createChild('I', {'class': "name", html: address+specialize+t.fullname}),
                     document.createChild('I', {'class': "desc", text: t.description}),
                     document.createChild('DIV', {
                         'class': "rate-block",
-                         child: starsArray//[
-                        //     document.createChild('SPAN', {'class': "fa fa-star checked"}),
-                        //     document.createChild('SPAN', {'class': "fa fa-star checked"}),
-                        //     document.createChild('SPAN', {'class': "fa fa-star checked"}),
-                        //     document.createChild('SPAN', {'class': "fa fa-star checked"}),
-                        //     document.createChild('SPAN', {'class': "fa fa-star checked"}),
-                        // ]
+                         child: starsArray
                     }),
                 ],
                 event: {

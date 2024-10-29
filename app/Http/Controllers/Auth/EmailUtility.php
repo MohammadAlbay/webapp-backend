@@ -9,8 +9,8 @@ use App\Models\Technicain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\RateLimiter;
+use necrox87\NudityDetector\Image;
+use necrox87\NudityDetector\NudityDetector;
 
 class EmailUtility extends Controller
 {
@@ -51,8 +51,16 @@ class EmailUtility extends Controller
         $img = $request->file('img');
         $fileName = $img->getClientOriginalName();
         //$file->store(public_path()."/cloud/$user_type/$user->id/images");
+        $path = public_path()."/cloud/$user_type/$user->id/images/$fileName";
         $img->move(public_path()."/cloud/$user_type/$user->id/images/", $fileName);
 
+        $detector = new NudityDetector($path);
+        $result = $detector->isPorn(0.3);
+        if ($result) {
+            unlink($path);
+            return false;
+        }
+        
         $user->profile = $fileName;
         $user->save();
         return true;
