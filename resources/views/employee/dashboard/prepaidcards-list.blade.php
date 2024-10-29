@@ -21,16 +21,10 @@ $myId = $me->id;
 
 <body>
     <div class="page-header">
-        <h3 class="page-title">توليد كروت جديدة </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/employee">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Employee</li>
-            </ol>
-        </nav>
+        <h3 class="page-title">بطاقات الدفع المسجلة </h3>
     </div>
 
-    <div class="col-md-6 grid-margin stretch-card">
+    <div class="d-flex grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title"></h4>
@@ -72,8 +66,12 @@ $myId = $me->id;
 
 
                                 @if($cardsList->count() > 0)
+                                @if($me->hasPermission(\App\Models\Permission::PERMISSION_PRINT_PREPAIDCARDS_NAME))
                                 <button class="btn btn-primary" {{count($cardsIdArray) == 0 ? 'disabled' : ''}} onclick='printCardProcessor(@json($cardsIdArray))'>طباعة الكل</button>
+                                @endif
+                                @if($me->hasPermission(\App\Models\Permission::PERMISSION_MODIFY_PREPAIDCARDS_NAME))
                                 <button class="btn btn-danger" {{count($cardsIdArray) == 0 ? 'disabled' : ''}} onclick='switchPrepaidcard(@json($cardsIdArray))'>الغاء الكل</button>
+                                @endif
                                 <table>
                                     <tr>
                                         <td>#</td>
@@ -93,22 +91,38 @@ $myId = $me->id;
                                         <td>{{$card->id}}</td>
                                         <td>{{$card->serial}}</td>
                                         <td>{{$card->money}}</td>
-                                        <td>{{$card->state}}</td>
                                         <td>
+                                            @if($card->state == 'Used' &&
+                                            !$me->hasPermission(\App\Models\Permission::PERMISSION_PREPAIDCARDS_HISTORY_NAME))
+                                                غير مفعل
+                                            @else
+                                            {{$card->state == 'Active' ? 'مفعل' : ($card->state == 'Used' ? 'تمت التعبئة' : 'ملغي')}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($me->hasPermission(\App\Models\Permission::PERMISSION_MODIFY_PREPAIDCARDS_NAME))
                                             <button type="button" class="btn {{$stateSwtch == 'Active' ? 'btn-secondary' : 'btn-danger' }}"
                                                 style="color: white;"
                                                 {{$stateSwtch == 'Active' ? 'disabled' : ''}}
                                                 onclick="switchPrepaidcard('{{$card->id}}')">
                                                 {{$stateSwtch == 'Active'? "تفعيل" : "الغاء"}}
                                             </button>
+                                            @else
+                                            🚫
+                                            @endif
                                         </td>
                                         <td>
+                                            @if($me->hasPermission(\App\Models\Permission::PERMISSION_PRINT_PREPAIDCARDS_NAME))
                                             <button type="button"
                                                 class="btn {{$card->state == 'Active' ?  'btn-primary' : 'btn-secondary'}}"
                                                 {{$card->state !== 'Active' ? 'disabled' : ''}}
                                                 onclick='printCardProcessor([@json($cardInfo)])'>
                                                 طباعة
                                             </button>
+                                            @else
+                                            🚫
+                                            @endif
+
                                         </td>
                                     </tr>
 

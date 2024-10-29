@@ -28,7 +28,7 @@ class Specializations extends Seeder
     }
 
     private function getImage($s) {
-        $path = public_path()."/specializations/$s.png";
+        $path = public_path()."/sources/specializations/$s.png";
         if(file_exists($path))
             return "$s.png";
         else

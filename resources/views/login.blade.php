@@ -62,7 +62,7 @@
                 const {
                     value: email
                 } = await Swal.fire({
-                    title: "كم بادخال البريد الاكتروني المرتبط بحسابك بنرسل رابط اعادة تعيين كلمة المرور",
+                    title: "قم بادخال البريد الاكتروني المرتبط بحسابك بنرسل رابط اعادة تعيين كلمة المرور",
                     input: "email",
                     inputAttributes: {
                         autocapitalize: "off"
