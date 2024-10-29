@@ -33,11 +33,6 @@ class TechnicainViewController extends Controller
 
         return view("technicain.mdashboard.index", ['me' => Auth::guard($this->guard)->user(), 'viewer' => '']);
     }
-<<<<<<< HEAD
-   
-
-}
-=======
 
     public function viewPreviouseWork(Request $request)
     {
@@ -112,8 +107,8 @@ class TechnicainViewController extends Controller
             $tech = Technicain::find($id);
             $viewer = Customer::find(Auth::guard('customer')->user()->id);
             $reservation = Reservation::where('technicain_id', $tech->id)
-                            ->where('customer_id', $viewer->id)
-                            ->where('state', 'Done')->latest()->first();
+                ->where('customer_id', $viewer->id)
+                ->where('state', 'Done')->latest()->first();
         }
 
         if ($tech == null) {
@@ -456,7 +451,7 @@ class TechnicainViewController extends Controller
             'url' => $url = request()->getSchemeAndHttpHost()
         ];
         Mail::to($customer->email)->send(new \App\Mail\ReservationEmail($data));
-        return redirect('/technicain')->with('task-complet',$state == 'Accepted' ? "تم قبول الحجز" : "تم رفض الحجز");
+        return redirect('/technicain')->with('task-complet', $state == 'Accepted' ? "تم قبول الحجز" : "تم رفض الحجز");
     }
 
 
@@ -524,7 +519,8 @@ class TechnicainViewController extends Controller
     }
 
 
-    public function takeBreake(Request $request) {
+    public function takeBreake(Request $request)
+    {
         $technicain = Technicain::find(Auth::guard($this->guard)->user()->id);
         $technicain->state = "Paused";
         $technicain->save();
@@ -532,10 +528,11 @@ class TechnicainViewController extends Controller
         return Controller::jsonMessage("تم تغيير حالة حسابك بنجاح ", 0);
     }
 
-    public function backToBusiness(Request $request) {
+    public function backToBusiness(Request $request)
+    {
         // Active only if sub is ok!
         $technicain = Technicain::find(Auth::guard($this->guard)->user()->id);
-        if($technicain->subscriptionCheck()) {
+        if ($technicain->subscriptionCheck()) {
             $technicain->state = "Active";
             $technicain->save();
 
@@ -544,7 +541,4 @@ class TechnicainViewController extends Controller
             return Controller::jsonMessage("حسابك غير مفعل. يرجى الاشتراك حتى تتمكن من تفعيله من جديد", 1);
         }
     }
-
-    
 }
->>>>>>> MD
