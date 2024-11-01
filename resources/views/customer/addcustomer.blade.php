@@ -86,10 +86,7 @@
                     <label>المدينة</label>
                     <br>
                     <select name="signup_address" class="select">
-                        <option value="city1">طرابلس</option>
-                        <option value="city1">مصراتة</option>
-                        <option value="city1">بنغازي</option>
-                        <option value="city1">سبها</option>
+                        @include('addresses-option');
                     </select>
                     <br>
                 </div>

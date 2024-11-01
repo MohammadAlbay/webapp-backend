@@ -65,7 +65,31 @@ async function displayCard(cards) {
 }
 
 
+async function sendDataNoCallbackText(url, type, data) {
+    let headers = {
+        'Accept': 'plain/text',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
+    };
 
+    if(!(data instanceof FormData)) {
+        headers['Content-Type'] = 'application/json';
+        data = JSON.stringify(data);
+    }
+
+    let options = {
+        method: type || "GET",
+        credentials: "same-origin",
+        headers: headers,
+        body: data
+    };
+
+    if(type.toLowerCase() === "get") {
+        delete options['body'];
+    }
+    
+    let promise = await fetch(url, options).then(v => v.text());
+    return promise;
+}
 
 async function sendFormDataNoCallback(url, type, data) {
     let headers = {

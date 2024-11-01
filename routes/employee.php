@@ -6,7 +6,9 @@ use App\Http\Controllers\Employee\EmployeeRoleController;
 use App\Http\Controllers\Employee\EmployeePermissionController;
 use App\Http\Controllers\Employee\PrepaidCardController;
 use App\Http\Controllers\Employee\EmployeeViewResourceLoader;
-
+use App\Http\Controllers\Employee\ManageReports;
+use App\Http\Controllers\Employee\SpecializationController;
+use App\Http\Controllers\Technicain\TechnicainViewController;
 
 Route::group(['middleware' => 'auth:employee'], function () {
     Route::name('employee.')->prefix('employee')->group(function() {
@@ -27,6 +29,34 @@ Route::group(['middleware' => 'auth:employee'], function () {
         Route::post('/permission/switchstate/{id}',[EmployeePermissionController::class, 'permissionSwitchState'])->name("permission.switchstate");
 
         Route::get('/resources/{path}/', [EmployeeViewResourceLoader::class, 'manage'])->name('resource_loader');
+
+        Route::post('/customer-state',[EmployeeViewController::class, 'setCustomerState']);
+        Route::post('/technicain-state',[EmployeeViewController::class, 'setTechnicainState']);
+        Route::post('/search-customer', [EmployeeViewController::class, 'searchForCustomers']);
+        Route::post('/search-technicain', [EmployeeViewController::class, 'searchForTechnicains']);
+
+        Route::get('/technicain-view/{id}',[TechnicainViewController::class, "viewProfileSupervised"]);
+
+        /// Customers reports routes
+        Route::post('/customer/reports/search', [ManageReports::class, 'searchCustomersReport']);
+        Route::post('/customer/reports/warn', [ManageReports::class, 'warnTechnicain']);
+        Route::post('/customer/reports/restrict', [ManageReports::class, 'restrictTechnicainAccess']);
+        Route::post('/customer/reports/done', [ManageReports::class, 'markDoneCustomer']);
+
+        /// Technicains reports routes
+        Route::post('/technicain/reports/search', [ManageReports::class, 'searchTechnicainReport']);
+        Route::post('/technicain/reports/warn', [ManageReports::class, 'warnCustomer']);
+        Route::post('/technicain/reports/restrict', [ManageReports::class, 'restrictCustomerAccess']);
+        Route::post('/technicain/reports/done', [ManageReports::class, 'markDoneTechnicain']);
+
+        Route::post('/finance-report', [EmployeeViewController::class, 'financeReport']);
+
+        Route::post('/edit-mydata', [EmployeeViewController::class, 'edit']);
+
+        Route::post('/specialization/switchstate/{id}', [SpecializationController::class, 'switchstate']);
+        Route::post('/specialization/create', [SpecializationController::class, 'create']);
+        Route::post('/specialization/setname/{id}', [SpecializationController::class, 'setName']);
+        Route::post('/specialization/setimage/{id}', [SpecializationController::class, 'setImage']);
     });
 
     Route::name('prepaidcards.')->prefix('prepaidcards')->group(function() {

@@ -23,6 +23,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/sources/main.js"></script>
     <script src="/sources/employee/js/index.js"></script>
+    @if($viewer !== '')
+        <script src="/sources/technicain/js/reservations.js"></script>
+    @endif
 
     <style>
         .error-card {
@@ -42,15 +45,21 @@
         }
     </style>
 
+@if($viewer !== '')
+        <style>
+            .md-container {width:100%; right:0px}
+        </style>
+@endif
 
 </head>
 
 <body>
     @include("technicain.mdashboard.rate-dialog")
-    @include("technicain.mdashboard.md-dash-nav-bar")
+    @include("technicain.mdashboard.md-dash-nav-bar", ['location' => " ملفي الشخصي"])
     @if($viewer === '')
         @include("technicain.mdashboard.md-dash-nav-barmenu")
     @endif
+    @include('technicain.mdashboard.calendar');
     <div class="md-container" style="overflow-y: auto;padding-top:0px;">
 
         <div class="md-grid-container" style="overflow: auto;">
@@ -72,28 +81,58 @@
                     @if($viewer !== '')    
                     <div class="rate-block">
                         <img src="https://img.icons8.com/?size=100&id=19417&format=png&color=000000">
-                        <i>3.6</i>
-                        <i onclick="RateProcessor.show(rate_dialog);">تقييم</i>
+                        <i>{{$me->rateValue()}}</i>
+                        @if($viewer->canRateTechnicain($me->id))
+                            <i onclick="RateProcessor.show(rate_dialog);">تقييم</i>
+                        @else
+                            <i style="cursor:not-allowed">تقييم</i>
+                        @endif
                     </div>
                     <div class="featured-buttons">
                             <div>
-                                
-                                <button class="button-image warning">
+                                @if($reservation != null)
+                                <button onclick="reportTechnicain({{$reservation->id}})" class="button-image warning">
                                     <img src="https://img.icons8.com/?size=100&id=F6dUI1dnIQZI&format=png&color=000000" alt="">
                                     <i>بلاغ</i>
                                 </button>
-                                <button class="button-image primary">
+                                @endif
+                                <button class="button-image primary"  onclick={{$me->state == 'Active' ? "Calendar.toggle()" : "Calendar.notAllowed()"}}>
                                     <img src="https://img.icons8.com/?size=100&id=7979&format=png&color=000000" alt="">
                                     <i>حجز</i>
                                 </button>
+                                <b style="margin-top:0.5em;color:black; padding:0em 0.5em 0.5em 0.5em; background-color:white; border-radius:0.5em">يقيم في {{$me->address}}
+                                </b>
                             </div>
                     </div>
                     @else
-                    <div class="featured-buttons">
-                    <b>
-                            انت غير مشترك. للاشتراك توجه لقائمة الخيارات على اليمين. ثم اختر اشتراكاتي
+                        @if($me->state == 'Inactive')
+                        <div class="featured-buttons">
+                            <b>
+                             انت غير مشترك. للاشتراك توجه لقائمة الخيارات على اليمين. ثم اختر اشتراكاتي
                             </b>
-                    </div>
+                        
+                        </div>
+                        @else
+                        <div class="featured-buttons">
+                            <div>
+                            @if($me->state == 'Active')
+                            <button class="button-image primary" onclick="switchAccountState('pause')">
+                                <img src="https://img.icons8.com/?size=100&id=F6dUI1dnIQZI&format=png&color=000000" alt="">
+                                <i>
+                                    أخذ استراحة
+                                </i>
+                            </button>
+                            @else
+                            <button class="button-image primary" onclick="switchAccountState('continue')">
+                                <img src="https://img.icons8.com/?size=100&id=F6dUI1dnIQZI&format=png&color=000000" alt="">
+                                <i>
+                                    عودة للعمل
+                                </i>
+                            </button>
+                            @endif
+                            </div>
+                        </div>
+                        @endif
                     @endif
                 </div>
             </div>
@@ -105,77 +144,32 @@
         @else
 
         <div class="md-grid-container md-grid-item full-width" dir="rtl" style="border-radius: 1em;">
-            <b class="title">مركز التنبيهات</b>
-            <div>Not yet</div>
+            <div class="md-grid-item full-width" style="border:none"><b class="title">مركز التنبيهات</b></div>
+            <div class="md-grid-item full-width" style="border:none">
+                @php
+                $newReservations = $me->pendingReservations()->count();
+                @endphp
+                @if($newReservations > 0)
+                <div onclick="location.href='/technicain/scheduled-work';" class="notice-div" style="cursor:pointer">
+                لديك 
+                {{$newReservations}}
+                حجز جديد! 
+                تفقد بريدك الاكتروني للقبول او الرفض
+                </div>
+                @else
+                <div class="notice-div">لا يوجد أي حجوزات جديدة</div>
+                @endif
+                @if($me->state == 'Active')
+                <div class="notice-div">
+                انت مشترك وتاريخ انتهاء صلاحية الاشتراك
+                {{$me->wallet->lastOutgoingTransactions()->due}}
+                </div>
+                @endif
+            </div>
         </div>
         <div class="md-grid-container full-width" dir="rtl" style="background: transparent; border:none;">
-            <div class="md-grid-item half-width" style="border-radius: 1em;">
-                <b class="title">جدول الاعمال الحالي</b>
-                <div>
-                    <table class="calendar">
-                        <thead>
-                            <tr>
-                                <th>Sun</th>
-                                <th>Mon</th>
-                                <th>Tue</th>
-                                <th>Wed</th>
-                                <th>Thu</th>
-                                <th>Fri</th>
-                                <th>Sat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>10</td>
-                                <td>11</td>
-                                <td>12</td>
-                                <td>13</td>
-                                <td>14</td>
-                            </tr>
-                            <tr>
-                                <td>15</td>
-                                <td>16</td>
-                                <td>17</td>
-                                <td>18</td>
-                                <td>19</td>
-                                <td>20</td>
-                                <td>21</td>
-                            </tr>
-                            <tr>
-                                <td>22</td>
-                                <td>23</td>
-                                <td>24</td>
-                                <td>25</td>
-                                <td>26</td>
-                                <td>27</td>
-                                <td>28</td>
-                            </tr>
-                            <tr>
-                                <td>29</td>
-                                <td>30</td>
-                                <td>31</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                            </tr>
-                            <!-- Add more rows as needed -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="md-grid-item half-width" style="border-radius: 1em; padding-bottom:1em">
+            
+            <div class="md-grid-item full-width" style="border-radius: 1em; padding-bottom:1em">
                 <b class="title">بياناتك الشخصية</b>
                 <div>
                     @if($errors->any())
@@ -206,7 +200,9 @@
                         <div class="ux-input2">
                             <img src="https://img.icons8.com/?size=100&id=19949&format=png&color=000000" alt="">
                             <label for="technicain_field_address">العنوان</label>
-                            <input type="text" id="technicain_field_address" name="technicain_field_address" placeholder="" form="form_technicain_edit" value='{{$me->address}}'>
+                            <select id="technicain_field_address" name="technicain_field_address" placeholder="" form="form_technicain_edit" value='{{$me->address}}'>
+                            @include('addresses-option');
+                            </select>
                         </div>
                         <div class="ux-input2">
                             <img src="https://img.icons8.com/?size=100&id=19949&format=png&color=000000" alt="">
@@ -309,6 +305,8 @@
     @if($viewer != '')
     <script src="/sources/technicain/js/posts.js"></script>
     <script>
+        Calendar.prepare(document.querySelector('#reservation-cc'));
+
         let slideshows = document.querySelectorAll('.slideshow-container');
         slideshows.forEach(e => {
             PostsView.setupNewSlider(e, e.querySelector('.next'), e.querySelector('.prev'))
@@ -319,10 +317,64 @@
 
         RateProcessor.setupRateDialog(rate_dialog);
     </script>
+    <script>
+        async function reportTechnicain(reservationID) {
+            const {
+                value: reportDesc
+            } = await Swal.fire({
+                title: 'تقديم بلاغ عن فني',
+                text: 'قم بالاختيار من مربع الخيارات ادناه',
+                showCancelButton: true,
+                cancelButtonText: 'الغاء',
+                cancelButtonColor: "#d33",
+                showConfirmButton: true,
+                confirmButtonText: 'اختيار',
+                confirmButtonColor: "#3085d6",
+                input: 'select',
+                inputPlaceholder: 'اختر سبب البلاغ',
+                inputOptions: {
+                    harmlvl1: 'السب والشتم وسوء المعاملة',
+                    harmlvl2: 'افساد ممتلكات شخصية او اضاعت مواد كان قد اشتراها الزبون',
+                    harmlvl3: 'التعدي الجسدي او اي شيء قد يمس بصحة الزبون',
+                },
+            });
+
+            if (!reportDesc) return;
+            const url = "/customer/report";
+            const data = {
+                reason: reportDesc,
+                reservation: reservationID
+            };
+            let result = await sendFormDataNoCallback(url, "POST", data);
+
+            if (result.State == 1) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'فشل الاجراء',
+                    text: result.Message
+                });
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'اكتمل الاجراء',
+                    text: result.Message
+                });
+            }
+
+        }
+    </script>
     @else
     <script>
-        PostsView.isTechnicain = true;
-        PostsView.actorId = {{$me->id}}
+        // PostsView.isTechnicain = true;
+        // PostsView.actorId = {{$me->id}}
+
+        setTimeout(() => {
+            [...document.querySelector('#technicain_field_address').options]
+            .forEach(o => {
+                if(o.value == "{{$me->address}}")
+                    o.selected = true;
+            });
+        }, 200);
     </script>
     @if(session('info-updated'))
     @if(session('info-updated') == true)

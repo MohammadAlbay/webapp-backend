@@ -16,7 +16,7 @@ var ViewFetch = {
         window.addEventListener("popstate", this.Router);
 
         this.addToHistory('/employee/page/');
-        this.addToHistory('main');
+        this.addToHistory('homepage');
     },
 
     async ProxyOnClick(self) {
