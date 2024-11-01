@@ -34,6 +34,7 @@
     <div class="grid-container">
     <!-- القسم الأول: الصورة -->
     <div class="image-section">
+           <form action="{{route('signup.create')}}" method="post">
     <h1>انشاء حساب</h1>
                     <img class="img" src="/sources/img/image.png" alt="">
                     <img class="icon" src="/sources/img/Green-Add-Button-PNG (1).png" alt="">
@@ -41,12 +42,12 @@
              
         <!-- القسم الثاني: المدخلات من اسم المستخدم إلى تأكيد كلمة المرور -->
         <div class="input-section">
-        <form action="{{route('signup.create')}}" method="post">
+     
                
                @csrf
                <input type="text" value="customer" name="signup_type" style="display:none">
                
-           </form> 
+           
                 @if ($errors->any())
                 <div class="input-group err-group">
                     @foreach ($errors->all() as $error)
@@ -129,6 +130,7 @@
                 <br>
                 <button type="submit">تسجيل</button>  
               </div>
+              </form> 
         </div>
 </body>
 </html>

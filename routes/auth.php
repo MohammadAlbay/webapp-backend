@@ -25,29 +25,20 @@ Route::name('signup.')->prefix('signup')->group(function () {
     Route::get('/registertechnicain', [SignupController::class, "addTechnicainView"])->name("registertechnicain_view");
     Route::get('/registercustomer', [SignupController::class, "addCustomerView"])->name("registercustomer_view");
     Route::post('/create', [SignupController::class, "create"])->name("create");
-   /*  // روت لعرض صفحة تسجيل الفني
-    Route::get('/technicain', [SignupController::class, 'showTechnicianForm'])->name('signup.technicain');
-
-    // روت لعرض صفحة تسجيل العميل
-    Route::get('/customer', [SignupController::class, 'showCustomerForm'])->name('signup.customer');
-
-*/
 });
 
 
 
 
-Route::name('verify.')->prefix('verify')->group(function() {
-    Route::get('/',[VerificationController::class , "showVerifyView"]);
-    Route::get('/resend/{id}/{user_type}', [VerificationController::class , "resendVerificationCode"]);
-    Route::get('/{email}/{secret}/{uer_type}',[VerificationController::class , "verifyEmail"]);
+Route::name('verify.')->prefix('verify')->group(function () {
+    Route::get('/', [VerificationController::class, "showVerifyView"]);
+    Route::get('/resend/{id}/{user_type}', [VerificationController::class, "resendVerificationCode"]);
+    Route::get('/{email}/{secret}/{uer_type}', [VerificationController::class, "verifyEmail"]);
 });
 
 
-Route::name('reset-request.')->prefix('reset-request')->group(function() {
+Route::name('reset-request.')->prefix('reset-request')->group(function () {
     Route::post('/make', [PasswordResetController::class, "makeResetRequestEmail"])->name('make');
-    Route::get('/{id}/{secret}/{uer_type}',[PasswordResetController::class , "verifyRequestAndShowView"]);
+    Route::get('/{id}/{secret}/{uer_type}', [PasswordResetController::class, "verifyRequestAndShowView"]);
     Route::post('/set-new', [PasswordResetController::class, "setNewPassword"]);
 });
-
-

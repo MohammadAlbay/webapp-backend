@@ -7,7 +7,7 @@
 body{
     display: flex;
      margin: 0;
-     height: 110vh;
+     height: 115vh;
      justify-content: center;
      align-items: center;
      background: #fafafa;
@@ -60,8 +60,7 @@ header nav .links li .sinup:hover{
 .wrapper{
     direction: rtl;
     width: 950px;
-    height: 100%;
-    max-height: 520px;
+    height: 580px;
     background: #ffff;
     border-radius: 20px;
     box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.25);
@@ -93,7 +92,14 @@ h1{
     margin-top: 5px;
 
 }
-
+/*.image-section .img{
+    top: -20px;
+    display: block;
+    position: relative;
+    margin: auto;
+    width: 320px;
+    height: 420px;
+}*/
 .image-section .img{
     background-color: #ffffff;
     display: block;
@@ -109,7 +115,7 @@ h1{
     display: block;
     position: relative;
     margin: auto;
-    margin-top: -5px;
+    margin-top: -300px;
     align-content: end;
     border-radius: 50%;
     width: 15px;
@@ -214,22 +220,13 @@ input[type="checkbox"]{
     cursor: pointer;
     font-size: 16px;
 }
-@media (max-width:1020px)  {
+@media (max-width:1022px)  {
     body{
         justify-content: center;
         align-items: center;
          height: 110vh;
      }
-    /* .wrapper{
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        width: 380px;
-        height: 640px;
-        background: #ffff;
-        border-radius: 20px;
-        box-shadow: -1px 0px 20px 0px rgba(0, 0, 0, 0.75);
-    }*/
+   
     .wrapper {
         width: 100%; 
         margin-top: 200px;
@@ -331,11 +328,11 @@ input[type="checkbox"]{
   
 
 }
-@media (max-width:402px)  {
+@media (max-width:450px )  {
     body{
         justify-content: center;
         align-items: center;
-         height: 110vh;
+         height: 105vh;
      }
     .wrapper {
         width: 100%; 
@@ -348,5 +345,47 @@ input[type="checkbox"]{
         box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.25);
         font-family: 'Cairo';
     }
+    .input-group input{
+        width: 100%; /* العرض 100% */
+        max-width: 350px; /* أقصى عرض للحاوية */
+        padding: 10px; /* تعديل المسافات الداخلية */
+        border-radius: 5px; /* إضافة زوايا مستديرة */
+        border: 1px solid #ccc;
+        font-size: 14px; /* حجم الخط */
+        color: #000;
+        outline: none;
+      /*  box-sizing: border-box; /* لحساب المسافات الداخلية بشكل صحيح */
+    }
 
+}
+@media (max-width:390px)  {
+    .input-group input{
+        width: 100%; /* العرض 100% */
+        max-width: 325px;
+    }
+}
+@media (max-width:389px)  {
+    body{
+        justify-content: center;
+        align-items: center;
+         height: 105vh;
+     }
+    
+    .input-group input{
+        width: 100%; /* العرض 100% */
+        max-width: 310px; /* أقصى عرض للحاوية */
+    }
+
+}
+@media (max-width:360px)  {
+    .input-group input{
+        width: 100%; /* العرض 100% */
+        max-width: 300px;
+    }
+}
+@media (max-width:345px)  {
+    .input-group input{
+        width: 100%; /* العرض 100% */
+        max-width: 280px;
+    }
 }
