@@ -9,4 +9,13 @@ class CustomerReport extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function technicain()
+    {
+        return Technicain::find($this->technicain_id);
+    }
+    public function customer()
+    {
+        return Customer::find($this->customer_id);
+    }
 }

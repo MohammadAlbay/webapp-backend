@@ -14,7 +14,18 @@ class Technicain extends Authenticatable  implements MustVerifyEmail
     use Notifiable;
     protected $guarded = [];
 
+    protected $appends = ['rate'];
+    public $rate;
 
+    public function getRateAttribute()
+    {
+        // Process the rate value as needed
+        $this->processRate();
+        return $this->rate;
+    }
+    public function processRate() {
+        $this->rate = $this->rateValue();
+    }
     protected static function booted()
     {
         static::created(function ($technician) {
@@ -37,5 +48,44 @@ class Technicain extends Authenticatable  implements MustVerifyEmail
     public function comments()
     {
         return $this->morphMany(PostComment::class, 'owner');
+    }
+
+
+
+    public function subscriptionCheck() {
+        $wallet = $this->wallet;
+        $lastOutgoingTransaction = $wallet->lastOutgoingTransactions();
+            // Your logic to check and renew subscriptions
+        if ($lastOutgoingTransaction->due <= now()) {
+            return false;
+        } 
+        
+        return true;
+    }
+
+    public function pendingReservations() {
+        return Reservation::where('technicain_id', $this->id)
+                        ->where('state', 'Pending')->get();
+    }
+    public function rateValue() {
+        $rates = Rate::where('technicain_id', $this->id)->get('rate');
+        $value = 0;
+        $count = $rates->count();
+
+        if($count == 0)
+            return 0;
+
+        foreach($rates as $r) {
+            $value += $r->rate;
+        }
+
+        return $value / $count;
+    }
+
+    public function reportsUponMe($only_active = false) {
+        return $only_active ? 
+            CustomerReport::where('technicain_id', $this->id)
+            ->where('state', '!=', 'Done')->get()
+            : CustomerReport::where('technicain_id', $this->id)->get();
     }
 }

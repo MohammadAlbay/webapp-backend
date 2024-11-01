@@ -34,7 +34,7 @@ class EmployeeSeeder extends Seeder
             "profile" => "",
             "gender" => "Male",
             "state" => "Active",
-            "role_id" => 1,
+            "role_id" => 8,
         ]);
     }
 }

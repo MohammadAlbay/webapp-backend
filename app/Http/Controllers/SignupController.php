@@ -119,7 +119,7 @@ class SignupController extends Controller
             'signup_gender.required' => 'حقل الجنس مطلوب.',
             'signup_nationality.required' => 'حقل الجنسية مطلوب.',
             'signup_phone.required' => 'حقل الهاتف مطلوب.',
-            'signup_address.required' => 'حقل الهاتف مطلوب.',
+            'signup_address.required' => 'حقل العنوان مطلوب.',
             'signup_password.required' => 'حقل كلمة المرور مطلوب.',
             'signup_email.email' => 'حقل البريد الاكتروني يجب ان يكون عنوان بريد الكتروني صحيح.',
             'signup_phone.regex' => 'رقم الهاتف غير صحيح',
@@ -164,14 +164,44 @@ class SignupController extends Controller
     {
         $v = Validator::make($request->all(), [
             'add_employee_email' => 'required|email|unique:employees,email',
+            'add_employee_fullname' => 'required|string|max:90|min:8',
+            'add_employee_password' => 'required:max:32|min:6',
+            'add_employee_address' => 'required',
+            'add_employee_phone' => 'required|regex:/(218)[0-9]{9}/',
+            'add_employee_role' => 'required',
+            'add_employee_gender' => 'required'
+           ],[
+            'add_employee_fullname.required' => 'حقل الاسم مطلوب .',
+            'add_employee_fullname.max' => 'حقل الاسم يجب ان يتكون من اقل من 90 حرف .',
+            'add_employee_fullname.min' => 'حقل الاسم يجب ان يتكون من 8 احرف او اكتر .',
+            'add_employee_email.required' => 'حقل البريد الاكتروني مطلوب.',
+            'add_employee_gender.required' => 'حقل الجنس مطلوب.',
+            'add_employee_phone.required' => 'حقل الهاتف مطلوب.',
+            'add_employee_address.required' => 'حقل العنوان مطلوب.',
+            'add_employee_password.required' => 'حقل كلمة المرور مطلوب.',
+            'add_employee_email.email' => 'حقل البريد الاكتروني يجب ان يكون عنوان بريد الكتروني صحيح.',
+            'add_employee_phone.regex' => 'رقم الهاتف غير صحيح',
+            'add_employee_password.min' => 'كلمة المرور يجب ان تتكون من 6 احرف وارقام على الاقل',
+            'add_employee_role.required' => 'المسمى الوظيفي مطلوب'
         ]);
         if ($v->fails()) {
+            $err = $v->errors();
             return \App\Http\Controllers\Controller::whichReturn(
                 $request,
-                redirect("/signup/")->withErrors(["emailtaken" => "البريد الالكتروني مسجل مسبقا"])->withInput(),
-                ['Message' => "البريد الالكتروني مسجل مسبقا", 'State' => 1]
+                redirect("/signup/employee/")->withErrors(["emailtaken" => "البريد الالكتروني مسجل مسبقا"])->withInput(),
+                Controller::jsonMessage($err->first($err->keys()[0]), 1)
             );
         }
+
+        $roleID = (int)$request->input("add_employee_role");
+        if($roleID == 8) {
+            return \App\Http\Controllers\Controller::whichReturn(
+                $request,
+                redirect("/signup/employee/")->withErrors(["emailtaken" => "البريد الالكتروني مسجل مسبقا"])->withInput(),
+                Controller::jsonMessage("لا يمكن استخدام هذا المسمى الوظيفي ", 1)
+            );
+        }
+
         $user = Employee::create([
             "fullname"   => $request->input("add_employee_fullname"),
             "state"     => "Active",
@@ -179,17 +209,26 @@ class SignupController extends Controller
             "password"   => Hash::make($request->input("add_employee_password")),
             "address"    => $request->input("add_employee_address"),
             "phone"    => $request->input("add_employee_phone"),
-            "role_id" => $request->input("add_employee_role"),
+            "role_id" => $roleID,
             "profile" => 
-                    ($request->input("signup_gender") == 'Male' ? 'Male' : 'Female').'.jpg',
+                    ($request->input("add_employee_gender") == 'Male' ? 'Male' : 'Female').'.jpg',
         ]);
-
+        // create user directories
         $this->createUserSpace('employee', $user);
 
+        $credintials = [
+            'name' => $user->fullname,
+            'email' => $user->email,
+            'password' => $request->input("add_employee_password"),
+            'url' => request()->getSchemeAndHttpHost()."/login/employee/"
+        ];
+        // send email to new employe
+        Mail::to($user->email)->send(new \App\Mail\NewEmployeeCredintials($credintials));
+        // return success message
         return \App\Http\Controllers\Controller::whichReturn(
             $request,
             redirect("/signup/"),
-            ['Message' => "تم حفظ البيانات بنجاح", 'State' => 0]
+            Controller::jsonMessage("تم حفظ البيانات بنجاح",  0)
         );
     }
 

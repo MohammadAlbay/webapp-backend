@@ -14,5 +14,5 @@
         <img star-value="5" src="/rahma-ui/storage/images/icons8-star-48_uncolored.png" alt="">
     </div>
 
-    <button class="bottom-button">تقييم</button>
+    <button class="bottom-button" onclick="RateProcessor.saveRate({{$me->id}})">تقييم</button>
 </dialog>

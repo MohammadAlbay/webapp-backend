@@ -24,15 +24,9 @@ $myId = $me->id;
 <body>
     <div class="page-header">
         <h3 class="page-title">توليد كروت جديدة </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/employee">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Employee</li>
-            </ol>
-        </nav>
     </div>
 
-    <div class="col-md-6 grid-margin stretch-card">
+    <div class="d-flex grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title"></h4>
@@ -113,8 +107,10 @@ $myId = $me->id;
                         icon: "success",
                         title: "تم توليد الكروت بنجاح",
                         showConfirmButton: true,
+                        @if($me->hasPermission(\App\Models\Permission::PERMISSION_PRINT_PREPAIDCARDS_NAME))
                         showDenyButton: true,
                         denyButtonText: `طباعة الكروت`,
+                        @endif
                         confirmButtonText: `تم`
                     }).then((result) => {
                         if(result.isConfirmed) 

@@ -210,10 +210,7 @@
                     <label>المدينة</label>
                     <br>
                     <select name="signup_address" id="" class="select" required>
-                        <option value="city1">طرابلس</option>
-                        <option value="city1">مصراتة</option>
-                        <option value="city1">بنغازي</option>
-                        <option value="city1">سبها</option>
+                        @include('addresses-option');
                     </select>
                 </div>
 
@@ -224,12 +221,16 @@
                         <option value="city1">ليبي</option>
                         <option value="city1">مصري</option>
                         <option value="city1">تونسي</option>
+                        <option value="مغربي">مغربي</option>
+                        <option value="موريتاني">موريتاني</option>
+                        <option value="جزائري">جزائري</option>
                         <option value="city1">نيجري</option>
                         <option value="city1">سوداني</option>
                         <option value="city1">تشادي</option>
                         <option value="city1">اسيوي</option>
                         <option value="city1">اوروبي</option>
                         <option value="city1">اخرى</option>
+                        <option value="ليبي">ليبي</option>
                     </select>
                 </div>
 

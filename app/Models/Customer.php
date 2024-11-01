@@ -49,4 +49,26 @@ class Customer extends Authenticatable
     {
         return $this->morphMany(PostComment::class, 'owner');
     }
+
+    public function canRateTechnicain($id) {
+        //$technicain = Technicain::find($id);
+        $lastDoneReservation = Reservation::where('customer_id', $this->id)
+                                ->where('technicain_id', $id)
+                                //->where('state', 'Done')
+                                ->latest()->first();
+        if(!$lastDoneReservation) 
+            return false;
+
+        if($lastDoneReservation->state == "Done")
+            return true;
+
+        return false;
+    }
+
+    public function reportsUponMe($only_active = false) {
+        return $only_active ? 
+            TechnicainReport::where('customer_id', $this->id)
+            ->where('state', '!=', 'Done')->get()
+            : TechnicainReport::where('customer_id', $this->id)->get();
+    }
 }

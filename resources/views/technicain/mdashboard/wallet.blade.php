@@ -51,7 +51,7 @@
 </head>
 
 <body>
-    @include("technicain.mdashboard.md-dash-nav-bar")
+    @include("technicain.mdashboard.md-dash-nav-bar", ['location' => " محفظتي"])
     @include("technicain.mdashboard.md-dash-nav-barmenu")
     <div class="md-container" style="overflow-y: auto;padding-top:0px">
 
@@ -71,12 +71,12 @@
 
                     </div>
                     <div class="name">{{$me->fullname}}</div>
-
+<!-- 
                     <div class="rate-block">
                         <img src="https://img.icons8.com/?size=100&id=19417&format=png&color=000000">
                         <i>3.6</i>
                         <i>تقييم</i>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
@@ -168,32 +168,7 @@
     <script src="/sources/technicain/js/posts.js"></script>
 
 
-    <!-- For Regular tasks -->
-    @if(session('task-complet'))
-    @if(session('task-complet') == true)
-    <script>
-        Swal.fire({
-            toast: true,
-            icon: "success",
-            title: 'اكتملت العملية',
-            text: "{{session('task-complet')}}",
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 990,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-            },
-
-            didClose: () => {
-                location.reload();
-            }
-        });
-    </script>
-    @endif
-    @endif
-
+    @include('successful-task');
 
     <!-- For Regular Errors -->
     @if($errors->any())
@@ -206,7 +181,7 @@
             text: "{{$err}}",
             position: "top-end",
             showConfirmButton: false,
-            timer: 900,
+            timer: 1500,
             timerProgressBar: true,
             didOpen: (toast) => {
                 toast.onmouseenter = Swal.stopTimer;
