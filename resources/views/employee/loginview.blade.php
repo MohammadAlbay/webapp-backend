@@ -5,24 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-<<<<<<< HEAD
+
     <link rel="stylesheet" href="/sources/login.css"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet"/>
-<<<<<<< HEAD
-
-=======
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 87f94ea18b1a44b6799a06c8c4a04a016d582c58
-=======
     <link rel="stylesheet" href="/sources/login.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/sources/employee/js/index.js"></script>r
->>>>>>> c6aeb71a8c7ea85697f934e0d9d4e3d7ecf7dd6d
->>>>>>> main
-    <title>Document</title>
+    <title>تسجيل الدخول</title>
 
     <style>
         .fakeLink {

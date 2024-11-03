@@ -29,8 +29,6 @@ Route::group(['middleware' => 'auth:technicain'], function () {
         Route::post('/post/addcomment', [TechnicainViewController::class, 'addComment']);
         Route::get('/post/deletecomment/{id}', [TechnicainViewController::class, 'deleteComment']);
 
-<<<<<<< HEAD
-=======
         Route::get('/reservation-level/{id}/{state}', [TechnicainViewController::class, 'setReservationState']);
         Route::get('/scheduled-work', [TechnicainViewController::class, 'viewScheduedWork']);
         Route::get('/previouse-work', [TechnicainViewController::class, 'viewPreviouseWork']);
@@ -44,6 +42,5 @@ Route::group(['middleware' => 'auth:technicain'], function () {
         Route::post('/back-to-business', [TechnicainViewController::class, 'backToBusiness']);
 
         
->>>>>>> c6aeb71a8c7ea85697f934e0d9d4e3d7ecf7dd6d
     });
 });

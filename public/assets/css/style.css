@@ -10756,7 +10756,7 @@ code {
   -ms-flex-pack: stretch;
   justify-content: stretch; }
   .stretch-card > .card {
-    width: 100%;
+    width: 80%;
     min-width: 100%; }
 
 @media (min-width: 576px) {

@@ -208,14 +208,12 @@ class SignupController extends Controller
             "password"   => Hash::make($request->input("add_employee_password")),
             "address"    => $request->input("add_employee_address"),
             "phone"    => $request->input("add_employee_phone"),
-<<<<<<< HEAD
+
             "role_id" => $request->input("add_employee_role"),
             "profile" => ($request->input("signup_gender") == 'Male' ? 'Male' : 'Female') . '.jpg',
-=======
             "role_id" => $roleID,
             "profile" => 
                     ($request->input("add_employee_gender") == 'Male' ? 'Male' : 'Female').'.jpg',
->>>>>>> main
         ]);
         // create user directories
         $this->createUserSpace('employee', $user);
