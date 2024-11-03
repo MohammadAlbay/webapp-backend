@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Profile</title>
 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/sources/main.css">
     <link rel="stylesheet" href="/sources/technicain/css/button.css">
     <link rel="stylesheet" href="/sources/technicain/css/input.css">
@@ -247,7 +249,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="ux-input2 btn success" onclick="confromEditData()">
+                        <div id="submit_button" class="ux-input2 btn success" onclick="confromEditData()">
                             تغيير
                         </div>
                     </form>
@@ -362,6 +364,7 @@
         }
     </script>
     @else
+    <script src="/bad-word/word.js"></script>
     <script>
         // PostsView.isTechnicain = true;
         // PostsView.actorId = {{$me->id}}
@@ -371,6 +374,24 @@
             .forEach(o => {
                 if(o.value == "{{$me->address}}")
                     o.selected = true;
+            });
+
+            document.getElementById('technicain_field_name')
+            .addEventListener('change', e => {
+                let btn = document.getElementById('submit_button');
+                if(isDirty(e.target.value)) {
+                    btn.classList.toggle('disabled', true);
+                    Swal.fire({
+                        icon: 'warning',
+                        title: ' الفاظا بذيئة',
+                        text: 'اكتشف النظام الفاظا اذيئة كنت قد ادخلتها في احد حقول الادخال. لن تتمكن من المتابعة حتى تعدل ما ادخلته',
+                        timer: 4200,
+                        timerProgressBar: true,
+                        showConfirmButton:false
+                    });
+                }
+                else 
+                    btn.classList.toggle('disabled', false);
             });
         }, 200);
     </script>

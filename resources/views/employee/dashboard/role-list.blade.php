@@ -38,6 +38,9 @@ $myId = $me->id;
 
                 <div id="accordion">
                     @foreach ($roles as $role)
+                    @if($role->name == "System") 
+                        @continue 
+                    @endif
                     <div class="card">
                         <div class="card-header" id="heading{{$role->id}}">
                             <h2 class="accordion-header" id="panelsStayOpen-headingTwo">

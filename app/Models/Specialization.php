@@ -10,4 +10,8 @@ class Specialization extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function technicains() {
+        return $this->hasMany(Technicain::class);
+    }
 }

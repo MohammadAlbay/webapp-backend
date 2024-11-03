@@ -467,6 +467,6 @@ class EmployeeViewController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect("/");
+        return redirect("/login/employee");
     }
 }

@@ -1762,8 +1762,8 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  --font-family-sans-serif:'Cairo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-monospace: 'Cairo', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
 *,
 *::before,
@@ -1772,7 +1772,7 @@
   box-sizing: border-box; }
 
 html {
-  font-family: sans-serif;
+  font-family:'Cairo', sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
@@ -1883,7 +1883,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family:'Cairo', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 1em; }
 
 pre {
@@ -2725,6 +2725,13 @@ pre {
     -ms-flex: 0 0 50%;
     flex: 0 0 50%;
     max-width: 50%; }
+  .col-md-6s {
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 50%;
+      flex: 0 0 50%;
+      max-width: 80%; 
+    margin: 20px;
+    }
   .col-md-7 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 58.33333%;
@@ -5775,6 +5782,8 @@ input[type="button"].btn-block {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin: 10px 0px ;
+  border-radius: 20px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
@@ -5808,7 +5817,8 @@ input[type="button"].btn-block {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 1px;
-  padding: 1.25rem; }
+  padding: 1.25rem; 
+}
 
 .card-title {
   margin-bottom: 0.75rem; }
@@ -6892,7 +6902,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: 'Cairo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -6977,7 +6987,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: 'Cairo' , -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -9920,7 +9930,7 @@ button.bg-dark:focus {
   background-color: rgba(0, 0, 0, 0); }
 
 .text-monospace {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important; }
+  font-family:'Cairo', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important; }
 
 .text-justify {
   text-align: justify !important; }
@@ -10377,19 +10387,19 @@ input:focus {
   src: url("../fonts/Nunito/Nunito-Light.woff2") format("woff2"), url("../fonts/Nunito/Nunito-Light.woff") format("woff"), url("../fonts/Nunito/Nunito-Light.ttf") format("truetype"); }
 
 @font-face {
-  font-family: 'nunito-regular';
+  font-family: 'Cairo','nunito-regular';
   src: url("../fonts/Nunito/Nunito-Regular.eot");
   /* IE9 Compat Modes */
   src: url("../fonts/Nunito/Nunito-Regular.woff2") format("woff2"), url("../fonts/Nunito/Nunito-Regular.woff") format("woff"), url("../fonts/Nunito/Nunito-Regular.ttf") format("truetype"); }
 
 @font-face {
-  font-family: 'nunito-medium';
+  font-family: 'Cairo','nunito-medium';
   src: url("../fonts/Nunito/Nunito-SemiBold.eot");
   /* IE9 Compat Modes */
   src: url("../fonts/Nunito/Nunito-SemiBold.woff2") format("woff2"), url("../fonts/Nunito/Nunito-SemiBold.woff") format("woff"), url("../fonts/Nunito/Nunito-SemiBold.ttf") format("truetype"); }
 
 @font-face {
-  font-family: 'nunito-bold';
+  font-family: 'Cairo','nunito-bold';
   src: url("../fonts/Nunito/Nunito-Bold.eot");
   /* IE9 Compat Modes */
   src: url("../fonts/Nunito/Nunito-Bold.woff2") format("woff2"), url("../fonts/Nunito/Nunito-Bold.woff") format("woff"), url("../fonts/Nunito/Nunito-Bold.ttf") format("truetype"); }
@@ -10497,14 +10507,14 @@ input:focus {
 /* Typography */
 body {
   font-size: 1rem;
-  font-family: "nunito-regular", sans-serif;
+  font-family: 'Cairo',"nunito-regular", sans-serif;
   font-weight: initial;
   line-height: normal;
   -webkit-font-smoothing: antialiased; }
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "nunito-regular", sans-serif;
+  font-family: 'Cairo',"nunito-regular", sans-serif;
   font-weight: 600; }
 
 p {
@@ -10646,7 +10656,7 @@ pre {
 code {
   padding: 5px;
   color: #fc5a5a;
-  font-family: "nunito-light", sans-serif;
+  font-family: 'Cairo',"nunito-light", sans-serif;
   font-size: 0.875rem;
   border-radius: 4px; }
 
@@ -10683,7 +10693,7 @@ code {
   -webkit-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   font-size: 0.875rem;
-  font-family: "nunito-regular", sans-serif; }
+  font-family: 'Cairo',"nunito-regular", sans-serif; }
   .footer .footer-inner-wraper {
     width: 100%;
     padding-right: 9px;
@@ -10788,16 +10798,16 @@ code {
   flex-grow: 1; }
 
 .font-weight-light {
-  font-family: "nunito-light", sans-serif; }
+  font-family:'Cairo', "nunito-light", sans-serif; }
 
 .font-weight-bold {
-  font-family: "nunito-bold", sans-serif; }
+  font-family:'Cairo', "nunito-bold", sans-serif; }
 
 .font-weight-normal {
-  font-family: "nunito-regular", sans-serif; }
+  font-family:'Cairo', "nunito-regular", sans-serif; }
 
 .font-weight-medium {
-  font-family: "nunito-medium", sans-serif; }
+  font-family: 'Cairo',"nunito-medium", sans-serif; }
 
 .absolute-center {
   position: absolute;
@@ -11018,7 +11028,7 @@ code {
   font-weight: initial;
   line-height: 1;
   padding: .375rem .5625rem;
-  font-family: "nunito-medium", sans-serif; }
+  font-family:'Cairo', "nunito-medium", sans-serif; }
   .badge.badge-pill {
     border-radius: 10rem; }
 
@@ -11184,7 +11194,7 @@ code {
 .btn {
   font-size: 12px;
   line-height: 1;
-  font-family: "nunito-bold", sans-serif;
+  font-family: 'Cairo',"nunito-bold", sans-serif;
   font-weight: 600;
   /* Buttons with only icons */
   /* Buttons with icon and text */ }
@@ -11941,17 +11951,17 @@ code {
     color: #001737;
     margin-bottom: 1.625rem;
     text-transform: capitalize;
-    font-family: "nunito-regular", sans-serif;
+    font-family: 'Cairo',"nunito-regular", sans-serif;
     font-size: 1.125rem;
     font-weight: 600; }
   .card .card-subtitle {
-    font-family: "nunito-regular", sans-serif;
+    font-family: 'Cairo',"nunito-regular", sans-serif;
     margin-top: 0.625rem;
     margin-bottom: 0.625rem; }
   .card .card-description {
     color: #76838f;
     margin-bottom: 1.5rem;
-    font-family: "nunito-regular", sans-serif; }
+    font-family: 'Cairo', "nunito-regular", sans-serif; }
   .card.card-outline-success {
     border: 1px solid #44ce42; }
   .card.card-outline-primary {
@@ -12075,7 +12085,7 @@ code {
       transition-duration: 0s;
       -webkit-transition-duration: 250ms;
       transition-duration: 250ms;
-      font-family: Material Design Icons;
+      font-family:'Cairo', Material Design Icons;
       opacity: 0;
       filter: alpha(opacity=0);
       -webkit-transform: scale(0);
@@ -12232,7 +12242,7 @@ code {
   .table thead th {
     border-top: 0;
     border-bottom-width: 1px;
-    font-family: "nunito-medium", sans-serif;
+    font-family: 'Cairo', "nunito-medium", sans-serif;
     font-weight: initial; }
     .table thead th i {
       margin-left: 0.325rem; }
@@ -12319,7 +12329,7 @@ code {
     .preview-list .preview-item .preview-item-content p {
       margin-bottom: 10px; }
       .preview-list .preview-item .preview-item-content p .content-category {
-        font-family: 'source-sans-pro-semibold', sans-serif;
+        font-family: 'Cairo', 'source-sans-pro-semibold', sans-serif;
         padding-right: 15px;
         border-right: 1px solid rgba(151, 151, 151, 0.3); }
     .rtl .preview-list .preview-item .preview-item-content {
@@ -12389,7 +12399,7 @@ code {
   border-radius: 3px;
   padding: 6px;
   font-size: .625rem;
-  font-family: inherit;
+  font-family: 'Cairo', inherit;
   line-height: 1; }
   .select2-container--default .select2-selection--multiple .select2-selection__choice .select2-selection__choice__remove {
     color: #ffffff; }
@@ -12507,7 +12517,7 @@ code {
 .tt-query,
 .tt-hint {
   border: 1px solid rgba(151, 151, 151, 0.3);
-  font-family: "nunito-regular", sans-serif;
+  font-family: 'Cairo',"nunito-regular", sans-serif;
   font-size: 0.8125rem; }
 
 select.form-control, .select2-container--default select.select2-selection--single, .select2-container--default .select2-selection--single select.select2-search__field, select.typeahead,
@@ -12626,7 +12636,7 @@ select.tt-hint {
     -ms-flex-align: center;
     align-items: center;
     padding: 15px 15px;
-    font-family: "nunito-regular", sans-serif;
+    font-family: 'Cairo',"nunito-regular", sans-serif;
     font-size: 0.875rem; }
     .icons-list > div i {
       display: inline-block;
@@ -12658,7 +12668,7 @@ dl {
     .list-ticked li:before,
     .list-arrow li:before,
     .list-star li:before {
-      font-family: "Material Design Icons";
+      font-family: 'Cairo', "Material Design Icons";
       margin-left: -1.5rem;
       width: 1.5rem;
       margin-right: .5rem; }
@@ -12786,7 +12796,7 @@ dl {
     background: transparent;
     border-color: rgba(255, 255, 255, 0.2);
     color: #002766;
-    font-family: "nunito-bold", sans-serif;
+    font-family: 'Cairo',"nunito-bold", sans-serif;
     padding: 1.75rem; }
     .nav-tabs.nav-tabs-vertical-custom .nav-link.active {
       color: #ffffff;
@@ -13070,13 +13080,13 @@ dl {
 
 /* Navbar */
 .navbar {
-  font-family: "nunito-medium", sans-serif;
+  font-family: 'Cairo',"nunito-medium", sans-serif;
   background: #ffffff;
   transition: background 0.25s ease;
   -webkit-transition: background 0.25s ease;
   -moz-transition: background 0.25s ease;
   -ms-transition: background 0.25s ease;
-  font-family: "nunito-medium", sans-serif; }
+  font-family: 'Cairo', "nunito-medium", sans-serif; }
   .navbar .navbar-brand {
     width: 110px; }
   .navbar .navbar-brand-wrapper {
@@ -13655,7 +13665,7 @@ dl {
         line-height: 16px;
         margin: 25px 0px 10px 0px;
         color: #8e94a9;
-        font-family: "nunito-bold", sans-serif; }
+        font-family: 'Cairo', "nunito-bold", sans-serif; }
         .sidebar .nav .nav-item.nav-category .nav-link {
           padding: 1.2rem 2rem 0.2rem; }
           .sidebar .nav .nav-item.nav-category .nav-link:hover {
@@ -13724,7 +13734,7 @@ dl {
           border-top: 0; }
           .sidebar .nav.sub-menu .nav-item .nav-link:before {
             content: "\F054";
-            font-family: "Material Design Icons";
+            font-family: 'Cairo', "Material Design Icons";
             display: block;
             position: absolute;
             left: 0px;

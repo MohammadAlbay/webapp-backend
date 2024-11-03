@@ -6,18 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/sources/technicain/css/index.css">
     <link rel="stylesheet" href="/sources/technicain/css/homepage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="/sources/technicain/css/profile.css">
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
     @include("technicain.mdashboard.md-dash-nav-bar", ['location' => ""])
-    @include("technicain.mdashboard.md-dash-nav-barmenu")
+    @include("technicain.mdashboard.md-dash-nav-barmenu", ['mainview' => true])
     <div class="md-container" style="overflow-y: auto;">
         @include("technicain.mdashboard.homepage")
     </div>
@@ -45,6 +49,10 @@
         });
     </script>
     @endif
+
+
+
+    
 </body>
 
 </html>

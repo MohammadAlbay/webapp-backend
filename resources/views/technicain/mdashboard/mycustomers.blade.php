@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <link rel="stylesheet" href="/sources/main.css">
     <link rel="stylesheet" href="/sources/technicain/css/button.css">
     <link rel="stylesheet" href="/sources/technicain/css/input.css">
     <link rel="stylesheet" href="/sources/technicain/css/index.css">
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="/sources/technicain/css/profile.css">
     <link rel="stylesheet" href="/sources/technicain/css/mycustomers.css">
     <link rel="stylesheet" href="/sources/technicain/css/image-stack.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/sources/main.js"></script>
@@ -111,6 +113,44 @@
     </div>
     </div>
 
+    
+    <dialog id="add-post-dialog" class="fullscreen-dialog">
+        <div class="topbar-container">
+            <div class="close" onclick="showDialog()"></div>
+            <div class="title">اضافة منشور</div>
+        </div>
+        <div class="container" style="overflow-y:auto">
+            <div class="md-grid-container">
+                <div class="md-grid-item half-width " style="border-radius: 1em; padding-bottom:1em; background-color:rgba(244,244,244);">
+                    <b class="title">نص المنشور</b>
+                    <div>
+                        <textarea onchange="" name="techincain-add-post-textarea" id="techincain-add-post-textarea" class="post-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="md-grid-item half-width " style="border-radius: 1em; padding-bottom:1em;  background-color:rgba(244,244,244);">
+                    <b class="title">صور وفيديوهات المنشور</b>
+                    <button id="techincain-add-post-addmedia" class="button-image">
+                        <img src="https://img.icons8.com/?size=100&id=IA4hgI5aWiHD&format=png&color=000000" alt="">
+                        <i>اضافة</i>
+                    </button>
+                    <div id="techincain-add-post-imagelist" style="height:20em; padding:0.2em;white-space: nowrap;overflow-x:scroll;overflow-y:hidden;">
+                    </div>
+                </div>
+            </div>
+            <div class="md-grid-container md-grid-item full-width" style="background-color: transparent; border:none;">
+                <div class="md-grid-item full-width full-height" style="border-radius: 1em; padding-bottom:1em;">
+                    <b class="title">للنشر اضغط على زر النشر ادناه</b>
+                    <button id="techincain-add-post-submit" class="button-image">
+                        <img src="https://img.icons8.com/?size=100&id=103205&format=png&color=000000" alt="">
+                        <i>نشر</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+
+    <script src="/bad-word/word.js"></script>
 
 
     <script src="/sources/technicain/js/index.js"></script>

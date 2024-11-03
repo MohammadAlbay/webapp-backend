@@ -17,10 +17,13 @@
         <img src="https://img.icons8.com/?size=100&id=8dUj69nVAlgU&format=png&color=000000" alt="">
         <i>المنشورات</i>
         <div class="md-menu-section-list">
+            @isset($mainview)
+            @else
             <span class="md-menu-section" onclick="showDialog()">
                 <img src="https://img.icons8.com/?size=100&id=43117&format=png&color=000000" alt="">
                 <i>اضافة منشور</i>
             </span>
+            @endisset
             <span class="md-menu-section" id="view_posts" onclick="location.href = '/technicain/posts'">
                 <img src="https://img.icons8.com/?size=100&id=3ebjmwQGezZx&format=png&color=000000" alt="">
                 <i>قائمة المناشير</i>

@@ -48,19 +48,19 @@ $myId = $me->id;
                         </h3>
                         <div class="stats">
                             <div class="flex-item" style="height:200px;">
-                                <h2 style="width:100%; text-align:center; font-size:30pt; margin-top:1em;color:black">{{$transactionTypeOther->value}} د.ل</h2>
+                                <h2 style="width:100%; text-align:center; font-size:30pt; margin-top:1em;color:black">{{$transactionTypeOther ? $transactionTypeOther->value : 0}} د.ل</h2>
                                 <div style="width:100%; text-align:center;"><b style=" text-decoration:none; font-weight:normal; color:rgba(0,0,0,5)">
                                     اجمالي عقوبات/غرامات 
                                 </b></div>
                             </div>
                             <div class="flex-item" style="height:200px;">
-                                <h2 style="width:100%; text-align:center; font-size:30pt; margin-top:1em;color:black">{{$transactionTypeSub->value}} د.ل</h2>
+                                <h2 style="width:100%; text-align:center; font-size:30pt; margin-top:1em;color:black">{{$transactionTypeSub ? $transactionTypeSub->value : 0}} د.ل</h2>
                                 <div style="width:100%; text-align:center;"><b style=" text-decoration:none; font-weight:normal; color:rgba(0,0,0,5)">
                                     اجمالي الاشتراكات 
                                 </b></div>
                             </div>
                             <div class="flex-item" style="height:200px;">
-                                <h2 style="width:100%; text-align:center; font-size:30pt; margin-top:1em;color:black">{{$systemWallet->balance}} د.ل</h2>
+                                <h2 style="width:100%; text-align:center; font-size:30pt; margin-top:1em;color:black">{{$systemWallet ? $systemWallet->balance : 0}} د.ل</h2>
                                 <div style="width:100%; text-align:center;"><b style=" text-decoration:none; font-weight:normal; color:rgba(0,0,0,5)">
                                     محفظة النظام
                                 </b></div>

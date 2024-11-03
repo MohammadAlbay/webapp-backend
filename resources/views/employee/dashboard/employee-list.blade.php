@@ -13,6 +13,8 @@ $myId = $me->id;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/sources/main.css">
     <link rel="stylesheet" href="/sources/employee/css/index.css">
     <title>Document</title>
@@ -44,9 +46,13 @@ $myId = $me->id;
                         <td>تاريخ الانضمام</td>
                         <td> - </td>
                         <td> - </td>
+                        <td> - </td>
                     </tr>
 
                     @foreach ($employees as $employee)
+                    @if($employee->role()->name == "System") 
+                        @continue 
+                    @endif
                     @php
                     $stateSwtch = $employee->state == 'Active' ? 'Inactive' : 'Active';
                     @endphp
@@ -169,6 +175,9 @@ $myId = $me->id;
                             <div class="col-sm-9">
                                 <select class="form-control" id="edit_employee_role" name="edit_employee_role" {{$me->role()->name == "Admin" ? "readonly" : ""}}>
                                     @foreach ($roles as $role)
+                                        @if($role->name == "System") 
+                                            @continue 
+                                        @endif
                                     <option value="{{$role->id }}">{{ $role->name }}</option>
                                     @endforeach
                                 </select>

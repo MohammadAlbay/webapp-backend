@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="/sources/signup.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+    
     <title>تسجيل عميل</title>
 
     <style>
@@ -14,21 +18,40 @@
             color: whitesmoke;
             direction: rtl;
         }
+        .disabled {
+            pointer-events: none;
+            cursor:not-allowed;
+        }
     </style>
 </head>
 
 <body>
-    <img class="s" src="/public/sources/img/فني لعندك.png"> </img>
+<header>
+   <nav>
+   <div class="btn-login">
+   <a  class="sinup" href="{{ route('login.index')}}">تسجيل الدخول</a>
+   </div> 
+   <img class="logo" src="/sources/img/فني لعندك.png"> </img>
+   <i  id="btnmenu"class="fa-solid fa-bars"></i><!--عند تصغير الشاشة تظهر-->
+   </nav>
+</header>
     <div class="wrapper">
-        <div class="from-wrapper">
-            <form action="{{route('signup.create')}}" method="post">
-                <h1>انشاء حساب </h1>
-                @csrf
-                <input type="text" value="customer" name="signup_type" style="display:none">
-                <div class="center">
-                    <img class="img" src="/public/sources/img/image.png" alt="">
-                    <img class="icon" src="/public/sources/img/Green-Add-Button-PNG (1).png (1).png" alt="">
+    <div class="grid-container">
+    <!-- القسم الأول: الصورة -->
+    <div class="image-section">
+    <h1>انشاء حساب</h1>
+                    <img class="img" src="/sources/img/image.png" alt="">
+                    <img class="icon" src="/sources/img/Green-Add-Button-PNG (1).png" alt="">
                 </div>
+             
+        <!-- القسم الثاني: المدخلات من اسم المستخدم إلى تأكيد كلمة المرور -->
+        <div class="input-section">
+        <form action="{{route('signup.create')}}" method="post">
+               
+               @csrf
+               <input type="text" value="customer" name="signup_type" style="display:none">
+               
+           </form> 
                 @if ($errors->any())
                 <div class="input-group err-group">
                     @foreach ($errors->all() as $error)
@@ -48,28 +71,23 @@
                 </div>
                 <div class="input-group">
                     <label>الايميل</label>
-                    <br>
                     <input type="text" name="signup_email" placeholder="example@gmail.com">
-                    <br>
                 </div>
                 <div class="input-group">
                     <label>رقم الهاتف</label>
-                    <br>
                     <input type="text" name="signup_phone" placeholder="09********">
-                    <br>
                 </div>
                 <div class="input-group">
                     <label>كلمة المرور</label>
-                    <br>
                     <input type="text" name="signup_password" placeholder="ادخل كلمة المرور">
-                    <br>
                 </div>
                 <div class="input-group">
                     <label>تاكيد كلمة المرور</label>
-                    <br>
-                    <input type="text" name="signup_password2" placeholder="تاكيد كلمة المرور">
-                    <br>
+                    <input type="text" name="signup_password2" placeholder="تاكيد كلمة المرور"> 
                 </div>
+        </div>
+          <!-- القسم الثالث: المدخلات من المدينة إلى الوصف -->
+          <div class="city-section">
                 <div class="input-group">
                     <label>المدينة</label>
                     <br>
@@ -78,35 +96,25 @@
                     </select>
                     <br>
                 </div>
-                <!-- <div class="input-group">
-                    <label>الجنسية</label>
-                    <br>
-                    <select name="cties" id="" class="select">
-                        <option value="city1">ليبي</option>
-                        <option value="city1">مصري</option>
-                        <option value="city1">تونسي</option>
-                        <option value="city1">اخرى</option>
-                    </select>
-                    <br>
-                </div> -->
                 <div class="input-group">
-                    <label>التخصصات</label>
+                    <label>تاريخ الميلاد</label>
                     <br>
                     <input type="date" name="signup_birthdate" required>
                     <br>
                 </div>
-                <div class="checkbox">
+                <div class="gander-selection">
                     <label>الجنس</label>
-                    <br>
-                    <label>
-                        <input type="radio" name="signup_gender" class="checkboxr" value="Female">
-                        <label class="checkboxr">انثى</label>
-                    </label>
-                    <label>
-                        <label class="checkboxl">ذكر</label>
+                    <div class="options">
+                    <div>
+                        <input type="radio" name="signup_gender" class="checkbox" value="Female">
+                        <label class="checkbox" for="Female">انثى</label>
+                    </div>
+                    <div>
                         <input type="radio" name="signup_gender" class="checkboxl" value="Male">
-                    </label>
-                    <br>
+                        <label class="checkbox" for="Male">ذكر</label>
+                    </div>
+                    </div>
+                </div>
                 </div>
                 <div class="sub">
 
@@ -116,5 +124,4 @@
         </div>
     </div>
 </body>
-
 </html>

@@ -16,7 +16,8 @@ class Employee extends Authenticatable
     protected static function booted()
     {
         static::created(function ($employee) {
-            $employee->wallet()->create();
+            if($employee->role_id->name == "System")
+                $employee->wallet()->create();
         });
     }
     

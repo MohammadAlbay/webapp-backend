@@ -14,8 +14,12 @@ class Technicain extends Authenticatable  implements MustVerifyEmail
     use Notifiable;
     protected $guarded = [];
 
-    protected $appends = ['rate'];
+    protected $appends = ['rate', 'specializationName'];
     public $rate;
+
+    public function getspecializationNameAttribute() {
+        return $this->specializationName();
+    }
 
     public function getRateAttribute()
     {
@@ -69,6 +73,23 @@ class Technicain extends Authenticatable  implements MustVerifyEmail
         return Reservation::where('technicain_id', $this->id)
                         ->where('state', 'Pending')->get();
     }
+
+    public function acceptedReservations() {
+        return Reservation::where('technicain_id', $this->id)
+                        ->where('state', 'Accepted')->get();
+    }
+
+    public function inProgressReservations() {
+        return Reservation::where('technicain_id', $this->id)
+                        ->where('state', 'InProgress')->get();
+    }
+
+    public function notDoneReservations() {
+        return Reservation::where('technicain_id', $this->id)
+                        ->where('state', 'InProgress')
+                        ->orWhere('state', 'Accepted')->get();
+    }
+    
     public function rateValue() {
         $rates = Rate::where('technicain_id', $this->id)->get('rate');
         $value = 0;

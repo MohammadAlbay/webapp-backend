@@ -5,10 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Document</title>
+    <title>تسجيل الدخول</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="/sources/login.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/sources/employee/js/index.js"></script>r
+    <script src="/sources/employee/js/index.js"></script>
 
     <style>
         .fakeLink {
@@ -24,7 +26,7 @@
     <div class="container">
         <div class="login-box">
             <div class="half-circle"></div>
-            <div class="image-container"></div>
+            <div class="image-container"><img src="/sources/img/Untitled-5 1.png" alt=""></div>
             <div class="form-container">
                 <h2>اهلا وسهلا بكم</h2>
                 <p>سجل دخولك للوصول لادارة حسابك وخدمات الموقع </p>

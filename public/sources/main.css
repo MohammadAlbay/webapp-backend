@@ -4,31 +4,37 @@ table {
     border-collapse: collapse;
     width: 95%;
     margin-top: 0.3em;
-    background-color: rgb(233, 233, 233);
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    background-color: rgb(255, 255, 255);
+    font-family: 'Cairo','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 table td,
 table th {
-    border: 1px solid #ddd;
+  /*  border: 1px solid #000000;*/
     padding: 8px;text-align: center;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Cairo'; 
 }
 
-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+table tr:first-child{
+    background-color: #181824;
+    color: #ffff;
+    border-bottom: 2px solid #ffffff;
 }
-
+table  tr:not(:first-child){
+    background-color: #ffffff;
+    border-bottom: 1px solid #181824;
+}
+/*
 table tr:hover {
-    background-color: #ddd;
+    background-color: #727272;
 }
-
+*/
 table th {
     padding-top: 12px;
     padding-bottom: 12px;
     font-weight: 800;
-    background-color:  rgb(190,190,190);
-    color: rgb(60, 60, 60);
+    background-color:  rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
     font-size: 14pt;
 }
 table td {
