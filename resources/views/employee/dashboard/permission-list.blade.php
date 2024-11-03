@@ -23,11 +23,7 @@ $myId = $me->id;
         <h3 class="page-title"> قائمة الصلاحيات </h3>
     </div>
 
-<<<<<<< HEAD
-    <div class="col-md-6s grid-margin stretch-card">
-=======
     <div class="d-flex grid-margin stretch-card">
->>>>>>> c6aeb71a8c7ea85697f934e0d9d4e3d7ecf7dd6d
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">قائمة بالصلاحيات</h4>

@@ -31,14 +31,6 @@ class TechnicainViewController extends Controller
     {
         return view("technicain.mdashboard.index", ['me' => Auth::guard($this->guard)->user(), 'viewer' => '']);
     }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-   
-
-}
-=======
->>>>>>> 87f94ea18b1a44b6799a06c8c4a04a016d582c58
 
     public function viewPreviouseWork(Request $request)
     {
@@ -616,10 +608,5 @@ class TechnicainViewController extends Controller
             return Controller::jsonMessage("حسابك غير مفعل. يرجى الاشتراك حتى تتمكن من تفعيله من جديد", 1);
         }
     }
-
     
 }
-<<<<<<< HEAD
-=======
->>>>>>> MD
->>>>>>> 87f94ea18b1a44b6799a06c8c4a04a016d582c58
