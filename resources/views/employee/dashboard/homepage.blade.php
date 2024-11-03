@@ -46,7 +46,7 @@ $myId = $me->id;
                                     </b></div>
                             </div>
                             <div class="flex-item" style="height:200px; border:1px solid #33c92d">
-                                <h2 style="width:100%; text-align:center; font-size:30pt; margin-top:1em;color:black">{{$employeesCount->value}} </h2>
+                                <h2 style="width:100%; text-align:center; font-size:30pt; margin-top:1em;color:black">{{$employeesCount ? $employeesCount->value : 0}} </h2>
                                 <div style="width:100%; text-align:center;"><b style="color:#33c92d; text-decoration:none; font-weight:normal; font-size:20pt; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                                         موظف نشط
                                     </b></div>
@@ -54,19 +54,19 @@ $myId = $me->id;
                         </div>
                         <div class="stats">
                             <div class="flex-item" style="height:200px; border:1px solid #33c92d">
-                                <h2 style="width:100%; text-align:center; font-size:40pt; margin-top:0.5em;color:black">{{$techniainsInactiveCount->value}} </h2>
+                                <h2 style="width:100%; text-align:center; font-size:40pt; margin-top:0.5em;color:black">{{$techniainsInactiveCount ? $techniainsInactiveCount->value : 0}} </h2>
                                 <div style="width:100%; text-align:center;"><b style="color:#33c92d; text-decoration:none; font-weight:normal; font-size:20pt; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                                         فني غير نشط
                                     </b></div>
                             </div>
                             <div class="flex-item" style="height:200px; border:1px solid #33c92d">
-                                <h2 style="width:100%; text-align:center; font-size:30pt; margin-top:1em;color:black">{{$postsDeployedCount->value}} </h2>
+                                <h2 style="width:100%; text-align:center; font-size:30pt; margin-top:1em;color:black">{{$postsDeployedCount ? $postsDeployedCount->value : 0}} </h2>
                                 <div style="width:100%; text-align:center;"><b style="color:#33c92d; text-decoration:none; font-weight:normal; font-size:20pt; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                                         منشور تم نشره
                                     </b></div>
                             </div>
                             <div class="flex-item" style="height:200px; border:1px solid #33c92d">
-                                <h2 style="width:100%; text-align:center; font-size:30pt; margin-top:1em;color:black">{{$averageRateCount->value}} </h2>
+                                <h2 style="width:100%; text-align:center; font-size:30pt; margin-top:1em;color:black">{{$averageRateCount ? $averageRateCount->value : 0}} </h2>
                                 <div style="width:100%; text-align:center;"><b style="color:#33c92d; text-decoration:none; font-weight:normal; font-size:20pt; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                                         متوسط التقييمات
                                     </b></div>

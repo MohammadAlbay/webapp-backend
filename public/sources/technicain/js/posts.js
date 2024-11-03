@@ -49,7 +49,21 @@ var PostsView = {
         else
             n.classList.replace('open', 'close');
     },
-
+    async checkForBadWords(self, btn) {
+        if(isDirty(self.value)) {
+            btn.classList.toggle('disabled', true);
+            Swal.fire({
+                icon: 'warning',
+                title: ' الفاظا بذيئة',
+                text: 'اكتشف النظام الفاظا اذيئة كنت قد ادخلتها في احد حقول الادخال. لن تتمكن من المتابعة حتى تعدل ما ادخلته',
+                timer: 4200,
+                timerProgressBar: true,
+                showConfirmButton:false
+            });
+        }
+        else 
+            btn.classList.toggle('disabled', false);
+    },
     async addComment(postId, inputElement) {
     
         if(this.actorId == -1) return;

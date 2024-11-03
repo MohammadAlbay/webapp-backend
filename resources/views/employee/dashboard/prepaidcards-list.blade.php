@@ -23,7 +23,7 @@ $myId = $me->id;
     <div class="page-header">
         <h3 class="page-title">بطاقات الدفع المسجلة </h3>
     </div>
-    <div class="col-md-6s grid-margin stretch-card">
+
     <div class="d-flex grid-margin stretch-card">
         <div class="card">
             <div class="card-body">

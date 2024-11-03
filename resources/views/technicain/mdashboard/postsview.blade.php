@@ -20,6 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/sources/main.js"></script>
     <script src="/sources/employee/js/index.js"></script>
+    <script src="/bad-word/word.js"></script>
 
     <style>
         .error-card {

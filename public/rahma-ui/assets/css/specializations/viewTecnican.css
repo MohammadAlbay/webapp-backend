@@ -91,6 +91,12 @@ body {
     margin: 0 10px;
 }
 
+.desc {
+    max-height: 6em; min-height: 6em;
+    height: 6em; overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: nowrap;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-links {

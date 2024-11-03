@@ -19,9 +19,9 @@
 
                     @foreach ($post->media as $media)
                     <div class="slide">
-                        @if(in_array(pathinfo($media->image, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif']))
+                        @if(in_array(pathinfo(strtolower($media->image), PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif']))
                         <img src="{{ asset($media->image) }}" alt="Image">
-                        @elseif(in_array(pathinfo($media->image, PATHINFO_EXTENSION), ['mp4', 'webm', 'ogg']))
+                        @elseif(in_array(pathinfo(strtolower($media->image), PATHINFO_EXTENSION), ['mp4', 'webm', 'ogg']))
                         <video controls autoplay="false">
                             <source src="{{ asset($media->image) }}" type="video/{{ pathinfo($media->image, PATHINFO_EXTENSION) }}">
                         </video>
@@ -47,11 +47,11 @@
         <div class="head">
             <div class="close-icon" onclick="PostsView.toggleCommentsSection(comments_{{$post->id}})"></div>
             <div class="input-block ">
-                <button {{isset($no_comments) ? 'disabled' : ''}} onclick="PostsView.addComment('{{$post->id}}', input_comment_{{$post->id}})" class="button-image primary" style="height: 100%;flex-grow: 0;">
+                <button id="input_send_comment_{{$post->id}}" {{isset($no_comments) ? 'disabled' : ''}} onclick="PostsView.addComment('{{$post->id}}', input_comment_{{$post->id}})" class="button-image primary" style="height: 100%;flex-grow: 0;">
                     <img src="https://img.icons8.com/?size=100&id=368&format=png&color=000000" alt="">
                     <i>ارسال</i>
                 </button>
-                <input type="text" id="input_comment_{{$post->id}}" {{isset($no_comments) ? 'readonly' : ''}}>
+                <input type="text" id="input_comment_{{$post->id}}" onchange="PostsView.checkForBadWords(this, input_send_comment_{{$post->id}})" {{isset($no_comments) ? 'readonly' : ''}}>
             </div>
         </div>
         <div class="body">

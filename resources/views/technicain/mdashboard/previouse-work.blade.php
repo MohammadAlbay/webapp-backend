@@ -191,7 +191,8 @@
             </div>
         </div>
     </dialog>
-
+    
+    <script src="/bad-word/word.js"></script>
     <script src="/sources/technicain/js/index.js"></script>
     <script src="/sources/technicain/js/profile.js"></script>
 

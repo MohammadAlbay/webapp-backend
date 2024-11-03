@@ -24,7 +24,6 @@ $myId = $me->id;
 
     </div>
 
-    <div class="col-md-6s grid-margin stretch-card">
     <div class="d-flex grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
@@ -39,6 +38,9 @@ $myId = $me->id;
 
                 <div id="accordion">
                     @foreach ($roles as $role)
+                    @if($role->name == "System") 
+                        @continue 
+                    @endif
                     <div class="card">
                         <div class="card-header" id="heading{{$role->id}}">
                             <h2 class="accordion-header" id="panelsStayOpen-headingTwo">

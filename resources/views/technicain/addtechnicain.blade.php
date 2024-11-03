@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="stylesheet" href="/sources/signup_technicain.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="/sources/signup.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
     
@@ -15,7 +16,11 @@
             background-color: red;
             color: whitesmoke;
             direction: rtl;
-            font-size: 12px;
+        }
+
+        .disabled {
+            pointer-events: none;
+            cursor:not-allowed;
         }
     </style>
 </head>
@@ -61,7 +66,9 @@
                 @endif
                 <div class="input-group">
                     <label>اسم المستخدم</label>
-                    <input type="text" name="signup_name" placeholder="ادخل اسم المستخدم" required>
+                    <br>
+                    <input id="technicain_field_name" type="text" name="signup_name" placeholder="ادخل اسم المستخدم" required>
+                    <br>
                 </div>
 
                 <div class="input-group">
@@ -96,19 +103,18 @@
                     <label>الجنسية</label>
                     <br>
                     <select name="signup_nationality" id="" class="select" required>
-                        <option value="city1">ليبي</option>
-                        <option value="city1">مصري</option>
-                        <option value="city1">تونسي</option>
+                        <option value="ليبي">ليبي</option>
+                        <option value="مصري">مصري</option>
+                        <option value="تونسي">تونسي</option>
                         <option value="مغربي">مغربي</option>
                         <option value="موريتاني">موريتاني</option>
                         <option value="جزائري">جزائري</option>
-                        <option value="city1">نيجري</option>
-                        <option value="city1">سوداني</option>
-                        <option value="city1">تشادي</option>
-                        <option value="city1">اسيوي</option>
-                        <option value="city1">اوروبي</option>
-                        <option value="city1">اخرى</option>
-                        <option value="ليبي">ليبي</option>
+                        <option value="نيجري">نيجري</option>
+                        <option value="سوداني">سوداني</option>
+                        <option value="تشادي">تشادي</option>
+                        <option value="اسيوي">اسيوي</option>
+                        <option value="اوروبي">اوروبي</option>
+                        <option value="اخرى">اخرى</option>
                     </select>
                 </div>
 
@@ -143,19 +149,56 @@
 
                 <div class="input-groupt">
                     <label> (اختياري) الوصف</label>
-                    <input type="text" name="signup_desc" placeholder="اكتب ما تريد">
+                    <br>
+                    <input id="desc_field" type="text" name="signup_desc" placeholder="اكتب ما تريد">
+                    <br>
                 </div>
             </div>
          </div>
 
-         <!-- زر التسجيل أسفل الأقسام الثلاثة -->
-            <div class="submit-section">
-                <button type="submit">تسجيل</button>  
-            </div>
+                    <button id="submit_button" type="submit">تسجيل</button>
+                </div>
         </div>
         </form>
     </div>
     </div>
+    <script src="/bad-word/word.js"></script>
+    <script>
+        document.getElementById('technicain_field_name')
+            .addEventListener('change', e => {
+                let btn = document.getElementById('submit_button');
+                if(isDirty(e.target.value)) {
+                    btn.classList.toggle('disabled', true);
+                    Swal.fire({
+                        icon: 'warning',
+                        title: ' الفاظا بذيئة',
+                        text: 'اكتشف النظام الفاظا اذيئة كنت قد ادخلتها في احد حقول الادخال. لن تتمكن من المتابعة حتى تعدل ما ادخلته',
+                        timer: 4200,
+                        timerProgressBar: true,
+                        showConfirmButton:false
+                    });
+                }
+                else 
+                    btn.classList.toggle('disabled', false);
+            });
 
+            document.getElementById('desc_field')
+            .addEventListener('change', e => {
+                let btn = document.getElementById('submit_button');
+                if(isDirty(e.target.value)) {
+                    btn.classList.toggle('disabled', true);
+                    Swal.fire({
+                        icon: 'warning',
+                        title: ' الفاظا بذيئة',
+                        text: 'اكتشف النظام الفاظا اذيئة كنت قد ادخلتها في احد حقول الادخال. لن تتمكن من المتابعة حتى تعدل ما ادخلته',
+                        timer: 4200,
+                        timerProgressBar: true,
+                        showConfirmButton:false
+                    });
+                }
+                else 
+                    btn.classList.toggle('disabled', false);
+            });
+    </script>
 </body>
 </html>
