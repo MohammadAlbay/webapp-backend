@@ -47,6 +47,9 @@ $myId = $me->id;
                     </tr>
 
                     @foreach ($employees as $employee)
+                    @if($employee->role()->name == "System") 
+                        @continue 
+                    @endif
                     @php
                     $stateSwtch = $employee->state == 'Active' ? 'Inactive' : 'Active';
                     @endphp
@@ -169,6 +172,9 @@ $myId = $me->id;
                             <div class="col-sm-9">
                                 <select class="form-control" id="edit_employee_role" name="edit_employee_role" {{$me->role()->name == "Admin" ? "readonly" : ""}}>
                                     @foreach ($roles as $role)
+                                        @if($role->name == "System") 
+                                            @continue 
+                                        @endif
                                     <option value="{{$role->id }}">{{ $role->name }}</option>
                                     @endforeach
                                 </select>

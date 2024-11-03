@@ -201,26 +201,47 @@ class AddPost {
             ?.addEventListener('click', e => {
                 this.submit();
             });
-        this.postTextArea.addEventListener('change', e => this.#text = e.target.value);
+        this.postTextArea.addEventListener('change', e => {
+            let btn1 = parentContainer.querySelector('#techincain-add-post-submit');
+            let btn2 = parentContainer.querySelector('#techincain-edit-post-submit');
+            if (isDirty(e.target.value)) {
+                btn1?.classList.toggle('disabled', true);
+                btn2?.classList.toggle('disabled', true);
+                Swal.fire({
+                    icon: 'warning',
+                    title: ' الفاظا بذيئة',
+                    text: 'اكتشف النظام الفاظا اذيئة كنت قد ادخلتها في احد حقول الادخال. لن تتمكن من المتابعة حتى تعدل ما ادخلته',
+                    timer: 4200,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
+            }
+            else {
+                btn1?.classList.toggle('disabled', false);
+                btn2?.classList.toggle('disabled', false);
+            }
+            this.#text = e.target.value;
+        });
     }
     submit() {
         if (this.#text == "") {
             Swal.fire({
                 icon: 'warning',
                 title: 'المنشور غير مكتمل',
-                text: 'لا يمكن اضافة منشور بدون كتابة نص للمنشور '
+                text: this.isModify ? 'لا يمكن حفظ المنشو بدون كتابة نص للمنشور ' : 
+                            'لا يمكن اضافة منشور بدون كتابة نص للمنشور '
             });
             return;
         }
         Swal.fire({
             icon: 'question',
-            title: "اضافة منشور",
+            title: this.isModify ? "حفظ التغييرات" : "اضافة منشور",
             text: "هل انت متأكد؟",
             inputAttributes: {
                 autocapitalize: "off"
             },
             showCancelButton: true,
-            confirmButtonText: "نشر",
+            confirmButtonText: this.isModify ? "حفظ" :"نشر",
             cancelButtonText: 'الغاء',
             showLoaderOnConfirm: true,
             preConfirm: async (login) => {

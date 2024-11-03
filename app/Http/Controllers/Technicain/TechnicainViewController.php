@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Technicain;
 
 use App\Http\Controllers\Auth\EmailUtility;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NSFWController;
 use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\Post;
@@ -36,6 +37,7 @@ class TechnicainViewController extends Controller
         $me = Technicain::find(Auth::guard($this->guard)->user()->id);
         return view('technicain.mdashboard.previouse-work', [
             'me' => $me,
+            'viewer' => "",
             'reservations' => Reservation::where('technicain_id', $me->id)->where('state', 'Done')->paginate(20)
         ]);
     }
@@ -44,6 +46,7 @@ class TechnicainViewController extends Controller
         $me = Technicain::find(Auth::guard($this->guard)->user()->id);
         return view('technicain.mdashboard.scheduled-work', [
             'me' => $me,
+            'viewer' => "",
             'reservations' => Reservation::where('technicain_id', $me->id)->where('state', '!=', 'Done')->paginate(20)
         ]);
     }
@@ -75,12 +78,14 @@ class TechnicainViewController extends Controller
     {
         return view('technicain.mdashboard.subscription', [
             'me' => Technicain::find(Auth::guard($this->guard)->user()->id),
+            'viewer' => ""
         ]);
     }
     public function viewWallet(Request $request)
     {
         return view('technicain.mdashboard.wallet', [
             'me' => Technicain::find(Auth::guard($this->guard)->user()->id),
+            'viewer' => ""
         ]);
     }
 
@@ -179,6 +184,7 @@ class TechnicainViewController extends Controller
                 unlink($path);
                 throw new \Exception(" EmailUtility::setCoverImage() result is false");
             }
+            
 
             $user->cover = $fileName;
             $user->save();
@@ -274,6 +280,7 @@ class TechnicainViewController extends Controller
         $me = Technicain::find(Auth::guard($this->guard)->user()->id);
         return view('technicain.mdashboard.mycustomers', [
             'me' => Auth::guard($this->guard)->user(),
+            'viewer' => "",
             'customers' => Reservation::where('technicain_id', $me->id)->where('state', 'Done')->paginate(20)
         ]);
     }
@@ -375,7 +382,8 @@ class TechnicainViewController extends Controller
         }
 
         $me = Technicain::find(Auth::guard($this->guard)->user()->id);
-        return view('technicain.mdashboard.editpost', compact('me', 'post'));
+        $viewer = "";
+        return view('technicain.mdashboard.editpost', compact('me', 'post', 'viewer'));
     }
     public function addPost(Request $request)
     {
@@ -411,12 +419,17 @@ class TechnicainViewController extends Controller
                 //$sanitizedFilename = preg_replace('/[^A-Za-z0-9\-_\.]/', '_', $originalName);
                 $fullFilePath = "/cloud/technicain/$technicain_id/documents/$post->id/$fileName";
                 $img->move($userdir . "/$post->id", $fileName);
-
-                // create image post record
-                PostImage::create([
-                    'post_id' => $post->id,
-                    'image' => $fullFilePath
-                ]);
+                
+                $result = NSFWController::detect(public_path(). $fullFilePath);
+        
+                if($result["safe"]) {
+                    PostImage::create([
+                        'post_id' => $post->id,
+                        'image' => $fullFilePath
+                    ]);
+                } else {
+                    unlink(public_path().$fullFilePath);
+                }
             }
         }
 
@@ -537,11 +550,16 @@ class TechnicainViewController extends Controller
                 $fullFilePath = "/cloud/technicain/$technicain_id/documents/$post->id/$fileName";
                 $img->move($userdir . "/$post->id", $fileName);
 
-                // create image post record
-                PostImage::create([
-                    'post_id' => $post->id,
-                    'image' => $fullFilePath
-                ]);
+                $result = NSFWController::detect($fullFilePath);
+        
+                if($result["safe"]) {
+                    PostImage::create([
+                        'post_id' => $post->id,
+                        'image' => $fullFilePath
+                    ]);
+                } else {
+                    unlink(public_path().$fullFilePath);
+                }
             }
         }
 

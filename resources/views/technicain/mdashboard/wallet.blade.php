@@ -160,12 +160,12 @@
         </div>
     </dialog>
 
+    
+    <script src="/bad-word/word.js"></script>
     <script src="/sources/technicain/js/index.js"></script>
     <script src="/sources/technicain/js/profile.js"></script>
 
 
-
-    <script src="/sources/technicain/js/posts.js"></script>
 
 
     @include('successful-task');
@@ -181,7 +181,7 @@
             text: "{{$err}}",
             position: "top-end",
             showConfirmButton: false,
-            timer: 1500,
+            timer: 3000,
             timerProgressBar: true,
             didOpen: (toast) => {
                 toast.onmouseenter = Swal.stopTimer;

@@ -544,6 +544,7 @@ class ComposerStaticInit37a9729829ec5178fbf1b5b10132f712
         'App\\Http\\Controllers\\Employee\\SpecializationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employee/SpecializationController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
+        'App\\Http\\Controllers\\NSFWController' => __DIR__ . '/../..' . '/app/Http/Controllers/NSFWController.php',
         'App\\Http\\Controllers\\ServiceReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/ServiceReportController.php',
         'App\\Http\\Controllers\\SignupController' => __DIR__ . '/../..' . '/app/Http/Controllers/SignupController.php',
         'App\\Http\\Controllers\\SpecializationController' => __DIR__ . '/../..' . '/app/Http/Controllers/SpecializationController.php',
