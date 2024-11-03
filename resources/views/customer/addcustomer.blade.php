@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="/sources/signup.css">
     <title>تسجيل عميل</title>
 
@@ -13,6 +14,10 @@
             background-color: red;
             color: whitesmoke;
             direction: rtl;
+        }
+        .disabled {
+            pointer-events: none;
+            cursor:not-allowed;
         }
     </style>
 </head>
@@ -43,7 +48,7 @@
                 <div class="input-group">
                     <label>اسم المستخدم</label>
                     <br>
-                    <input type="text" name="signup_name" placeholder="ادخل اسم المستخدم">
+                    <input id="customer_name_field" type="text" name="signup_name" placeholder="ادخل اسم المستخدم">
                     <br>
                 </div>
                 <div class="input-group">
@@ -78,17 +83,6 @@
                     </select>
                     <br>
                 </div>
-                <!-- <div class="input-group">
-                    <label>الجنسية</label>
-                    <br>
-                    <select name="cties" id="" class="select">
-                        <option value="city1">ليبي</option>
-                        <option value="city1">مصري</option>
-                        <option value="city1">تونسي</option>
-                        <option value="city1">اخرى</option>
-                    </select>
-                    <br>
-                </div> -->
                 <div class="input-group">
                     <label>التخصصات</label>
                     <br>
@@ -110,11 +104,31 @@
                 </div>
                 <div class="sub">
 
-                    <button type="submit">تسجيل</button>
+                    <button id="submit_button" type="submit">تسجيل</button>
                 </div>
             </form>
         </div>
     </div>
+    <script src="/bad-word/word.js"></script>
+    <script>
+        document.getElementById('customer_name_field')
+            .addEventListener('change', e => {
+                let btn = document.getElementById('submit_button');
+                if(isDirty(e.target.value)) {
+                    btn.classList.toggle('disabled', true);
+                    Swal.fire({
+                        icon: 'warning',
+                        title: ' الفاظا بذيئة',
+                        text: 'اكتشف النظام الفاظا اذيئة كنت قد ادخلتها في احد حقول الادخال. لن تتمكن من المتابعة حتى تعدل ما ادخلته',
+                        timer: 4200,
+                        timerProgressBar: true,
+                        showConfirmButton:false
+                    });
+                }
+                else 
+                    btn.classList.toggle('disabled', false);
+            });
+    </script>
 </body>
 
 </html>

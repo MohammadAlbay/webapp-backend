@@ -1,3 +1,6 @@
 *
 !.gitignore
 public/cloud/
+public/cloud/customer/
+public/cloud/technicain/
+public/cloud/employee/

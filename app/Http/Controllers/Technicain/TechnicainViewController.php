@@ -583,6 +583,13 @@ class TechnicainViewController extends Controller
 
     public function takeBreake(Request $request) {
         $technicain = Technicain::find(Auth::guard($this->guard)->user()->id);
+
+        if($technicain->notDoneReservations()->count() != 0) {
+            return Controller::jsonMessage("لديك حجوزات غير منتهية. لن تتمكن من اخذ استراحة حتى تكتمل الاعمال المقبولة/قيد العمل ", 1);
+        } else if($technicain->pendingReservations()->count() != 0) {
+            return Controller::jsonMessage("لديك طلبات حجز معلقة. قم برفضها لتتمكن من اخذ استراحة ", 1);
+        }
+
         $technicain->state = "Paused";
         $technicain->save();
 

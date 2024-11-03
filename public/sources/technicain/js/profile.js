@@ -138,7 +138,7 @@ async function switchAccountState(state) {
         url = "/technicain/take-break";
     } 
 
-    let result = sendFormDataNoCallback(url, 'Post', {});
+    let result = await sendFormDataNoCallback(url, 'Post', {});
     if (result.State == 1) {
         Swal.fire({
             icon: 'warning', title: 'خطأ',
