@@ -56,32 +56,7 @@
     <div class="md-container" style="overflow-y: auto;padding-top:0px">
 
         <div class="md-grid-container" style="overflow: auto;">
-            <div class="md-grid-item full-width">
-                <div class="profile-headblock">
-                    <div class="cover" style='background-image: url({{ ($me->cover != "" && $me->cover != null) ? "/cloud/technicain/$me->id/images/$me->cover" : "/sources/img/cover.jpg"}})'>
-
-                        <div class="edit" onclick="changeCoverImageProcessor()"></div>
-
-                    </div>
-                    <div class="pic" style='background-image: url( {{($me->profile == "Male.jpg" || $me->profile == "Female.jpg") ? "/sources/img/$me->profile" : "/cloud/technicain/$me->id/images/$me->profile"}});'>
-
-                        <div class="pic-hover-content" onclick="changeProfileImageProcessor()">
-                            تغيير
-                        </div>
-
-                    </div>
-                    <div class="name">{{$me->fullname}}</div>
-<!-- 
-                    <div class="rate-block">
-                        <img src="https://img.icons8.com/?size=100&id=19417&format=png&color=000000">
-                        <i>3.6</i>
-                        <i>تقييم</i>
-                    </div> -->
-
-                </div>
-            </div>
             <div class="md-grid-item full-width" dir="rtl">
-                <h1 class="title" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">المحفظة</h1>
                 <div>
                     <div class="balance-box">
                         <h2 style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">رصيدك الحالي

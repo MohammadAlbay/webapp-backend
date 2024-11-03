@@ -372,11 +372,11 @@ body:has(.md-navmenu-expand-manualy) .md-container {
 
 /* Grid items */
 .md-grid-item {
-    background-color: #f0f0f0;
+    background-color: #fff;
     /* Example background color */
     padding: 0px;
     /* Example padding inside each grid item */
-    border: 1px solid #ccc;
+   /*border: 1px solid #ccc;*/
     /* Example border */
     /* text-align: center;  */
     overflow-x: hidden;

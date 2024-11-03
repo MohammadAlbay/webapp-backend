@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/sources/technicain/css/button.css">
     <link rel="stylesheet" href="/sources/technicain/css/input.css">
     <link rel="stylesheet" href="/sources/technicain/css/index.css">
-
     <link rel="stylesheet" href="/sources/technicain/css/profile.css">
     <link rel="stylesheet" href="/sources/technicain/css/posts.css">
 
@@ -36,31 +35,97 @@
             opacity: 0;
         }
 
-        .balance-box {
-            margin: 0 auto;
-            width: 50%;     min-width: 15em;
-            max-width: 25em;
-            background-color: beige;
-            border-radius: 1em;
-            border: 1px solid darkgray;
-            text-align: center;
+        .align-text {
+            text-indent: 30px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .align-text {
-            text-indent:30px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
-        }
         .no-data-section {
-            margin: 0 auto; width:80%; text-align:center;
-            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin-top:2em;
-            background-color: #3e84e6;
+            margin: 0 auto;
+            width: 80%;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 2em;
+            background-color: #f9f9f9; /* Match the section background */
             border-radius: 1em;
             border: 1px solid darkgray;
             min-width: 15em;
             max-width: 35em;
+            padding: 1em; /* Padding for better appearance */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fdfdfd; /* Changed to white */
+            text-align: center;
+            color: #000;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        h1 span {
+            color: #4CAF50;
+        }
+
+        img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        p,
+        h2 {
+            font-size: 16px;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .subscribe-button {
+            margin-top: 20px;
+            font-size: 16px;
+            background-color: #4CAF50; /* Button background */
+            color: #FFF;               /* Button text color */
+            padding: 10px 20px;
+            border: none;              /* Remove border */
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .subscribe-button.disabled {
+            background-color: #aaa; /* Disabled button background */
+            cursor: not-allowed;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 2em;
+            border-collapse: collapse;
+            background-color: #f9f9f9; /* Set a consistent background color */
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            background-color: #f9f9f9; /* Match row background color with table */
+        }
+
+        th {
+            background-color: #f2f2f2; /* Header background */
         }
     </style>
-
 
 </head>
 
@@ -71,60 +136,31 @@
 
         <div class="md-grid-container" style="overflow: auto;">
             <div class="md-grid-item full-width">
-                <div class="profile-headblock">
-                    <div class="cover" style='background-image: url({{ ($me->cover != "" && $me->cover != null) ? "/cloud/technicain/$me->id/images/$me->cover" : "/sources/img/cover.jpg"}})'>
-
-                        <div class="edit" onclick="changeCoverImageProcessor()"></div>
-
-                    </div>
-                    <div class="pic" style='background-image: url( {{($me->profile == "Male.jpg" || $me->profile == "Female.jpg") ? "/sources/img/$me->profile" : "/cloud/technicain/$me->id/images/$me->profile"}});'>
-
-                        <div class="pic-hover-content" onclick="changeProfileImageProcessor()">
-                            تغيير
-                        </div>
-
-                    </div>
-                    <div class="name">{{$me->fullname}}</div>
-<!-- 
-                    <div class="rate-block">
-                        <img src="https://img.icons8.com/?size=100&id=19417&format=png&color=000000">
-                        <i>3.6</i>
-                        <i>تقييم</i>
-                    </div> -->
-
-                </div>
-            </div>
-            <div class="md-grid-item full-width" dir="rtl">
-                <h1 class="title" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">المحفظة</h1>
+               
+                <h1>فنى <span>لعندك</span></h1>
+                <img src="{{ asset('rahma-ui/assets/images/subscription (1).png')}}" alt="Worker Image">
+              
                 <div>
-                    <div class="balance-box">
-                        <h2 style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"> 
-                            @if($me->state == 'Inactive')
+                    <h2>
+                        @if($me->state == 'Inactive')
                             انت غير مشترك
-                           
-                            @else
-                            انت مشترك وتاريخ انتهاء صلاحية الاشتراك
-                            {{$me->wallet->lastOutgoingTransactions()->due}}
-                            @endif
-                        </h2>
-                    </div>
-                    <div style="margin: 0 auto; width:60%">
-                        <form id="form_topup" action="/technicain/subscripe" method="post">
-                            @csrf
-                        <h5 class="align-text">الاشتراك</h5>
-                        <p class="align-text">
-                        تكلفة الاشتراك شهريا 15 د.ل
-                            عند الاشتراك لايمكنك الغاء الامر.
-                            
-                        </p>
-                        <div class="{{$me->state == 'Active' ? 'ux-input2 btn disabled' : 'ux-input2 btn success'}}" onclick="form_topup.submit()">
+                        @else
+                            انت مشترك وتاريخ انتهاء صلاحية الاشتراك: {{$me->wallet->lastOutgoingTransactions()->due}}
+                        @endif
+                    </h2>
+              
+                    <p>تكلفة الاشتراك شهريا 15 دل عند الاشتراك لايمكنك الغاء الامر</p>
+              
+                    <form id="form_topup" action="/technicain/subscripe" method="post" style="margin: 0;">
+                        @csrf
+                        <div class="{{ $me->state == 'Active' ? 'subscribe-button disabled' : 'subscribe-button' }}" onclick="form_topup.submit()">
                             اشتراك
                         </div>
-                        </form>
-                    </div>
-
-                    @if($me->wallet->outgoingTransactions()->count() > 0)
-                    <table style="margin-top: 2em;">
+                    </form>
+                </div>
+              
+                @if($me->wallet->outgoingTransactions()->count() > 0)
+                    <table dir="rtl">
                         <tr>
                             <th>#</th>
                             <th>المستخدم</th>
@@ -133,72 +169,28 @@
                             <th>انتهاء الصلاحية</th>
                         </tr>
                         @foreach ($me->wallet->outgoingTransactions() as $t)
-                            @if($t->type != 'Sub') 
+                            @if($t->type != 'Sub')
                                 @continue
                             @endif
-                        <tr>
-                            <td>{{$t->id}}</td>
-                            <td>{{$me->fullname}}</td>
-                            <td>{{$t->money}} د.ل</td>
-                            <td>{{$t->created_at}}</td>
-                            <td>{{$t->due}}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ $t->id }}</td>
+                                <td>{{ $me->fullname }}</td>
+                                <td>{{ $t->money }} د.ل</td>
+                                <td>{{ $t->created_at }}</td>
+                                <td>{{ $t->due }}</td>
+                            </tr>
                         @endforeach
                     </table>
-                    @else
-                    <div  class="no-data-section">
-                    <h3>لم تقم بأي اشتراك حتى الان</h3>
-                    </div>
-                    @endif
-                </div>
+                
+                @endif
             </div>
         </div>
 
     </div>
 
-
-    <dialog id="add-post-dialog" class="fullscreen-dialog">
-        <div class="topbar-container">
-            <div class="close" onclick="showDialog()"></div>
-            <div class="title">اضافة منشور</div>
-        </div>
-        <div class="container" style="overflow-y:auto">
-            <div class="md-grid-container">
-                <div class="md-grid-item half-width " style="border-radius: 1em; padding-bottom:1em; background-color:rgba(244,244,244);">
-                    <b class="title">نص المنشور</b>
-                    <div>
-                        <textarea onchange="" name="techincain-add-post-textarea" id="techincain-add-post-textarea" class="post-textarea"></textarea>
-                    </div>
-                </div>
-                <div class="md-grid-item half-width " style="border-radius: 1em; padding-bottom:1em;  background-color:rgba(244,244,244);">
-                    <b class="title">صور وفيديوهات المنشور</b>
-                    <button id="techincain-add-post-addmedia" class="button-image">
-                        <img src="https://img.icons8.com/?size=100&id=IA4hgI5aWiHD&format=png&color=000000" alt="">
-                        <i>اضافة</i>
-                    </button>
-                    <div id="techincain-add-post-imagelist" style="height:20em; padding:0.2em;white-space: nowrap;overflow-x:scroll;overflow-y:hidden;">
-                    </div>
-                </div>
-            </div>
-            <div class="md-grid-container md-grid-item full-width" style="background-color: transparent; border:none;">
-                <div class="md-grid-item full-width full-height" style="border-radius: 1em; padding-bottom:1em;">
-                    <b class="title">للنشر اضغط على زر النشر ادناه</b>
-                    <button id="techincain-add-post-submit" class="button-image">
-                        <img src="https://img.icons8.com/?size=100&id=103205&format=png&color=000000" alt="">
-                        <i>نشر</i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </dialog>
-
     <script src="/sources/technicain/js/index.js"></script>
     <script src="/sources/technicain/js/profile.js"></script>
-
-
-
     <script src="/sources/technicain/js/posts.js"></script>
-
 
     @include('successful-task');
 
@@ -219,7 +211,6 @@
                 toast.onmouseenter = Swal.stopTimer;
                 toast.onmouseleave = Swal.resumeTimer;
             },
-
             didClose: () => {
                 location.reload();
             }
