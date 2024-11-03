@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $specialization->name }} - الفنيين</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <script src="/sources/main.js"></script>
+    <link rel="stylesheet" href="/sources/customer/css/search-view.css">
     <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/homepage/style.css') }}">
     <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/specializations/viewTecnican.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
@@ -34,14 +38,19 @@
                 <p>لا توجد فنيين لهذا التخصص.</p>
             @else
                 @foreach($technicians as $technician)
+                    @if($technician->state != 'Active')
+                        @continue
+                    @endif
                     <div class="col-md-4">
-                        <div class="card technician-card">
-                            <img src="{{ asset('storage/' . $technician->profile) }}" alt="{{ $technician->fullname }}">
+                        <div class="card technician-card" style="margin:1em 0em;">
+                            <img src="{{($technician->profile == "Male.jpg" || $technician->profile == "Female.jpg") ? "/sources/img/$technician->profile" : "/cloud/technicain/$technician->id/images/$technician->profile"}}" alt="{{ $technician->fullname }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $technician->fullname }}</h5>
-                                <p class="card-text">{{ $technician->description }}</p>
+                                <p class="card-text desc">{{ $technician->description }}</p>
                                 <p class="card-text">الهاتف: {{ $technician->phone }}</p>
-                                <button type="button" class="btn btn-success">رؤية الملف</button>
+                                @isset($me)
+                                <a href="/customer/technicain-view/{{$technician->id}}"><button type="button" class="btn btn-success">رؤية الملف</button></a>
+                                @endisset
                             </div>
                         </div>
                     </div>
@@ -50,10 +59,6 @@
         </div>
     </div>
 
-    <!-- Load More Button -->
-    <div class="load-more text-center">
-        <button>تحميل المزيد</button>
-    </div>
 
   <!-- Image Section -->
 <div class="footer-image">
@@ -82,5 +87,12 @@
     </script>
 
     <script src="scripts.js"></script>
+
+    @include('customer.search-view')
+    <script src="/sources/employee/js/index.js"></script>
+    <script src="/sources/customer/js/index.js"></script>
+    <script>
+        Homepage.prepare(document.querySelector('div.search-view'));
+    </script>
 </body>
 </html>

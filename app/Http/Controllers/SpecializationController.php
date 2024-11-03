@@ -15,7 +15,7 @@ class SpecializationController extends Controller
         $query = $request->get('search');
         $specializations = Specialization::when($query, function ($q) use ($query) {
             $q->where('name', 'like', "%{$query}%");
-        })->paginate(4);
+        })->paginate(12);
         
         $me = Auth::guard('customer')->check() ? Customer::find(Auth::guard('customer')->user()->id) : null;
         
@@ -30,7 +30,7 @@ class SpecializationController extends Controller
         $specialization = Specialization::findOrFail($id);
         $technicians = $specialization->technicains; // Get technicians associated with the specialization
         $me = Auth::guard('customer')->check() ? Customer::find(Auth::guard('customer')->user()->id) : null;
-        
+
         if($me == null)
             return view('technicians', compact('specialization', 'technicians'));
         else

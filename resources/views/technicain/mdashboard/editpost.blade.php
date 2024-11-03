@@ -21,6 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/sources/main.js"></script>
     <script src="/sources/employee/js/index.js"></script>
+    <script src="/bad-word/word.js"></script>
 
     <style>
         .error-card {
@@ -73,7 +74,7 @@
 </head>
 
 <body>
-    @include("technicain.mdashboard.md-dash-nav-bar")
+    @include("technicain.mdashboard.md-dash-nav-bar", ['location' => "تعديل منشور"])
     @include("technicain.mdashboard.md-dash-nav-barmenu")
     <div class="md-container" style="overflow-y: auto;padding-top:0px">
 
@@ -161,7 +162,7 @@
         // pass uploaded files to the post class.
         let uploadedFiels = AddPost.buildFileFromUploadedFiles(@json($post->media));
         newPost.setFiles(uploadedFiels);
-        newPost.setText('{{$post->description}}');
+        newPost.setText(`{{$post->description}}`);
         newPost.url = "/technicain/editpost/{{$post->id}}";
         newPost.isModify = true;
     </script>

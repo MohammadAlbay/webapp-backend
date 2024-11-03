@@ -56,7 +56,10 @@
                         <div class="col-sm-9">
                             <select class="form-control" id="add_employee_role" name="add_employee_role">
                                 @foreach ($roles as $role)
-                                <option value="{{$role->id }}">{{ $role->name }}</option>
+                                    @if($role->name == "System") 
+                                        @continue 
+                                    @endif
+                                    <option value="{{$role->id }}">{{ $role->name }}</option>
                                 @endforeach
                             </select>
                         </div>

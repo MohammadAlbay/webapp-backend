@@ -61,6 +61,11 @@ $user = $me;
             cursor: pointer;
             text-align: center;
         }
+
+        .disabled {
+            pointer-events: none;
+            cursor:not-allowed;
+        }
         @media only screen and (max-width: 780px) {
             .width-70fill {
                 width: 90%;
@@ -124,7 +129,7 @@ $user = $me;
                 </select>
             </div>
 
-            <input onclick="confromEditData()" class="submit-button" form="form_customer_edit" value="حفظ">
+            <input id="submit_button" onclick="confromEditData()" class="submit-button" form="form_customer_edit" value="حفظ">
         </div>
     </div>
     <!-- ******************************************************Footer Section********************* -->
@@ -160,8 +165,28 @@ $user = $me;
     @include('customer.search-view')
     <script src="/sources/employee/js/index.js"></script>
     <script src="/sources/customer/js/index.js"></script>
+    <script src="/bad-word/word.js"></script>
     <script>
         Homepage.prepare(document.querySelector('div.search-view'));
+
+
+        document.getElementById('customer_name_edit')
+            .addEventListener('change', e => {
+                let btn = document.getElementById('submit_button');
+                if(isDirty(e.target.value)) {
+                    btn.classList.toggle('disabled', true);
+                    Swal.fire({
+                        icon: 'warning',
+                        title: ' الفاظا بذيئة',
+                        text: 'اكتشف النظام الفاظا اذيئة كنت قد ادخلتها في احد حقول الادخال. لن تتمكن من المتابعة حتى تعدل ما ادخلته',
+                        timer: 4200,
+                        timerProgressBar: true,
+                        showConfirmButton:false
+                    });
+                }
+                else 
+                    btn.classList.toggle('disabled', false);
+            });
     </script>
 
 

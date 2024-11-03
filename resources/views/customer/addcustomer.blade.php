@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="/sources/signup.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
@@ -16,6 +17,10 @@
             background-color: red;
             color: whitesmoke;
             direction: rtl;
+        }
+        .disabled {
+            pointer-events: none;
+            cursor:not-allowed;
         }
     </style>
 </head>
@@ -60,7 +65,9 @@
                 @endif
                 <div class="input-group">
                     <label>اسم المستخدم</label>
+                    <br>
                     <input type="text" name="signup_name" placeholder="ادخل اسم المستخدم">
+                    <br>
                 </div>
                 <div class="input-group">
                     <label>الايميل</label>
@@ -89,17 +96,6 @@
                     </select>
                     <br>
                 </div>
-                <!-- <div class="input-group">
-                    <label>الجنسية</label>
-                    <br>
-                    <select name="cties" id="" class="select">
-                        <option value="city1">ليبي</option>
-                        <option value="city1">مصري</option>
-                        <option value="city1">تونسي</option>
-                        <option value="city1">اخرى</option>
-                    </select>
-                    <br>
-                </div> -->
                 <div class="input-group">
                     <label>تاريخ الميلاد</label>
                     <br>
@@ -120,12 +116,12 @@
                     </div>
                 </div>
                 </div>
+                <div class="sub">
+
+                    <button type="submit">تسجيل</button>
                 </div>
-              <!-- زر التسجيل أسفل الأقسام الثلاثة -->
-              <div class="submit-section">
-                <br>
-                <button type="submit">تسجيل</button>  
-              </div>
+            </form>
         </div>
+    </div>
 </body>
 </html>

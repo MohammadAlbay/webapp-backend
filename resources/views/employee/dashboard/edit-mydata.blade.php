@@ -61,6 +61,9 @@
                         <div class="col-sm-9">
                             <select class="form-control" id="edit_employee_role" name="edit_employee_role">
                                 @foreach ($roles as $role)
+                                    @if($role->name == "System") 
+                                        @continue 
+                                    @endif
                                 <option value="{{$role->id }}" {{$role->id == $me->role_id ? 'selected' : ''}}>{{ $role->name }}</option>
                                 @endforeach
                             </select>

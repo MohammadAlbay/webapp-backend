@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Technicain;
 
 use App\Http\Controllers\Auth\EmailUtility;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NSFWController;
 use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\Post;
@@ -14,7 +15,7 @@ use App\Models\Reservation;
 use App\Models\Specialization;
 use App\Models\Technicain;
 use App\Models\WalletTransaction;
-use Illuminate\Contracts\Auth\Guard;
+use necrox87\NudityDetector\NudityDetector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,9 +29,6 @@ class TechnicainViewController extends Controller
     private $guard = 'technicain';
     public function index(Request $request, $id = null)
     {
-
-
-
         return view("technicain.mdashboard.index", ['me' => Auth::guard($this->guard)->user(), 'viewer' => '']);
     }
 <<<<<<< HEAD
@@ -47,6 +45,7 @@ class TechnicainViewController extends Controller
         $me = Technicain::find(Auth::guard($this->guard)->user()->id);
         return view('technicain.mdashboard.previouse-work', [
             'me' => $me,
+            'viewer' => "",
             'reservations' => Reservation::where('technicain_id', $me->id)->where('state', 'Done')->paginate(20)
         ]);
     }
@@ -55,6 +54,7 @@ class TechnicainViewController extends Controller
         $me = Technicain::find(Auth::guard($this->guard)->user()->id);
         return view('technicain.mdashboard.scheduled-work', [
             'me' => $me,
+            'viewer' => "",
             'reservations' => Reservation::where('technicain_id', $me->id)->where('state', '!=', 'Done')->paginate(20)
         ]);
     }
@@ -86,12 +86,14 @@ class TechnicainViewController extends Controller
     {
         return view('technicain.mdashboard.subscription', [
             'me' => Technicain::find(Auth::guard($this->guard)->user()->id),
+            'viewer' => ""
         ]);
     }
     public function viewWallet(Request $request)
     {
         return view('technicain.mdashboard.wallet', [
             'me' => Technicain::find(Auth::guard($this->guard)->user()->id),
+            'viewer' => ""
         ]);
     }
 
@@ -147,6 +149,10 @@ class TechnicainViewController extends Controller
             $viewer = '';
         } else {
             $tech = Technicain::find($id);
+            // Can't visit technicain profile if he/she not active
+            if($tech != null && $tech->state != 'Active') {
+                return redirect()->back();
+            }
             $viewer = Customer::find(Auth::guard('customer')->user()->id);
             $reservation = Reservation::where('technicain_id', $tech->id)
                             ->where('customer_id', $viewer->id)
@@ -171,12 +177,22 @@ class TechnicainViewController extends Controller
 
     public function setCoverImage(Request $request)
     {
+        
         try {
             $user = Technicain::find(Auth::guard('technicain')->user()->id);
             $img = $request->file('img');
             $fileName = $img->getClientOriginalName();
-            //$file->store(public_path()."/cloud/$user_type/$user->id/images");
+            $path = public_path() . "/cloud/technicain/$user->id/images/$fileName";
             $img->move(public_path() . "/cloud/technicain/$user->id/images/", $fileName);
+
+
+            $detector = new NudityDetector($path);
+            $result = $detector->isPorn(0.3);
+            if ($result) {
+                unlink($path);
+                throw new \Exception(" EmailUtility::setCoverImage() result is false");
+            }
+            
 
             $user->cover = $fileName;
             $user->save();
@@ -193,7 +209,7 @@ class TechnicainViewController extends Controller
             return Controller::whichReturn(
                 $request,
                 redirect()->back()->with('image-updated', false),
-                Controller::jsonMessage('حدثت مشكلة اثناء تغيير صورة الغلاف', 0),
+                Controller::jsonMessage('حدثت مشكلة اثناء تغيير صورة الغلاف', 1),
             );
         }
     }
@@ -220,7 +236,7 @@ class TechnicainViewController extends Controller
             return Controller::whichReturn(
                 $request,
                 redirect()->back()->with('image-updated', false),
-                Controller::jsonMessage('حدثت مشكلة اثناء تغيير صورة الحساب', 0),
+                Controller::jsonMessage('حدثت مشكلة اثناء تغيير صورة الحساب', 1),
             );
         }
     }
@@ -272,6 +288,7 @@ class TechnicainViewController extends Controller
         $me = Technicain::find(Auth::guard($this->guard)->user()->id);
         return view('technicain.mdashboard.mycustomers', [
             'me' => Auth::guard($this->guard)->user(),
+            'viewer' => "",
             'customers' => Reservation::where('technicain_id', $me->id)->where('state', 'Done')->paginate(20)
         ]);
     }
@@ -373,7 +390,8 @@ class TechnicainViewController extends Controller
         }
 
         $me = Technicain::find(Auth::guard($this->guard)->user()->id);
-        return view('technicain.mdashboard.editpost', compact('me', 'post'));
+        $viewer = "";
+        return view('technicain.mdashboard.editpost', compact('me', 'post', 'viewer'));
     }
     public function addPost(Request $request)
     {
@@ -409,12 +427,17 @@ class TechnicainViewController extends Controller
                 //$sanitizedFilename = preg_replace('/[^A-Za-z0-9\-_\.]/', '_', $originalName);
                 $fullFilePath = "/cloud/technicain/$technicain_id/documents/$post->id/$fileName";
                 $img->move($userdir . "/$post->id", $fileName);
-
-                // create image post record
-                PostImage::create([
-                    'post_id' => $post->id,
-                    'image' => $fullFilePath
-                ]);
+                
+                $result = NSFWController::detect(public_path(). $fullFilePath);
+        
+                if($result["safe"]) {
+                    PostImage::create([
+                        'post_id' => $post->id,
+                        'image' => $fullFilePath
+                    ]);
+                } else {
+                    unlink(public_path().$fullFilePath);
+                }
             }
         }
 
@@ -535,11 +558,16 @@ class TechnicainViewController extends Controller
                 $fullFilePath = "/cloud/technicain/$technicain_id/documents/$post->id/$fileName";
                 $img->move($userdir . "/$post->id", $fileName);
 
-                // create image post record
-                PostImage::create([
-                    'post_id' => $post->id,
-                    'image' => $fullFilePath
-                ]);
+                $result = NSFWController::detect($fullFilePath);
+        
+                if($result["safe"]) {
+                    PostImage::create([
+                        'post_id' => $post->id,
+                        'image' => $fullFilePath
+                    ]);
+                } else {
+                    unlink(public_path().$fullFilePath);
+                }
             }
         }
 
@@ -563,6 +591,13 @@ class TechnicainViewController extends Controller
 
     public function takeBreake(Request $request) {
         $technicain = Technicain::find(Auth::guard($this->guard)->user()->id);
+
+        if($technicain->notDoneReservations()->count() != 0) {
+            return Controller::jsonMessage("لديك حجوزات غير منتهية. لن تتمكن من اخذ استراحة حتى تكتمل الاعمال المقبولة/قيد العمل ", 1);
+        } else if($technicain->pendingReservations()->count() != 0) {
+            return Controller::jsonMessage("لديك طلبات حجز معلقة. قم برفضها لتتمكن من اخذ استراحة ", 1);
+        }
+
         $technicain->state = "Paused";
         $technicain->save();
 
