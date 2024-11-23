@@ -1,4 +1,3 @@
-/**********************************footer***********************/
 footer {
     background-color: #333;
     color: white;
@@ -44,7 +43,7 @@ footer {
 .footer-image img {
     width: auto;
     /* Adjust width as needed */
-   max-width: 100%;
+    max-width: 100%;
     /* Make the image responsive */
     height: auto;
     /* Maintain aspect ratio */

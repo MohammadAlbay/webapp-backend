@@ -14,13 +14,15 @@
         <td> - </td>
         <td> - </td>
     </tr>
+    @php $counter = 1; @endphp <!--  counter -->
 
     @foreach ($customers as $customer)
     @php
     $stateSwtch = $customer->state == 'Active' ? 'Inactive' : 'Active';
     @endphp
     <tr>
-        <td>{{$customer->id}}</td>
+        <!--chnage it like this so the number start from 1 not from the id -->
+        <td>{{ $counter++ }}</td>
         <td><img style="border-radius:50%;width: 41px; height:41px" src={{ ($customer->profile == "Male.jpg" || $customer->profile == "Female.jpg") ? "/sources/img/$customer->profile" : "/cloud/customer/$customer->id/images/$customer->profile"}} alt=""></td>
         <td>{{$customer->fullname}}</td>
         <td>{{$customer->email}}</td>

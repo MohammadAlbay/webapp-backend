@@ -20,7 +20,7 @@
       <div class="collapse" id="ui-basic">
         <ul class="nav flex-column sub-menu">
           @if($me->hasPermission(\App\Models\Permission::PERMISSION_ADD_EMPLOYEE_NAME))
-          <li class="nav-item" style="margin:5px"> <a class="nav-link" href="add-employee">اضافة موظف</a></li>
+          <li class="nav-item" style="margin:5px;"> <a class="nav-link" href="add-employee" style="">اضافة موظف</a></li>
           @endif
           @if($me->hasPermission(\App\Models\Permission::PERMISSION_VIEW_EMPLOYEE_NAME))
           <li class="nav-item" style="margin:5px"> <a class="nav-link" href="employee-list">قائمة الموظفين</a></li>

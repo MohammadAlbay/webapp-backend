@@ -5,14 +5,15 @@
     </div>
 </div> -->
 <nav class="md-nav-menu md-navmenu-expand-manualy" id="md-nav-menu-id">
+     <span class="md-menu-section" onclick="location.href = '/technicain'">
+        <img src="https://img.icons8.com/?size=100&id=21081&format=png&color=000000" alt="">
+        <i>الصفحة الرئيسية </i>
+    </span>
     <span class="md-menu-section" onclick="location.href = '/technicain/profile';">
         <img src="https://img.icons8.com/?size=100&id=20471&format=png&color=000000">
         <i>الملف الشخصي</i>
     </span>
-    <span class="md-menu-section" onclick="location.href = '/technicain'">
-        <img src="https://img.icons8.com/?size=100&id=21081&format=png&color=000000" alt="">
-        <i>الصفحة الرئيسية </i>
-    </span>
+   
     <span class="md-menu-section">
         <img src="https://img.icons8.com/?size=100&id=8dUj69nVAlgU&format=png&color=000000" alt="">
         <i>المنشورات</i>

@@ -8,8 +8,8 @@
         </h2>
         <!--i still dont know what i want to put in the heder -->
         <ul class="nav-links">
-            <li><a href="#">منعرفش</a></li>
-            <li><a href="#">منعرفش</a></li>
+            <li><a href="/homepage">الصفحة الرئيسسية</a></li>
+            <li><a href="/specializations">خدماتنا</a></li>
             <li><a href="#">منعرفش</a></li>
             <li><a href="#">منعرفش</a></li>
             <li><a href="#">شن متعرفيش</a></li>

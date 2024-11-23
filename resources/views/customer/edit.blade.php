@@ -28,6 +28,9 @@ $user = $me;
     <script src="/sources/customer/js/edit.js"></script>
 
     <style>
+         body {
+            font-family: 'Cairo', sans-serif; /* Apply the Cairo font */
+        }
         .icon-min {
             width: 24px;
             height: 24px;

@@ -31,6 +31,16 @@ class CustomerViewController extends Controller
         return view("customer.homepage", compact('services', 'me'));
     }
 
+    public function deleteComment(Request $request, $id)
+    {
+        $comment = PostComment::find($id);
+
+        if ($comment->owner->id == Auth::guard($this->guard)->user()->id)
+            $comment->delete();
+        else
+            return redirect()->back()->withErrors(['access-denied', 'طلب غير مسموح به']);
+        return redirect()->back()->with('task-complet', 'تم حذف تعليقك بنجاح');
+    }
     public function myWallet()
     {
         $me = Customer::find(Auth::guard($this->guard)->user()->id);
@@ -39,7 +49,7 @@ class CustomerViewController extends Controller
     public function myReservation()
     {
         $me = Customer::find(Auth::guard($this->guard)->user()->id);
-        $reservations = Reservation::where('customer_id', $me->id)->orderBy('date', 'asc')->get();
+        $reservations = Reservation::where('customer_id', $me->id)->orderBy('date', 'desc')->get();
         return view("customer.myreservations", compact('me', 'reservations'));
     }
     /**
@@ -88,8 +98,8 @@ class CustomerViewController extends Controller
                 ->where('state', 'Active')
                 ->where('address', 'like', "%$customer->address%")
                 ->get();
-                // ->orWhere('address', 'like', "%$customer->address%")
-                // ->where('state', 'Active')->get();
+            // ->orWhere('address', 'like', "%$customer->address%")
+            // ->where('state', 'Active')->get();
         } else {
             // search by specialization'id
             $specializeId = $results->id;
@@ -114,7 +124,7 @@ class CustomerViewController extends Controller
                 '/',
                 Controller::jsonMessage('الفني غير موجود فالنظام', 1)
             );
-            
+
         if ($technicain->state != 'Active')
             return Controller::whichReturn(
                 $request,
@@ -134,8 +144,8 @@ class CustomerViewController extends Controller
 
         // check if user have an active reservation in this Specialization
         $reservations = Reservation::where('customer_id', $customer->id)
-            ->where('state', '!=','Refused')
-            ->where('state', '!=','Done')
+            ->where('state', '!=', 'Refused')
+            ->where('state', '!=', 'Done')
             ->orWhere('customer_id', $customer->id)
             ->where('state', 'Accepted')->get();
         if ($reservations->count() > 0) {
@@ -210,6 +220,11 @@ class CustomerViewController extends Controller
             $system = Employee::getSystem();
             $systemWallet = $system->wallet;
             $wallet = $customer->wallet;
+
+            if ($wallet->balance < 15) {
+                return redirect()->back()->withErrors(['unable-tocancel-re' => "لا يمكنك الغاء الحجز. رصيد محفظتك اقل من الحد الادنى"]);
+            }
+
             WalletTransaction::create([
                 'wallet_in_id' => $systemWallet->id,
                 'wallet_out_id' => $wallet->id,
@@ -227,6 +242,12 @@ class CustomerViewController extends Controller
                 'desc' =>  $desc,
                 'due' => now()
             ]);
+
+
+            $systemWallet->balance += 15;
+            $systemWallet->save();
+            $wallet->balance -= 15;
+            $wallet->save();
 
             Mail::to($customer->email)->send($email);
             return redirect()->back()->with('task-complet', 'تم الغاء الحجز بنجاح');

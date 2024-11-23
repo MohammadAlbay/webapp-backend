@@ -19,6 +19,9 @@ $user = $me;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+         body {
+            font-family: 'Cairo', sans-serif; /* Apply the Cairo font */
+        }
         .icon-min {width: 24px; height: 24px; border-radius: 50%;}
     </style>
 </head>
@@ -36,7 +39,7 @@ $user = $me;
             <a href="#" class="btn">استكشفنا</a>
         </div>
         <div class="hero-image">
-            <img src="{{ asset('rahma-ui/assets/images/homepage/imageiwillchose') }}" alt="Logo">
+            <img src="{{ asset('rahma-ui/assets/images/1 (2).png') }}" alt="Logo">
         </div>
     </section>
 
@@ -50,7 +53,7 @@ $user = $me;
             @foreach ($services->take(4) as $service) <!-- Change made here -->
                 <div class="grid-item">
                     <!--here will be image -->
-                    
+                    <img src="{{ asset('sources/specializations/' . $service->image) }}" alt="{{ $service->name }}" class="service-image">
                     <h3>{{ $service->name }}</h3>
                 </div>
             @endforeach
@@ -58,7 +61,7 @@ $user = $me;
 
         <div class="button-container">
             <!--when we click it it must redirect to another page to show all Specialization and the serch if we want to serch about something  -->
-            <a href="{{ route('specializations.index') }}" class="see-all-button">See All</a>        </div>
+            <a href="{{ route('specializations.index') }}" class="see-all-button">رؤية الكل</a>        </div>
         <img src="{{ asset('rahma-ui/assets/images/gear-wheel.png') }}" alt="Gear Design" class="gear-image right-image">
     </div>
 </section>
@@ -69,7 +72,7 @@ $user = $me;
     <div class="about-content">
         <div class="about-image">
             <!--here i will add image but i still dont know which image so i left it like this -->
-            <img src="{{ asset('rahma-ui/assets/images/homepage/image_i will_chose_later') }}" alt="Logo">
+            <img src="{{ asset('rahma-ui/assets/images/aboutus.png') }}" alt="Logo">
         </div>
         <div class="about-text">
             <h3>منصة فني لعندك</h3>

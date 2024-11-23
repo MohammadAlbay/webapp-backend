@@ -38,25 +38,24 @@ $user = $isLoggedIn ? $loginInformation['user'] : null;
    <section class="ui-elements-section">
     <div class="container">
         <img src="{{ asset('rahma-ui/assets/images/gear-wheel.png') }}" alt="Gear Design" class="gear-image left-image">
-<!--i want to show only the first four if the client interest about what also we have he must go to view all-->
+        
         <h2>خدماتنا</h2>
         <div class="grid-container">
-            @foreach ($services->take(4) as $service) <!-- Change made here -->
+            @foreach ($services->take(4) as $service)
                 <div class="grid-item">
-                    <!--here will be image -->
-                    
+                    <img src="{{ asset('sources/specializations/' . $service->image) }}" alt="{{ $service->name }}" class="service-image">
                     <h3>{{ $service->name }}</h3>
                 </div>
             @endforeach
         </div>
 
         <div class="button-container">
-            <!--when we click it it must redirect to another page to show all Specialization and the serch if we want to serch about something  -->
-            <a href="{{ route('specializations.index') }}" class="see-all-button">See All</a>        </div>
+            <a href="{{ route('specializations.index') }}" class="see-all-button">See All</a>
+        </div>
+        
         <img src="{{ asset('rahma-ui/assets/images/gear-wheel.png') }}" alt="Gear Design" class="gear-image right-image">
     </div>
 </section>
-
 <!--******************************************** About What We Do Section************************************ -->
 <section class="about">
     <h2>نبذة عن عملنا</h2>

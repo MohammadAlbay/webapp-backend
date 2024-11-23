@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Wallet</title>
-
-    <link rel="stylesheet" href="/sources/main.css">
+    <title>techwallet</title>
     <link rel="stylesheet" href="/sources/technicain/css/button.css">
     <link rel="stylesheet" href="/sources/technicain/css/input.css">
     <link rel="stylesheet" href="/sources/technicain/css/index.css">
@@ -45,103 +43,139 @@
             border: 1px solid darkgray;
             text-align: center;
         }
+
+        /* Adjusted styles for the wallet balance section */
+        body {
+            font-family: 'Cairo', sans-serif; /* Apply the Cairo font */
+        }
+        .wallet-balance {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .balance-card {
+            background-color: #ffe6b3;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .balance-card img {
+            width: 65px;
+        }
+
+        .balance-card p {
+            font-size: 18px;
+            margin: 10px 0 5px 0;
+        }
+
+        .balance-card h2 {
+            font-size: 32px;
+            margin: 0;
+        }
+
+        .wallet-history {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .wallet-history h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+        .qr-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .qr-table th, .qr-table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        .qr-table th {
+            background-color: #f0f0f0;
+        }
     </style>
-
-
 </head>
 
 <body>
     @include("technicain.mdashboard.md-dash-nav-bar", ['location' => " محفظتي"])
     @include("technicain.mdashboard.md-dash-nav-barmenu")
     <div class="md-container" style="overflow-y: auto;padding-top:0px">
-
         <div class="md-grid-container" style="overflow: auto;">
-            <div class="md-grid-item full-width" dir="rtl">
-                <div>
-                    <div class="balance-box">
-                        <h2 style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">رصيدك الحالي
-                            {{$me->wallet->balance}}
-                        </h2>
-                    </div>
-                    <div style="margin: 0 auto; width:60%">
-                        <form id="form_topup" action="/technicain/topup" method="post">
-                            @csrf
-                        <h5 style="text-indent:30px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">ادخل رقم البطاقة للتعبئة</h5>
-                        <div class="ux-input2">
-                            <label for="prepaidcard_number">الرقم السري لبطاقة الشحن</label>
-                            <input type="text" id="prepaidcard_number" name="prepaidcard_number" placeholder="">
+            <div class="md-grid-item full-width">
+                <div class="md-grid-item full-width" dir="rtl">
+                    <!--<h1 class="title" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">المحف</h1>-->
+                    <div>
+                        <div class="wallet-balance">
+                            <div class="balance-card">
+                                <img src="{{ asset('rahma-ui/assets/images/wallet.png') }}" alt="Wallet Money">
+                                <p>المبلغ الموجود في محفظتك</p>
+                                <h2>{{$me->wallet->balance}} دينار</h2>
+                            </div>
                         </div>
-                        <div class="ux-input2 btn success" onclick="form_topup.submit()">
-                            تعبئة
+                        <div style="margin: 0 auto; width:60%">
+                            <form id="form_topup" action="/technicain/topup" method="post">
+                                @csrf
+                                <h5 style="text-indent:30px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">ادخل رقم البطاقة للتعبئة</h5>
+                                <div class="ux-input2">
+                                    <label for="prepaidcard_number">الرقم السري لبطاقة الشحن</label>
+                                    <input type="text" id="prepaidcard_number" name="prepaidcard_number" placeholder="">
+                                </div>
+                                <div class="ux-input2 btn success" onclick="form_topup.submit()">
+                                    تعبئة
+                                </div>
+                            </form>
                         </div>
-                        </form>
-                    </div>
 
-                    <table style="margin-top: 2em;">
-                        <tr>
-                            <th>#</th>
+                        <section class="wallet-history" dir="rtl">
+                            <h3>سجل كروتي</h3>
+                            <table class="qr-table" dir="rtl">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
                             <th>المستخدم</th>
                             <th>القيمة</th>
                             <th>التاريخ</th>
-                        </tr>
-                        @foreach ($me->transactions as $t)
-                        <tr>
-                            <td>{{$t->id}}</td>
-                            <td>{{$me->fullname}}</td>
-                            <td>{{$t->card()->money}}</td>
-                            <td>{{$t->created_at}}</td>
-                        </tr>
-                        @endforeach
-                    </table>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $counter = 1; @endphp
+                                    @foreach ($me->transactions as $t)
+                                        <tr>
+                                            <td>{{ $counter++ }}</td>
+                                            <td>{{$me->fullname}}</td>
+                                            <td>{{$t->card()->money}}</td>
+                                            <td>{{$t->created_at}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 
-
-    <dialog id="add-post-dialog" class="fullscreen-dialog">
-        <div class="topbar-container">
-            <div class="close" onclick="showDialog()"></div>
-            <div class="title">اضافة منشور</div>
-        </div>
-        <div class="container" style="overflow-y:auto">
-            <div class="md-grid-container">
-                <div class="md-grid-item half-width " style="border-radius: 1em; padding-bottom:1em; background-color:rgba(244,244,244);">
-                    <b class="title">نص المنشور</b>
-                    <div>
-                        <textarea onchange="" name="techincain-add-post-textarea" id="techincain-add-post-textarea" class="post-textarea"></textarea>
-                    </div>
-                </div>
-                <div class="md-grid-item half-width " style="border-radius: 1em; padding-bottom:1em;  background-color:rgba(244,244,244);">
-                    <b class="title">صور وفيديوهات المنشور</b>
-                    <button id="techincain-add-post-addmedia" class="button-image">
-                        <img src="https://img.icons8.com/?size=100&id=IA4hgI5aWiHD&format=png&color=000000" alt="">
-                        <i>اضافة</i>
-                    </button>
-                    <div id="techincain-add-post-imagelist" style="height:20em; padding:0.2em;white-space: nowrap;overflow-x:scroll;overflow-y:hidden;">
-                    </div>
-                </div>
-            </div>
-            <div class="md-grid-container md-grid-item full-width" style="background-color: transparent; border:none;">
-                <div class="md-grid-item full-width full-height" style="border-radius: 1em; padding-bottom:1em;">
-                    <b class="title">للنشر اضغط على زر النشر ادناه</b>
-                    <button id="techincain-add-post-submit" class="button-image">
-                        <img src="https://img.icons8.com/?size=100&id=103205&format=png&color=000000" alt="">
-                        <i>نشر</i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </dialog>
-
-    
     <script src="/bad-word/word.js"></script>
     <script src="/sources/technicain/js/index.js"></script>
     <script src="/sources/technicain/js/profile.js"></script>
-
-
-
 
     @include('successful-task');
 

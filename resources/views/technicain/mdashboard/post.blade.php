@@ -70,9 +70,12 @@
             <div class="comment-container">
                 <div class="comment-head">
                     <img class="commenter-icon" src="{{($owner->profile == "Male.jpg" || $owner->profile == "Female.jpg") ? "/sources/img/$owner->profile" : "/cloud/$userType/$owner->id/images/$owner->profile"}}" alt="">
-                    @if(($isCustomer == $isCustomerViewer || !$isCustomer == !$isCustomerViewer) && $owner->id == $currentUser->id)
-                        <img onclick="location.href = '/{{$userType}}/post/deletecomment/{{$comment->id}}'" class="delete-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABe0lEQVR4nO2ZPU4DMRCFTY8ELRJcgYYO+pRQhNBs3nOSIjdANKBcAwqo4ABwAQTNjkMkOi6QG0D6IAeETLTZZIU3P2I+6TXe0diz8yxLtjGKoij/mldrNx15Ita2s+S/9drtDbPM9JJky5F9Rw6nqO9jzbIiZMcvVICWWLuXKaA1iiE7ZllxwKVf5NQ43xXgyiyCx1ptPSWbk7w/EvA0+tt5MV/7xNvrOS8mJZt+zuiFpNZWZ/B+VKXWVqMXMjRmLSV3HfnmNXEP/FHuO7+fy89pysIBPa9Vzf+DFrJKHRHgyJHXv+LJMwFOx3LcpORh0fxRyZso6xzJis87R5wWUhDtSIBaKyZqrQC1VkzUWgFqrZiotQLUWjFRawWotWKi1gpQa83RWjUBbsfGLhx5Ho4JeSfkcdH8UdF7rRlx2pGCCPnggHchK9EvscmKIz8ccG/K5sXaAyEHZT0lCDno1uv7Zh50G40dATDtQaewAEiSbM+lCEVRFLNIPgG2otTj2Va3HwAAAABJRU5ErkJggg==">
-                    @endif   
+                    @isset($isAdmin)
+                    @else
+                        @if(($isCustomer == $isCustomerViewer || !$isCustomer == !$isCustomerViewer) && $owner->id == $currentUser->id)
+                            <img onclick="location.href = '/{{$userType}}/post/deletecomment/{{$comment->id}}'" class="delete-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABe0lEQVR4nO2ZPU4DMRCFTY8ELRJcgYYO+pRQhNBs3nOSIjdANKBcAwqo4ABwAQTNjkMkOi6QG0D6IAeETLTZZIU3P2I+6TXe0diz8yxLtjGKoij/mldrNx15Ita2s+S/9drtDbPM9JJky5F9Rw6nqO9jzbIiZMcvVICWWLuXKaA1iiE7ZllxwKVf5NQ43xXgyiyCx1ptPSWbk7w/EvA0+tt5MV/7xNvrOS8mJZt+zuiFpNZWZ/B+VKXWVqMXMjRmLSV3HfnmNXEP/FHuO7+fy89pysIBPa9Vzf+DFrJKHRHgyJHXv+LJMwFOx3LcpORh0fxRyZso6xzJis87R5wWUhDtSIBaKyZqrQC1VkzUWgFqrZiotQLUWjFRawWotWKi1gpQa83RWjUBbsfGLhx5Ho4JeSfkcdH8UdF7rRlx2pGCCPnggHchK9EvscmKIz8ccG/K5sXaAyEHZT0lCDno1uv7Zh50G40dATDtQaewAEiSbM+lCEVRFLNIPgG2otTj2Va3HwAAAABJRU5ErkJggg==">
+                        @endif   
+                    @endisset  
                     <b class="commenter-name">{{$owner->fullname}}</b>
                     <i class="commenter-date">{{$comment->created_at}}</i>
                 </div>

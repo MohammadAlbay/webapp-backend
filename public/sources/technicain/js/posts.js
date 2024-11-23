@@ -69,7 +69,7 @@ var PostsView = {
         if(this.actorId == -1) return;
         
         let comment = inputElement.value.trim();
-        if(comment == '') return;
+        if(comment == '' || isDirty(comment)) return;
 
         let route = null;
         if(this.isTechnicain) {

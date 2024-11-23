@@ -12,6 +12,22 @@
     <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/homepage/style.css') }}">
     <link rel="stylesheet" href="{{ asset('rahma-ui/assets/css/specializations/viewTecnican.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body, html {
+            height: 100%; /* Full height for body and html */
+            margin: 0; /* Remove default margin */
+            display: flex;
+            flex-direction: column; /* Stack children vertically */
+        }
+        
+        .content {
+            flex: 1; /* Allow content to grow and fill available space */
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif; /* Apply the Cairo font */
+        }
+    </style>
 </head>
 <body>
 
@@ -22,48 +38,50 @@
     @include('partials.header')
     @endisset
 
-    <!-- Search Section -->
-    <section class="search-section text-center">
-        <h1>دور علي فني</h1>
-        <div class="search-bar">
-            <input type="text" id="search-input" placeholder="البحث" onkeyup="searchTechnicians()">
-            <button onclick="searchTechnicians()">بحث</button>
-        </div>
-    </section>
+    <div class="content">
+        <!-- Search Section -->
+        <section class="search-section text-center">
+            <h1>دور علي فني</h1>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="البحث" onkeyup="searchTechnicians()">
+                <button onclick="searchTechnicians()">بحث</button>
+            </div>
+        </section>
 
-    <div class="container">
-        <h3>الفنيين المتخصصين في {{ $specialization->name }}</h3>
-        <div class="row">
-            @if($technicians == null || $technicians->isEmpty())
-                <p>لا توجد فنيين لهذا التخصص.</p>
-            @else
-                @foreach($technicians as $technician)
-                    @if($technician->state != 'Active')
-                        @continue
-                    @endif
-                    <div class="col-md-4">
-                        <div class="card technician-card" style="margin:1em 0em;">
-                            <img src="{{($technician->profile == "Male.jpg" || $technician->profile == "Female.jpg") ? "/sources/img/$technician->profile" : "/cloud/technicain/$technician->id/images/$technician->profile"}}" alt="{{ $technician->fullname }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $technician->fullname }}</h5>
-                                <p class="card-text desc">{{ $technician->description }}</p>
-                                <p class="card-text">الهاتف: {{ $technician->phone }}</p>
-                                @isset($me)
-                                <a href="/customer/technicain-view/{{$technician->id}}"><button type="button" class="btn btn-success">رؤية الملف</button></a>
-                                @endisset
+        <div class="container">
+            <h3>الفنيين المتخصصين في {{ $specialization->name }}</h3>
+            <div class="row">
+                @if($technicians == null || $technicians->isEmpty())
+                    <p>لا توجد فنيين لهذا التخصص.</p>
+                      <!-- Image Section -->
+        <div class="footer-image">
+            <img src="{{ asset('rahma-ui/assets/images/tools 1.png') }}" alt="Footer Image" loading="lazy">
+        </div>
+                @else
+                    @foreach($technicians as $technician)
+                        @if($technician->state != 'Active')
+                            @continue
+                        @endif
+                        <div class="col-md-4">
+                            <div class="card technician-card" style="margin:1em 0em;">
+                                <img src="{{($technician->profile == "Male.jpg" || $technician->profile == "Female.jpg") ? "/sources/img/$technician->profile" : "/cloud/technicain/$technician->id/images/$technician->profile"}}" alt="{{ $technician->fullname }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $technician->fullname }}</h5>
+                                    <p class="card-text desc">{{ $technician->description }}</p>
+                                    <p class="card-text">الهاتف: {{ $technician->phone }}</p>
+                                    @isset($me)
+                                    <a href="/customer/technicain-view/{{$technician->id}}"><button type="button" class="btn btn-success">رؤية الملف</button></a>
+                                    @endisset
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            @endif
+                    @endforeach
+                @endif
+            </div>
         </div>
+
+      
     </div>
-
-
-  <!-- Image Section -->
-<div class="footer-image">
-    <img src="{{ asset('assets/images/tools 1.png') }}" alt="Footer Image" loading="lazy" ">
-</div>
 
     <!-- Footer Section -->
     @include('partials.footer')

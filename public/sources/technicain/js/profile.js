@@ -161,15 +161,19 @@ var newPost = null;
 let newPostDialog = document.querySelector('#add-post-dialog');
 function showDialog() {
     if (newPostDialog.getAttribute('open') != null) {
+        if(newPost.isModify) {
+            history.back();
+        }
         newPostDialog.removeAttribute('open');
         removeNewPostInstance();
-
+        
     }
     else {
         newPostDialog.setAttribute('open', '');
         createNewPostInstance();
     }
 }
+
 function createNewPostInstance() { newPost = new AddPost(newPostDialog); }
 function removeNewPostInstance() { newPost = null; }
 class AddPost {

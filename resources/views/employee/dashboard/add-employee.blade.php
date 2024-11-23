@@ -24,31 +24,31 @@
                     <div class="form-group row">
                         <label for="add_employee_fullname" class="col-sm-3 col-form-label">اسم الموظف</label>
                         <div class="col-sm-9">
-                            <input required type="text" class="form-control" id="add_employee_fullname" name="add_employee_fullname" placeholder="Name">
+                            <input required type="text" class="form-control" id="add_employee_fullname" name="add_employee_fullname" placeholder="الإسم">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="add_employee_email" class="col-sm-3 col-form-label">البريد الاكتروني</label>
                         <div class="col-sm-9">
-                            <input required type="email" class="form-control" id="add_employee_email" name="add_employee_email" placeholder="Email">
+                            <input required type="email" class="form-control" id="add_employee_email" name="add_employee_email" placeholder="البريد الإلكتروني">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="add_employee_password" class="col-sm-3 col-form-label">كلمة المرور</label>
                         <div class="col-sm-9">
-                            <input required type="password" class="form-control" id="add_employee_password" name="add_employee_password" placeholder="Password">
+                            <input required type="password" class="form-control" id="add_employee_password" name="add_employee_password" placeholder="كلمة المرور">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="add_employee_phone" class="col-sm-3 col-form-label">رقم الهاتف</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="add_employee_phone" name="add_employee_phone" placeholder="Phone number">
+                            <input type="text" class="form-control" id="add_employee_phone" name="add_employee_phone" placeholder="رقم الهاتف">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="add_employee_address" class="col-sm-3 col-form-label">العنوان</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="add_employee_address" name="add_employee_address" placeholder="Address">
+                            <input type="text" class="form-control" id="add_employee_address" name="add_employee_address" placeholder="العنوان">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -76,8 +76,8 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2"
-                        onclick="addEmployeeProcessor(this);">Submit</button>
-                    <button class="btn btn-light">Cancel</button>
+                        onclick="addEmployeeProcessor(this);">إضافة</button>
+                    <button class="btn btn-light">إلغاء</button>
                 </form>
             </div>
         </div>

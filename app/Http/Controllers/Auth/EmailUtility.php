@@ -34,32 +34,35 @@ class EmailUtility extends Controller
     }
 
 
-    public static function setProfileImage(Request $request, $user_type){
+    public static function setProfileImage(Request $request, $user_type)
+    {
         error_reporting(E_ERROR | E_PARSE);
 
-        if($user_type == 'customer')
+        if ($user_type == 'customer')
             $user = Customer::find(Auth::guard('customer')->user()->id);
-        else if($user_type == 'technicain')
+        else if ($user_type == 'technicain')
             $user = Technicain::find(Auth::guard('technicain')->user()->id);
-        else if($user_type == 'employee')
+        else if ($user_type == 'employee')
             $user = Employee::find(Auth::guard('employee')->user()->id);
         else
             $user = null;
 
-        if($user == null) return false;
+        if ($user == null) return false;
 
         $img = $request->file('img');
         $fileName = $img->getClientOriginalName();
         //$file->store(public_path()."/cloud/$user_type/$user->id/images");
-        $path = public_path()."\\cloud\\$user_type\\$user->id\\images\\$fileName";
-        $img->move(public_path()."/cloud/$user_type/$user->id/images/", $fileName);
+        $path = public_path() . "\\cloud\\$user_type\\$user->id\\images\\$fileName";
+        $img->move(public_path() . "/cloud/$user_type/$user->id/images/", $fileName);
         // detect if image is NSFW
         $result = NSFWController::detect($path);
-        
-        if($result["safe"]) {
+
+        if ($result["safe"]) {
             // delete old image
-            try {unlink(public_path()."\\cloud\\$user_type\\$user->id\\images\\$user->profile");}
-            catch(\Exception $e) {}
+            try {
+                unlink(public_path() . "\\cloud\\$user_type\\$user->id\\images\\$user->profile");
+            } catch (\Exception $e) {
+            }
             // safe new image
             $user->profile = $fileName;
             $user->save();
@@ -68,6 +71,36 @@ class EmailUtility extends Controller
             unlink($path);
             return false;
         }
-        
+    }
+
+
+
+
+    public static function setProfileImageFor($request, $user, $user_type)
+    {
+        error_reporting(E_ERROR | E_PARSE);
+
+        $img = $request->file('img');
+        $fileName = $img->getClientOriginalName();
+        //$file->store(public_path()."/cloud/$user_type/$user->id/images");
+        $path = public_path() . "\\cloud\\$user_type\\$user->id\\images\\$fileName";
+        $img->move(public_path() . "/cloud/$user_type/$user->id/images/", $fileName);
+        // detect if image is NSFW
+        $result = NSFWController::detect($path);
+
+        if ($result["safe"]) {
+            // delete old image
+            try {
+                unlink(public_path() . "\\cloud\\$user_type\\$user->id\\images\\$user->profile");
+            } catch (\Exception $e) {
+            }
+            // safe new image
+            $user->profile = $fileName;
+            $user->save();
+            return true;
+        } else {
+            unlink($path);
+            return false;
+        }
     }
 }

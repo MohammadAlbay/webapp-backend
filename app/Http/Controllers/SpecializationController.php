@@ -16,10 +16,10 @@ class SpecializationController extends Controller
         $specializations = Specialization::when($query, function ($q) use ($query) {
             $q->where('name', 'like', "%{$query}%");
         })->paginate(12);
-        
+
         $me = Auth::guard('customer')->check() ? Customer::find(Auth::guard('customer')->user()->id) : null;
-        
-        if($me == null)
+
+        if ($me == null)
             return view('specializations', compact('specializations', 'query'));
         else
             return view('specializations', compact('specializations', 'query', 'me'));
@@ -31,10 +31,10 @@ class SpecializationController extends Controller
         $technicians = $specialization->technicains; // Get technicians associated with the specialization
         $me = Auth::guard('customer')->check() ? Customer::find(Auth::guard('customer')->user()->id) : null;
 
-        if($me == null)
+        if ($me == null)
             return view('technicians', compact('specialization', 'technicians'));
         else
-        return view('technicians', compact('me','specialization', 'technicians'));
+            return view('technicians', compact('me', 'specialization', 'technicians'));
     }
 
     /////

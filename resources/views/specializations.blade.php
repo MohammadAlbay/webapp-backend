@@ -27,6 +27,10 @@
             margin: 1em;
             text-align: right;
         }
+        body {
+            font-family: 'Cairo', sans-serif; /* Apply the Cairo font */
+        }
+    
     </style>
 </head>
 
@@ -40,7 +44,7 @@
 
     <div class="search-container">
         <input type="text" id="search" placeholder="بحث..." />
-        <button id="searchButton" class="btn btn-primary">بحث</button>
+        <button id="searchButton" class="btn btn-primary"style="background-color: #28a745; color: white;border: none;">بحث</button>
     </div>
 
     <div class="cards" id="cardsContainer">

@@ -96,8 +96,10 @@ class TechnicainViewController extends Controller
             $id ?? Auth::guard($this->guard)->user()->id
         )->orderBy('created_at', 'desc')->paginate(5);
 
+        $isAdmin = true;
+        $no_comments = true;
         if ($request->ajax() || $request->wantsJson()) {
-            return view('technicain.mdashboard.post', compact('posts'))->render();
+            return view('technicain.mdashboard.post', compact('posts', 'isAdmin', 'no_comments'))->render();
         }
 
 
@@ -116,6 +118,7 @@ class TechnicainViewController extends Controller
             [
                 'me' => $tech,
                 'viewer' => $viewer,
+                'isAdmin' => true,
                 'posts' => $posts,
                 'specialization' => Specialization::where('state', 'Active')->get(),
                 'reservation' => $reservation,

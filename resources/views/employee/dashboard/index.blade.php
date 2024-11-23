@@ -44,6 +44,19 @@
     /* direction: rtl; */
     text-align: right;
 }
+.sidebar .nav.sub-menu .nav-item .nav-link:before {
+  content: "\F053"; /* Unicode for the left-pointing arrow */
+    font-family: 'Cairo', "Material Design Icons";
+    display: block;
+    position: absolute;
+    right: 0px; /* Change to right for RTL layouts */
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    color: #a2a2a2;
+    font-size: .75rem;
+} 
+
   </style>
 </head>
 

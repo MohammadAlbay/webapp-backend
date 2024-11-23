@@ -2,14 +2,14 @@
 @import url('fonts.css');
 header {
     background-color: #fff; /* White background for the header */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: none; /* Explicitly remove any shadow */
 }
 
 header nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px; /* Adjusted padding for a cleaner look */
+    padding: 10px 20px; /* Reduced padding for a smaller header */
 }
 
 .arabic-text {
@@ -28,19 +28,20 @@ header nav {
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 30px; /* Increased gap for better spacing */
+    gap: 20px; /* Adjusted gap for better spacing */
 }
 
 .nav-links li a {
     text-decoration: none;
     color: #333; /* Dark color for links */
-    font-size: 1.1em; /* Slightly larger font size */
+    font-size: 1.2em; /* Smaller font size for links */
     transition: color 0.3s; /* Smooth transition for hover effect */
 }
 
 .nav-links li a:hover {
     color: #28a745; /* Change color on hover */
 }
+
 
 .auth-buttons {
     display: flex;
@@ -52,18 +53,66 @@ header nav {
     background-color: #28a745; /* Green background */
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 8px 12px; /* Slightly smaller padding */
     cursor: pointer;
     border-radius: 5px; /* Rounded corners */
     transition: background-color 0.3s; /* Smooth background color transition */
+    display: flex;
+    align-items: center;
 }
-
 .signup-btn:hover,
 .login-btn:hover {
     background-color: #218838; /* Darker green on hover */
 }
+.icon-min {
+    margin-right: 5px; /* Space between icon and text */
+    width: 20px; /* Adjust icon size */
+    height: 20px; /* Adjust icon size */
+}
+
 
 .nav-links .user-icon {
     width: 36px; height: 36px;
     border-radius: 50%;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header nav {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        align-items: flex-start; /* Align items to the start */
+    }
+
+    .nav-links {
+        flex-direction: column; /* Stack links vertically */
+        gap: 10px; /* Smaller gap for stacked links */
+        width: 100%; /* Full width */
+    }
+
+    .nav-links li a {
+        font-size: 1em; /* Smaller font size for links */
+    }
+
+    .arabic-text {
+        font-size: 1.5em; /* Smaller font size for Arabic text */
+    }
+
+    .auth-buttons {
+        flex-direction: column; /* Stack auth buttons vertically */
+        gap: 10px; /* Smaller gap */
+    }
+}
+
+@media (max-width: 480px) {
+    header nav {
+        padding: 5px 10px; /* Further reduce padding */
+    }
+
+    .arabic-text {
+        font-size: 1.2em; /* Even smaller font size for mobile */
+    }
+
+    .nav-links li a {
+        font-size: 0.9em; /* Even smaller font size for links */
+    }
 }

@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth:customer'], function () {
         Route::post('/topop', [CustomerViewController::class, 'topUp']);
 
         Route::post('/post/addcomment', [CustomerViewController::class, 'addComment']);
+        Route::get('/post/deletecomment/{id}', [CustomerViewController::class, 'deleteComment']);
         Route::post('/set-profile', action: [CustomerViewController::class, 'setProfileImage']);
         Route::post('/edit', [CustomerViewController::class, 'edit']);
 

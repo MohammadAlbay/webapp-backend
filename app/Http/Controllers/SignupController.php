@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\EmailUtility;
 use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\Role;
@@ -62,6 +63,7 @@ class SignupController extends Controller
             'signup_name.max' => 'حقل الاسم يجب ان يتكون من اقل من 90 حرف .',
             'signup_name.min' => 'حقل الاسم يجب ان يتكون من 8 احرف او اكتر .',
             'signup_email.required' => 'حقل البريد الاكتروني مطلوب.',
+            'signup_email.unique' => 'البريد الإلكتروني مسجل من قبل',
             'signup_gender.required' => 'حقل الجنس مطلوب.',
             'signup_phone.required' => 'حقل الهاتف مطلوب.',
             'signup_address.required' => 'حقل الهاتف مطلوب.',
@@ -111,11 +113,13 @@ class SignupController extends Controller
             'signup_password' => 'required:max:32|min:6',
             'signup_specialization' => 'required',
             'signup_birthdate' => 'required|before:1/1/2005',
+            'img' => 'required'
         ], [
             'signup_name.required' => 'حقل الاسم مطلوب .',
             'signup_name.max' => 'حقل الاسم يجب ان يتكون من اقل من 90 حرف .',
             'signup_name.min' => 'حقل الاسم يجب ان يتكون من 8 احرف او اكتر .',
             'signup_email.required' => 'حقل البريد الاكتروني مطلوب.',
+            'signup_email.unique' => 'البريد الإلكتروني مسجل من قبل',
             'signup_gender.required' => 'حقل الجنس مطلوب.',
             'signup_nationality.required' => 'حقل الجنسية مطلوب.',
             'signup_phone.required' => 'حقل الهاتف مطلوب.',
@@ -126,6 +130,7 @@ class SignupController extends Controller
             'signup_password.min' => 'كلمة المرور يجب ان تتكون من 6 احرف وارقام على الاقل',
             'signup_birthdate.required' => 'تاريخ الميلاد مطلوب',
             'signup_birthdate.before' => 'تاريخ الميلاد لا يجب ان يكون بعد 2005',
+            'img.required' => 'يجب تحديد الصورة الشخصية اولا'
         ]);
         if ($v->fails()) {
             return redirect("/signup/registertechnicain")->withErrors($v->errors())->withInput();
@@ -133,6 +138,15 @@ class SignupController extends Controller
             return redirect("/signup/registertechnicain")->withErrors(['pap2notmatch' => "كلمة المرور وتأكيد كلمة المرور غير متساويين"])->withInput();
         }
 
+        $img = $request->file('img');
+        Log::info("Image name :" . $img->getClientOriginalName());
+
+        $img = $img->move(public_path() . "cloud/technicain");
+        $result = NSFWController::detect($img->getPathname());
+        if ($result['safe']) {
+            return redirect("/signup/registertechnicain")->withErrors(['nsfw_content' => "لا يمكن اختيار صورة بها محتوى غير اخلاقي"])->withInput();
+        }
+        // good to go!
         $accountType = 'technicain';
         $email = $request->input("signup_email");
         $code = substr(md5(rand()), 0, 7);
@@ -152,7 +166,7 @@ class SignupController extends Controller
         ]);
 
         $this->createUserSpace($accountType, $user);
-
+        EmailUtility::setProfileImageFor($request, $user, 'technicain');
 
         (new \App\Http\Controllers\Auth\VerificationController())->sendActivationEmail($request, $email, $code, $accountType);
         return redirect("/verify/")->with(['id' => $user->id, "type" => $accountType]);

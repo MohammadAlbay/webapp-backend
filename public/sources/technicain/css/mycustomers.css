@@ -1,9 +1,12 @@
 
 .green-table {
     width: 100%;
+    direction: rtl;
     border-collapse: collapse;
     border: 1px solid darkgray;
     border-radius: 0.5em;
+    text-align: right; /* Ensures text aligns to the right */
+
   }
   
 .green-table th {

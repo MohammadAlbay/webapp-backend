@@ -15,13 +15,16 @@
         <td> - </td>
         <td> - </td>
     </tr>
+    @php $counter = 1; @endphp <!--  counter -->
 
     @foreach ($technicains as $technicain)
     @php
     $stateSwtch = $technicain->state == 'Active' ? 'Inactive' : 'Active';
     @endphp
     <tr>
-        <td>{{$technicain->id}}</td>
+                <!--chnage it like this so the number start from 1 not from the id -->
+
+        <td>{{ $counter++ }}</td>
         <td><img style="border-radius:50%;width: 41px; height:41px" src={{ ($technicain->profile == "Male.jpg" || $technicain->profile == "Female.jpg") ? "/sources/img/$technicain->profile" : "/cloud/technicain/$technicain->id/images/$technicain->profile"}} alt=""></td>
         <td>{{$technicain->fullname}}</td>
         <td>{{$technicain->email}}</td>

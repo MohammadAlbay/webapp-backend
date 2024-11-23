@@ -153,8 +153,8 @@ $myId = $me->id;
 
 
                         <button type="submit" class="btn btn-primary mr-2"
-                            onclick="addRoleProcessor(this);">Submit</button>
-                        <button class="btn btn-light" onclick="add_role_dialog.removeAttribute('open')">Cancel</button>
+                            onclick="addRoleProcessor(this);">إضافة</button>
+                        <button class="btn btn-light" onclick="add_role_dialog.removeAttribute('open')">إلغاء</button>
                     </form>
                 </div>
             </div>

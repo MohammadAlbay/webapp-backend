@@ -1,6 +1,5 @@
-<!--it is the footer of the website -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<footer>
+<!-- Footer -->
+<footer dir="rtl">
     <div class="footer-content">
         <div class="footer-links">
             <h3>تابعنا</h3>
