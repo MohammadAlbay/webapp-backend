@@ -53,7 +53,7 @@
                 </div>
                 
                 <div class="input-section">
-                    <form action="{{route('signup.create')}}" method="post" enctype="application/x-www-form-urlencoded">
+                    <form action="{{route('signup.create')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="text" name="signup_type" value="technicain" style="display:none">
                         @if ($errors->any())
@@ -164,7 +164,7 @@
 
                         <div class="input-group">
                             <label>تحميل صورة</label>
-                            <input type="file" name="img" accept="image/*" required>
+                            <input type="file" name="img">
                         </div>
                     </div>
                 </form>

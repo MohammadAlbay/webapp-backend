@@ -50,7 +50,7 @@ $myId = $me->id;
                     </tr>
 
                     @foreach ($employees as $employee)
-                    @if($employee->role()->name == "System") 
+                    @if($employee->fullname == "System") 
                         @continue 
                     @endif
                     @php
@@ -74,7 +74,7 @@ $myId = $me->id;
                         @else
                             @if($myId != $employee->id)
                             <td>
-                                @if($me->hasPermission(\App\Models\Permission::PERMISSION_EDIT_EMPLOYEE_NAME))
+                                @if($me->hasPermission(\App\Models\Permission::PERMISSION_EDIT_EMPLOYEE_NAME) && $employee->role()->name != 'Admin')
                                 <button class="btn btn-primary" onclick="prepareDialog(add_employee_dialog_edit_employee, '{{$employee->id}}')">تعديل</button>
                                 @else
                                 🚫
@@ -177,6 +177,9 @@ $myId = $me->id;
                                     @foreach ($roles as $role)
                                         @if($role->name == "System") 
                                             @continue 
+                                        @endif
+                                        @if($me->role()->name != "Admin" && $role->name == "Admin")
+                                            @continue
                                         @endif
                                     <option value="{{$role->id }}">{{ $role->name }}</option>
                                     @endforeach

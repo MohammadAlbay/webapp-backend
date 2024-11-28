@@ -166,7 +166,7 @@ class CustomerViewController extends Controller
             'technicain_id' => $technicain->id,
             'state' => 'Pending',
             'date' => $date,
-            'description' => ""
+            //'description' => ""
         ]);
 
         $data = [

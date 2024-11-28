@@ -64,6 +64,9 @@
                                     @if($role->name == "System") 
                                         @continue 
                                     @endif
+                                    @if($me->role()->name != "Admin" && $role->name == "Admin")
+                                        @continue
+                                    @endif
                                 <option value="{{$role->id }}" {{$role->id == $me->role_id ? 'selected' : ''}}>{{ $role->name }}</option>
                                 @endforeach
                             </select>

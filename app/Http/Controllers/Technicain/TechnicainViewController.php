@@ -181,22 +181,29 @@ class TechnicainViewController extends Controller
             $path = public_path() . "/cloud/technicain/$user->id/images/$fileName";
             $img->move(public_path() . "/cloud/technicain/$user->id/images/", $fileName);
 
-
+            /*
             $detector = new NudityDetector($path);
             $result = $detector->isPorn(0.3);
             if ($result) {
                 unlink($path);
                 throw new \Exception(" EmailUtility::setCoverImage() result is false");
+            }*/
+            // lخلفات حرب :)
+
+            $result = NSFWController::detect($path);
+            if (!$result['safe']) {
+                unlink($path);
+                throw new \Exception("Image is not safe");
             }
 
 
 
-            $detector = new NudityDetector($path);
+            /*$detector = new NudityDetector($path);
             $result = $detector->isPorn(0.3);
             if ($result) {
                 unlink($path);
                 throw new \Exception(" EmailUtility::setCoverImage() result is false");
-            }
+            }*/ // code is duplicated :)
 
 
             $user->cover = $fileName;

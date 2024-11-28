@@ -151,7 +151,7 @@
               
                     <form id="form_topup" action="/technicain/subscripe" method="post" style="margin: 0;">
                         @csrf
-                        <div class="{{ $me->state == 'Active' ? 'subscribe-button disabled' : 'subscribe-button' }}" onclick="form_topup.submit()">
+                        <div class="{{ $me->state == 'Active' ? 'subscribe-button disabled' : 'subscribe-button' }}" onclick="{{$me->state == 'Active' ? '' : 'form_topup.submit()'}}">
                             اشتراك
                         </div>
                     </form>

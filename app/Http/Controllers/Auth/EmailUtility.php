@@ -76,11 +76,11 @@ class EmailUtility extends Controller
 
 
 
-    public static function setProfileImageFor($request, $user, $user_type)
+
+    public static function setProfileImageFor($img, $user, $user_type, $checked = false)
     {
         error_reporting(E_ERROR | E_PARSE);
 
-        $img = $request->file('img');
         $fileName = $img->getClientOriginalName();
         //$file->store(public_path()."/cloud/$user_type/$user->id/images");
         $path = public_path() . "\\cloud\\$user_type\\$user->id\\images\\$fileName";
@@ -88,19 +88,26 @@ class EmailUtility extends Controller
         // detect if image is NSFW
         $result = NSFWController::detect($path);
 
-        if ($result["safe"]) {
-            // delete old image
-            try {
-                unlink(public_path() . "\\cloud\\$user_type\\$user->id\\images\\$user->profile");
-            } catch (\Exception $e) {
+        $saveImage = false;
+        if (!$checked) {
+            if ($result["safe"]) {
+                // delete old image
+                try {
+                    unlink(public_path() . "\\cloud\\$user_type\\$user->id\\images\\$user->profile");
+                } catch (\Exception $e) {
+                }
+                // safe new image
+                $saveImage = true;
+            } else {
+                unlink($path);
+                return false;
             }
-            // safe new image
+        } else $saveImage = true;
+
+        if ($saveImage) {
             $user->profile = $fileName;
             $user->save();
             return true;
-        } else {
-            unlink($path);
-            return false;
         }
     }
 }

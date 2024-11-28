@@ -137,7 +137,7 @@
                                     <label for="prepaidcard_number">الرقم السري لبطاقة الشحن</label>
                                     <input type="text" id="prepaidcard_number" name="prepaidcard_number" placeholder="">
                                 </div>
-                                <div class="ux-input2 btn success" onclick="form_topup.submit()">
+                                <div class="ux-input2 btn success" onclick="confirmAndSubmit();">
                                     تعبئة
                                 </div>
                             </form>
@@ -179,6 +179,23 @@
 
     @include('successful-task');
 
+    <script>
+        function confirmAndSubmit() {
+            Swal.fire({
+                icon: 'question',
+                title: 'هل انت متأكد؟',
+                text: 'قم بتأكيد العملية',
+                showCancelButton: true,
+                showConfirmButton: true,
+                confirmButtonText: 'موافق',
+                cancelButtonText: 'الغاء',
+            }).then(confirm => {
+                if (confirm.isConfirmed) {
+                    document.forms['form_topup'].submit();
+                }
+            });
+        }
+    </script>
     <!-- For Regular Errors -->
     @if($errors->any())
     @foreach ($errors->all() as $err)

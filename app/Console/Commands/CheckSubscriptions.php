@@ -32,6 +32,18 @@ class CheckSubscriptions extends Command
         foreach ($technicians as $technician) {
             $wallet = $technician->wallet;
             $lastOutgoingTransaction = $wallet->lastOutgoingTransactions();
+
+            if ($lastOutgoingTransaction == null) {
+                // basically at this point we're dealing with a huge bug..
+                // it maybe just  a data manipulation problem
+                // but to prevent such problems to raiss at your eyes again,
+                //let's de-activate the technicain and we're all done :)
+                $technician->state = "Inactive";
+                $technician->save();
+                Mail::to($technician->email)->send(new \App\Mail\SubscriptionEnded($technician));
+
+                continue;
+            }
             // Your logic to check and renew subscriptions
             if ($lastOutgoingTransaction->due <= now()) {
                 // Renew subscription logic

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('customer_id');
             $table->bigInteger('technicain_id');
             $table->enum('state', ['Pending', 'Accepted', 'InProgress', 'Refused', 'Done'])->default('Pending');
-            $table->string('description');
+            //$table->string('description');
             $table->date('date');
             $table->timestamps();
 

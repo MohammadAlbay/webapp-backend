@@ -138,14 +138,19 @@ class SignupController extends Controller
             return redirect("/signup/registertechnicain")->withErrors(['pap2notmatch' => "كلمة المرور وتأكيد كلمة المرور غير متساويين"])->withInput();
         }
 
+
         $img = $request->file('img');
         Log::info("Image name :" . $img->getClientOriginalName());
 
-        $img = $img->move(public_path() . "cloud/technicain");
-        $result = NSFWController::detect($img->getPathname());
-        if ($result['safe']) {
+        //EmailUtility::setProfileImageFor($request, )
+        //$img = $img->move(public_path() . "cloud/technicain");
+        $result = NSFWController::detect($img->path());
+        if (!$result['safe']) {
+            //unlink($img->path());
             return redirect("/signup/registertechnicain")->withErrors(['nsfw_content' => "لا يمكن اختيار صورة بها محتوى غير اخلاقي"])->withInput();
         }
+        //dd("Success");
+        //return;
         // good to go!
         $accountType = 'technicain';
         $email = $request->input("signup_email");
@@ -166,7 +171,7 @@ class SignupController extends Controller
         ]);
 
         $this->createUserSpace($accountType, $user);
-        EmailUtility::setProfileImageFor($request, $user, 'technicain');
+        EmailUtility::setProfileImageFor($img, $user, 'technicain', true);
 
         (new \App\Http\Controllers\Auth\VerificationController())->sendActivationEmail($request, $email, $code, $accountType);
         return redirect("/verify/")->with(['id' => $user->id, "type" => $accountType]);
