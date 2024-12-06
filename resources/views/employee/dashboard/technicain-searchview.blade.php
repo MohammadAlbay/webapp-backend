@@ -13,7 +13,6 @@
         <td>تاريخ الانضمام</td>
         <td> - </td>
         <td> - </td>
-        <td> - </td>
     </tr>
     @php $counter = 1; @endphp <!--  counter -->
 
@@ -44,19 +43,7 @@
         <td>
             <button class="btn btn-success" onclick="prepareTechnicainView({{$technicain->id}})">الملف الشخصي</button>
         </td>
-        <td>
-        @if($me->hasPermission(\App\Models\Permission::PERMISSION_TECHNICAIN_EDIT_NAME))
-            @if($technicain->state == 'Bloced')
-            -
-            @elseif($technicain->state == 'Active')
-            <button onclick="setTechnicainState({{$technicain->id}},'Inactive')"  class="btn btn-danger">الغاء التفعيل</button>
-            @else
-            <button onclick="setTechnicainState({{$technicain->id}},'Active')" class="btn btn-primary">تفعيل</button>
-            @endif
-        @else
-            🚫
-        @endif
-        </td>
+      
         <td>
         @if($me->hasPermission(\App\Models\Permission::PERMISSION_TECHNICAIN_BLOCK_NAME))
             @if($technicain->state == 'Bloced')

@@ -74,7 +74,7 @@ $myId = $me->id;
                                         <td>#</td>
                                         <td>الاسم</td>
                                         <td>الحالة</td>
-                                        <td>-</td>
+                                        
                                         <td>-</td>
                                     </tr>
                                     @foreach ($role->permissions as $rolePermission)
@@ -85,17 +85,6 @@ $myId = $me->id;
                                         <td>{{$rolePermission->permission_id}}</td>
                                         <td>{{$rolePermission->getPermissionName()}}</td>
                                         <td>{{$rolePermission->state}}</td>
-                                        <td>
-                                        @if($me->hasPermission(\App\Models\Permission::PERMISSION_EDIT_ROLE_NAME))
-                                            @if($stateSwtch == 'Active')
-                                            <button class="btn btn-primary" onclick="switchRolePermission({{$rolePermission->id}})">تفعيل</button>
-                                            @else
-                                            <button class="btn btn-danger" onclick="switchRolePermission({{$rolePermission->id}})">الغاء التفعيل</button>
-                                            @endif
-                                        @else
-                                            🚫
-                                        @endif
-                                        </td>
                                         <td>
                                             @if($me->role()->name == 'Admin')
                                                 <button class="btn btn-danger" onclick="deleteRolePermission({{$rolePermission->id}})">حذف</button>

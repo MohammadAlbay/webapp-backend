@@ -12,7 +12,6 @@
         <td>الحالة</td>
         <td>تاريخ الانضمام</td>
         <td> - </td>
-        <td> - </td>
     </tr>
     @php $counter = 1; @endphp <!--  counter -->
 
@@ -39,19 +38,7 @@
         <td>{{$customer->phone}}</td>
         <td>{{$customer->state == 'Bloced' ? "محظور" : ($customer->state == 'Active' ? "مفعل" : "غير مفعل")}}</td>
         <td>{{$customer->created_at}}</td>
-        <td>
-            @if($me->hasPermission(\App\Models\Permission::PERMISSION_EDIT_CUSTOMER_NAME))
-                @if($customer->state == 'Bloced')
-                    -
-                @elseif($customer->state == 'Active')
-                    <button onclick="setCustomerState({{$customer->id}},'Inactive')" class="btn btn-danger">الغاء التفعيل</button>
-                @else
-                    <button onclick="setCustomerState({{$customer->id}},'Active')" class="btn btn-primary">تفعيل</button>
-                @endif
-            @else
-            🚫
-            @endif
-        </td>
+        
         <td>
             @if($me->hasPermission(\App\Models\Permission::PERMISSION_BLOCK_CUSTOMER_NAME))
                 @if($customer->state == 'Bloced')
