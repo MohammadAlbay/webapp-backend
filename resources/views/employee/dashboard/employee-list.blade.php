@@ -46,7 +46,6 @@ $myId = $me->id;
                         <td>تاريخ الانضمام</td>
                         <td> - </td>
                         <td> - </td>
-                        <td> - </td>
                     </tr>
 
                     @foreach ($employees as $employee)
@@ -83,16 +82,6 @@ $myId = $me->id;
                         
                             @if($employee->role()->name != "Admin")
                                 <td>
-                                    @if($me->hasPermission(\App\Models\Permission::PERMISSION_EDIT_EMPLOYEE_NAME))
-                                    <button class="btn btn-{{$employee->state == 'Active' ? 'danger' : 'primary' }}"
-                                        onclick='processEmployee(this, "{{$employee->id}}",  "{{$stateSwtch}}")'>
-                                        {{$stateSwtch == "Active" ? "تفعيل" : "الغاء التفعيل"}}
-                                    </button>
-                                    @else
-                                    🚫
-                                    @endif
-                                </td>
-                                <td>
                                     @if($me->hasPermission(\App\Models\Permission::PERMISSION_DELETE_EMPLOYEE_NAME))
                                     <button class="btn btn-danger" onclick="processDeleteEmployee(this, '{{$employee->id}}')">حذف</button>
                                     @else
@@ -101,16 +90,7 @@ $myId = $me->id;
                                 </td>
                             @else
                                 @if($me->haveUpperHandOver($employee->id))
-                                    <td>
-                                        @if($me->hasPermission(\App\Models\Permission::PERMISSION_EDIT_EMPLOYEE_NAME))
-                                        <button class="btn btn-{{$employee->state == 'Active' ? 'danger' : 'primary' }}"
-                                            onclick='processEmployee(this, "{{$employee->id}}",  "{{$stateSwtch}}")'>
-                                            {{$stateSwtch == "Active" ? "تفعيل" : "الغاء التفعيل"}}
-                                        </button>
-                                        @else
-                                        🚫
-                                        @endif
-                                    </td>
+                                   
                                     <td>
                                         @if($me->hasPermission(\App\Models\Permission::PERMISSION_DELETE_EMPLOYEE_NAME))
                                         <button class="btn btn-danger" onclick="processDeleteEmployee(this, '{{$employee->id}}')">حذف</button>
@@ -119,13 +99,12 @@ $myId = $me->id;
                                         @endif
                                     </td>
                                 @else
-                                    <td>🚫</td>
+                                    
                                     <td>🚫</td>
                                 @endif
                             @endif
                             @else
                             <td><button class="btn btn-primary" onclick="ViewFetch.Load('edit-mydata');">تعديل</button></td>
-                            <td>-</td>
                             <td>-</td>
                             @endif
                         @endif

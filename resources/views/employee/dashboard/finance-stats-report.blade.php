@@ -19,23 +19,25 @@ $myId = $me->id;
 </head>
 
 <body>
-    <div class="page-header">
+    <!-- the print button and the title i just remove it 
+        <div class="page-header">
         <h3 class="page-title">الاحصائات المالية </h3>
         <nav>
             <button class="btn btn-primary" onclick="print()">طباعة</button>
         </nav>
-    </div>
+    </div>-->
 
     <div class="d-flex grid-margin stretch-card">
         <div class="card" style="width:100%">
             <div class="card-body">
                 <h4 class="card-title">الاحصائات المالية</h4>
                 <!-- <p class="card-description">قم بإدخال بيانات موظف جديد فالنموذج التالي</p> -->
+               <!-- the serch in report i just remove it 
                 <div style="padding:0.5em;border:2px solid gray; border-radius:0.5em">
                     <button onclick="getFinanceInformation(this,search_input)" id="search_btn" class="btn btn-primary">بحث</button>
                     <input oninput="processInput(this, search_btn)" type="number" min="2024" value="{{now()->year}}" max="{{now()->year}}" step="1" style="width:85%; margin-right:1em;height:100%;border:none;border-bottom:1px solid gray; outline:none" name="search_input" id="search_input" placeholder="بحث عن زبون">
 
-                </div>
+                </div>-->
 
                 <div id="data-view" style="width:100%; text-align: center;">
                     <h5 id="loadingLabel" style="display:none;text-align:center; margin-top:1em; color:black;font-size:40pt">
