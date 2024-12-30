@@ -29,7 +29,7 @@
         </table>
     </div>
 
-    <div onclick="Calendar.addReservation({{$me->id}})" class="ux-input2 btn primary" style="margin:0 auto; margin-top:1em">
+    <div onclick="Calendar.addReservation({{$me->id}})" class="ux-input2 btn primary" style="margin:0 auto; margin-top:1em ;background:green">
     تأكيد
     </div>
 </div>

@@ -30,7 +30,7 @@ $user = $isLoggedIn ? $loginInformation['user'] : null;
             <a href="#" class="btn">استكشفنا</a>
         </div>
         <div class="hero-image">
-            <img src="{{ asset('rahma-ui/assets/images/homepage/imageiwillchose') }}" alt="Logo">
+            <img src="{{ asset('rahma-ui/assets/images/1 (2).png') }}" alt="Logo">
         </div>
     </section>
 
@@ -50,7 +50,7 @@ $user = $isLoggedIn ? $loginInformation['user'] : null;
         </div>
 
         <div class="button-container">
-            <a href="{{ route('specializations.index') }}" class="see-all-button">See All</a>
+            <a href="{{ route('specializations.index') }}" class="see-all-button">رؤية الكل</a>
         </div>
         
         <img src="{{ asset('rahma-ui/assets/images/gear-wheel.png') }}" alt="Gear Design" class="gear-image right-image">
@@ -62,7 +62,7 @@ $user = $isLoggedIn ? $loginInformation['user'] : null;
     <div class="about-content">
         <div class="about-image">
             <!--here i will add image but i still dont know which image so i left it like this -->
-            <img src="{{ asset('rahma-ui/assets/images/homepage/image_i will_chose_later') }}" alt="Logo">
+            <img src="{{ asset('rahma-ui/assets/images/aboutus.png') }}" alt="Logo">
         </div>
         <div class="about-text">
             <h3>منصة فني لعندك</h3>

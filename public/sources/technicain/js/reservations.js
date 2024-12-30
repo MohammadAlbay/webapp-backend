@@ -103,6 +103,11 @@ var Calendar = {
             if(k > maxDays) {
                 k = 1;
                 month += 1;
+                if (month > 12) {
+                    month = 1;
+                    year += 1;
+                }
+                maxDays = getDaysInMonth(month, year);
             }
 
             if(i == dayNameIndex)
@@ -128,6 +133,11 @@ var Calendar = {
             if(k > maxDays) {
                 k = 1;
                 month += 1;
+                if (month > 12) {
+                    month = 1;
+                    year += 1;
+                }
+                maxDays = getDaysInMonth(month, year);
             }
             if(fromTheDay < 14)
                 kids.push(document.createChild('TD', {date: `${k}-${month}-${year}`, text:`${k}/${month}`, 'class': "new", 'onclick': `Calendar.setDate(this)`}));
@@ -145,6 +155,11 @@ var Calendar = {
             if(k > maxDays) {
                 k = 1;
                 month += 1;
+                if (month > 12) {
+                    month = 1;
+                    year += 1;
+                }
+                maxDays = getDaysInMonth(month, year);
             }
             
             if(fromTheDay < 14)

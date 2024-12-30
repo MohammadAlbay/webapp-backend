@@ -248,6 +248,9 @@ class CustomerViewController extends Controller
             $systemWallet->save();
             $wallet->balance -= 15;
             $wallet->save();
+            // rahma editing we wasnt change the state of the resrvation
+            $reservation->state = "Refused";
+            $reservation->save();
 
             Mail::to($customer->email)->send($email);
             return redirect()->back()->with('task-complet', 'تم الغاء الحجز بنجاح');

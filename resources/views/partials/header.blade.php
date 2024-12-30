@@ -10,9 +10,9 @@
         <ul class="nav-links">
             <li><a href="/homepage">الصفحة الرئيسسية</a></li>
             <li><a href="/specializations">خدماتنا</a></li>
-            <li><a href="#">منعرفش</a></li>
-            <li><a href="#">منعرفش</a></li>
-            <li><a href="#">شن متعرفيش</a></li>
+            <li><a href="#">نبذة عن عملنا</a></li>
+            <li><a href="#">رأي العملاء</a></li>
+            <li><a href="#">استكشفنا</a></li>
         </ul>
         <div class="auth-buttons">
             <!--goes to another page -->
